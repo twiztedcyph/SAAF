@@ -9,11 +9,19 @@ import com.ashlimeianwarren.saaf.Framework.Audio;
 
 import java.io.IOException;
 
+/**
+ * {@inheritDoc}
+ */
 public class AndroidAudio implements Audio
 {
     AssetManager assets;
     SoundPool soundPool;
 
+    /**
+     * Constructor for the AndroidAudio class.
+     *
+     * @param activity The current activity.
+     */
     public AndroidAudio(Activity activity)
     {
         activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);

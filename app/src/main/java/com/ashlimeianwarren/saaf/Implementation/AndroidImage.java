@@ -5,11 +5,15 @@ import com.ashlimeianwarren.saaf.Framework.Graphics;
 import com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat;
 import com.ashlimeianwarren.saaf.Framework.Image;
 
+
 public class AndroidImage implements Image
 {
     Bitmap bitmap;
     Graphics.ImageFormat format;
 
+    /**
+     * {@inheritDoc}
+     */
     public AndroidImage(Bitmap bitmap, ImageFormat format)
     {
         this.bitmap = bitmap;

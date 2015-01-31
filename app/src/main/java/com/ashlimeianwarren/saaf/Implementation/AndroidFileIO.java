@@ -15,12 +15,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * {@inheritDoc}
+ */
 public class AndroidFileIO implements FileIO
 {
     Context context;
     AssetManager assets;
     String externalStoragePath;
 
+    /**
+     * Constructor for the AndroidFileIO class.
+     *
+     * @param context The current context of the app.
+     */
     public AndroidFileIO(Context context)
     {
         this.context = context;
@@ -49,6 +57,7 @@ public class AndroidFileIO implements FileIO
         return new FileOutputStream(externalStoragePath + file);
     }
 
+    @Override
     public SharedPreferences getSharedPref()
     {
         return PreferenceManager.getDefaultSharedPreferences(context);

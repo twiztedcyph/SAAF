@@ -8,6 +8,9 @@ import com.ashlimeianwarren.saaf.Framework.Pool.PoolObjectFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class SingleTouchHandler implements TouchHandler
 {
     boolean isTouched;
@@ -19,6 +22,13 @@ public class SingleTouchHandler implements TouchHandler
     float scaleX;
     float scaleY;
 
+    /**
+     * Constructor for the SingleTouchHandler class.
+     *
+     * @param view The current view.
+     * @param scaleX X scaling factor.
+     * @param scaleY Y scaling factor.
+     */
     public SingleTouchHandler(View view, float scaleX, float scaleY)
     {
         PoolObjectFactory<TouchEvent> factory = new PoolObjectFactory<TouchEvent>()

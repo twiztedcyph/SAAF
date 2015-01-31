@@ -1,20 +1,30 @@
 package com.ashlimeianwarren.saaf.Implementation;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.view.View;
-
 import com.ashlimeianwarren.saaf.Framework.Input;
-
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class AndroidInput implements Input
 {
-    TouchHandler touchHandler;
+    private TouchHandler touchHandler;
 
+    /**
+     * Constructor for the AndroidInput class.
+     *
+     * @param context The current context of the app.
+     * @param view The current View.
+     * @param scaleX X scaling factor.
+     * @param scaleY Y scaling factor.
+     */
     public AndroidInput(Context context, View view, float scaleX, float scaleY)
     {
-        if (Integer.parseInt(VERSION.SDK) < 5)
+        if (VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR)
         {
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
         }
@@ -43,11 +53,9 @@ public class AndroidInput implements Input
         return touchHandler.getTouchY(pointer);
     }
 
-
     @Override
     public List<TouchEvent> getTouchEvents()
     {
         return touchHandler.getTouchEvents();
     }
-
 }

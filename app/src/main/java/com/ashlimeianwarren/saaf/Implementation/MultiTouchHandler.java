@@ -8,6 +8,9 @@ import com.ashlimeianwarren.saaf.Framework.Pool.PoolObjectFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class MultiTouchHandler implements TouchHandler
 {
     private static final int MAX_TOUCHPOINTS = 10;
@@ -22,6 +25,13 @@ public class MultiTouchHandler implements TouchHandler
     float scaleX;
     float scaleY;
 
+    /**
+     * Constructor for the MultiTouchHandler class.
+     *
+     * @param view The current view.
+     * @param scaleX X scaling factor.
+     * @param scaleY Y scaling factor.
+     */
     public MultiTouchHandler(View view, float scaleX, float scaleY)
     {
         PoolObjectFactory<TouchEvent> factory = new PoolObjectFactory<TouchEvent>()

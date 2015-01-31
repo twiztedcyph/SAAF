@@ -6,16 +6,22 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.media.MediaPlayer.OnVideoSizeChangedListener;
-
 import com.ashlimeianwarren.saaf.Framework.Music;
-
 import java.io.IOException;
 
+/**
+ * {@inheritDoc}
+ */
 public class AndroidMusic implements Music, OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener
 {
-    MediaPlayer mediaPlayer;
-    boolean isPrepared = false;
+    private MediaPlayer mediaPlayer;
+    private boolean isPrepared = false;
 
+    /**
+     * Constructor for the AndroidMusic class.
+     *
+     * @param assetDescriptor Descriptor of an entry in the AssetManager.
+     */
     public AndroidMusic(AssetFileDescriptor assetDescriptor)
     {
         mediaPlayer = new MediaPlayer();
