@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@inheritDoc}
+ * MultiTouchHandler class
+ *
+ * This is used for newer devices.
  */
 public class MultiTouchHandler implements TouchHandler
 {
@@ -49,6 +51,15 @@ public class MultiTouchHandler implements TouchHandler
         this.scaleY = scaleY;
     }
 
+    /**
+     * Called when a touch event is dispatched to a view. This allows listeners to
+     * get a chance to respond before the target view.
+     *
+     * @param v The view the touch event has been dispatched to.
+     * @param event The MotionEvent object containing full information about
+     *        the event.
+     * @return True if the listener has consumed the event, false otherwise.
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
@@ -116,6 +127,12 @@ public class MultiTouchHandler implements TouchHandler
         }
     }
 
+    /**
+     * Check if a touch is happening.
+     *
+     * @param pointer The pointer id.
+     * @return True if a touch is currently happening. False if not.
+     */
     @Override
     public boolean isTouchDown(int pointer)
     {
@@ -133,6 +150,12 @@ public class MultiTouchHandler implements TouchHandler
         }
     }
 
+    /**
+     * Get the X coordinate of the touch.
+     *
+     * @param pointer The pointer id.
+     * @return The X coordinate of the touch.
+     */
     @Override
     public int getTouchX(int pointer)
     {
@@ -150,6 +173,12 @@ public class MultiTouchHandler implements TouchHandler
         }
     }
 
+    /**
+     * Get the Y coordinate of the touch.
+     *
+     * @param pointer The pointer id.
+     * @return The Y coordinate of the touch.
+     */
     @Override
     public int getTouchY(int pointer)
     {
@@ -167,6 +196,11 @@ public class MultiTouchHandler implements TouchHandler
         }
     }
 
+    /**
+     * Get a list of TouchEvents.
+     *
+     * @return The list of TouchEvents.
+     */
     @Override
     public List<TouchEvent> getTouchEvents()
     {

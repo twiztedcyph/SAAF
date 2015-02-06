@@ -10,7 +10,7 @@ import com.ashlimeianwarren.saaf.Framework.Audio;
 import java.io.IOException;
 
 /**
- * {@inheritDoc}
+ * AndroidAudio class.
  */
 public class AndroidAudio implements Audio
 {
@@ -29,6 +29,12 @@ public class AndroidAudio implements Audio
         this.soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
     }
 
+    /**
+     * Create an AndroidMusic object from a sound file.
+     *
+     * @param filename Path to the sound file.
+     * @return An AndroidMusic object.
+     */
     @Override
     public AndroidMusic createMusic(String filename)
     {
@@ -42,6 +48,12 @@ public class AndroidAudio implements Audio
         }
     }
 
+    /**
+     * Create an AndroidSound object from a sound file.
+     *
+     * @param filename Path to the sound file.
+     * @return An AndroidSound object.
+     */
     @Override
     public AndroidSound createSound(String filename)
     {

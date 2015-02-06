@@ -50,7 +50,6 @@ public interface Input
     /**
      * Get a list of TouchEvents.
      *
-     *
      * @return The list of TouchEvents.
      */
     public List<TouchEvent> getTouchEvents();

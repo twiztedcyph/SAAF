@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * {@inheritDoc}
+ * AndroidGraphics class.
  */
 public class AndroidGraphics implements Graphics
 {
@@ -40,6 +40,14 @@ public class AndroidGraphics implements Graphics
         this.paint = new Paint();
     }
 
+    /**
+     * Get an Image object from a file in a specific format.
+     *
+     * @param fileName The path to the image file.
+     * @param format The format to be used.
+     *               @see com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat
+     * @return An Image object.
+     */
     @Override
     public Image newImage(String fileName, ImageFormat format)
     {
@@ -105,6 +113,11 @@ public class AndroidGraphics implements Graphics
         return new AndroidImage(bitmap, format);
     }
 
+    /**
+     * Fill (clear) the screen with a specific colour.
+     *
+     * @param color The colour to be used.
+     */
     @Override
     public void clearScreen(int color)
     {
@@ -113,7 +126,15 @@ public class AndroidGraphics implements Graphics
                 (color & 0xff));
     }
 
-
+    /**
+     * Render a line.
+     *
+     * @param x Starting X coordinate for the line.
+     * @param y Starting Y coordinate for the line.
+     * @param x2 Finishing X coordinate for the line.
+     * @param y2 Finishing Y coordinate for the line.
+     * @param color The colour to be used for the line.
+     */
     @Override
     public void drawLine(int x, int y, int x2, int y2, int color)
     {
@@ -121,6 +142,15 @@ public class AndroidGraphics implements Graphics
         canvas.drawLine(x, y, x2, y2, paint);
     }
 
+    /**
+     * Render a rectangle.
+     *
+     * @param x Starting X coordinate for the rectangle.
+     * @param y Starting Y coordinate for the rectangle.
+     * @param width The width of the rectangle.
+     * @param height The height of the rectangle.
+     * @param color The colour to be used for the rectangle.
+     */
     @Override
     public void drawRect(int x, int y, int width, int height, int color)
     {
@@ -129,6 +159,14 @@ public class AndroidGraphics implements Graphics
         canvas.drawRect(x, y, x + width - 1, y + height - 1, paint);
     }
 
+    /**
+     * Fill the entire current canvas clip with the specified ARGB color.
+     *
+     * @param a Alpha component (0..255).
+     * @param r Red component (0..255).
+     * @param g Green component (0..255).
+     * @param b Blue component (0..255).
+     */
     @Override
     public void drawARGB(int a, int r, int g, int b)
     {
@@ -136,6 +174,14 @@ public class AndroidGraphics implements Graphics
         canvas.drawARGB(a, r, g, b);
     }
 
+    /**
+     * Render text.
+     *
+     * @param text The text to be rendered.
+     * @param x Starting X coordinate for the text.
+     * @param y Starting Y coordinate for the text.
+     * @param paint Style and color information.
+     */
     @Override
     public void drawString(String text, int x, int y, Paint paint)
     {
@@ -144,8 +190,19 @@ public class AndroidGraphics implements Graphics
 
     }
 
+    /**
+     * Render and scale an image.
+     *
+     * @param image Image object to be rendered
+     * @param x Starting X coordinate for the image.
+     * @param y Starting Y coordinate for the image.
+     * @param srcX Image X coordinate.
+     * @param srcY Image Y coordinate.
+     * @param srcWidth The width of the image.
+     * @param srcHeight The height of the image.
+     */
     @Override
-    public void drawImage(Image Image, int x, int y, int srcX, int srcY,
+    public void drawImage(Image image, int x, int y, int srcX, int srcY,
                           int srcWidth, int srcHeight)
     {
         srcRect.left = srcX;
@@ -158,22 +215,38 @@ public class AndroidGraphics implements Graphics
         dstRect.right = x + srcWidth;
         dstRect.bottom = y + srcHeight;
 
-        canvas.drawBitmap(((AndroidImage) Image).bitmap, srcRect, dstRect, null);
+        canvas.drawBitmap(((AndroidImage) image).bitmap, srcRect, dstRect, null);
     }
 
+    /**
+     * Render an image.
+     *
+     * @param Image Image object to be rendered.
+     * @param x Starting X coordinate for the image.
+     * @param y Starting Y coordinate for the image.
+     */
     @Override
     public void drawImage(Image Image, int x, int y)
     {
         canvas.drawBitmap(((AndroidImage) Image).bitmap, x, y, null);
     }
 
-
+    /**
+     * Get the width of the frame buffer.
+     *
+     * @return The width of the frame buffer.
+     */
     @Override
     public int getWidth()
     {
         return frameBuffer.getWidth();
     }
 
+    /**
+     * Get the height of the frame buffer.
+     *
+     * @return The height of the frame buffer.
+     */
     @Override
     public int getHeight()
     {

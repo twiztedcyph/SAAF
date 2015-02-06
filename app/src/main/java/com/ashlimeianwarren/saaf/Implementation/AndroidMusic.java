@@ -10,7 +10,9 @@ import com.ashlimeianwarren.saaf.Framework.Music;
 import java.io.IOException;
 
 /**
- * {@inheritDoc}
+ * AndroidMusic class.
+ *
+ * Music is typically used for longer files.
  */
 public class AndroidMusic implements Music, OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener
 {
@@ -43,6 +45,9 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         }
     }
 
+    /**
+     * Releases resources associated with this MediaPlayer object.
+     */
     @Override
     public void dispose()
     {
@@ -54,12 +59,22 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         this.mediaPlayer.release();
     }
 
+    /**
+     * Check if the music is set to loop.
+     *
+     * @return True if the music is set to loop. False if not.
+     */
     @Override
     public boolean isLooping()
     {
         return mediaPlayer.isLooping();
     }
 
+    /**
+     * Check if the music is playing.
+     *
+     * @return True if the music is playing. False if not.
+     */
     @Override
     public boolean isPlaying()
     {
@@ -72,6 +87,9 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         return !isPrepared;
     }
 
+    /**
+     * Pause the music.
+     */
     @Override
     public void pause()
     {
@@ -82,6 +100,9 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
     }
 
 
+    /**
+     * Play music.
+     */
     @Override
     public void play()
     {
@@ -109,18 +130,31 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         }
     }
 
+    /**
+     * Set whether to loop the music.
+     *
+     * @param looping True to loop. False to not loop.
+     */
     @Override
-    public void setLooping(boolean isLooping)
+    public void setLooping(boolean looping)
     {
-        mediaPlayer.setLooping(isLooping);
+        mediaPlayer.setLooping(looping);
     }
 
+    /**
+     * Set the volume for the music.
+     *
+     * @param volume The volume.
+     */
     @Override
     public void setVolume(float volume)
     {
         mediaPlayer.setVolume(volume, volume);
     }
 
+    /**
+     * Stop music.
+     */
     @Override
     public void stop()
     {
@@ -135,6 +169,11 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         }
     }
 
+    /**
+     * Called when the end of a media source is reached during playback.
+     *
+     * @param player the MediaPlayer that reached the end of the file
+     */
     @Override
     public void onCompletion(MediaPlayer player)
     {
@@ -144,6 +183,9 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
         }
     }
 
+    /**
+     * Seek to the beginning of the music.
+     */
     @Override
     public void seekBegin()
     {
@@ -151,7 +193,11 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
 
     }
 
-
+    /**
+     * Not implemented.
+     *
+     * @param player MediaPlayer object.
+     */
     @Override
     public void onPrepared(MediaPlayer player)
     {
@@ -163,6 +209,11 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
 
     }
 
+    /**
+     * Not implemented.
+     *
+     * @param player MediaPlayer object.
+     */
     @Override
     public void onSeekComplete(MediaPlayer player)
     {
@@ -170,6 +221,13 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
 
     }
 
+    /**
+     *
+     *
+     * @param player MediaPlayer object.
+     * @param width New width.
+     * @param height New Height.
+     */
     @Override
     public void onVideoSizeChanged(MediaPlayer player, int width, int height)
     {

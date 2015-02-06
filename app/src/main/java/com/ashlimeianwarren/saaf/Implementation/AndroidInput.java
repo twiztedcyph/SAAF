@@ -8,7 +8,7 @@ import com.ashlimeianwarren.saaf.Framework.Input;
 import java.util.List;
 
 /**
- * {@inheritDoc}
+ * AndroidInput class.
  */
 public class AndroidInput implements Input
 {
@@ -35,24 +35,47 @@ public class AndroidInput implements Input
     }
 
 
+    /**
+     * Check if a touch is happening.
+     *
+     * @param pointer The pointer id.
+     * @return True if a touch is currently happening. False if not.
+     */
     @Override
     public boolean isTouchDown(int pointer)
     {
         return touchHandler.isTouchDown(pointer);
     }
 
+    /**
+     * Get the X coordinate of the touch.
+     *
+     * @param pointer The pointer id.
+     * @return The X coordinate of the touch.
+     */
     @Override
     public int getTouchX(int pointer)
     {
         return touchHandler.getTouchX(pointer);
     }
 
+    /**
+     * Get the Y coordinate of the touch.
+     *
+     * @param pointer The pointer id.
+     * @return The Y coordinate of the touch.
+     */
     @Override
     public int getTouchY(int pointer)
     {
         return touchHandler.getTouchY(pointer);
     }
 
+    /**
+     * Get a list of TouchEvents.
+     *
+     * @return The list of TouchEvents.
+     */
     @Override
     public List<TouchEvent> getTouchEvents()
     {
