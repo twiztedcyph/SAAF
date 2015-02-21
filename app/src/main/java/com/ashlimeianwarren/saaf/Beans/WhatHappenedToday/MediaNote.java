@@ -119,9 +119,9 @@ public class MediaNote
     public String toString()
     {
         return "MediaNote:" +
-                "\n_id=" + _id +
-                "\nmediaType='" + mediaType +
-                "\nfilePath='" + filePath +
-                "\nsubjectId=" + subjectId;
+                "\n_id = " + _id +
+                "\nmediaType = " + mediaType +
+                "\nfilePath = " + filePath +
+                "\nsubjectId = " + subjectId;
     }
 }

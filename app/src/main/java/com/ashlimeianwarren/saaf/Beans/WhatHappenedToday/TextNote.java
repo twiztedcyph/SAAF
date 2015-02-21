@@ -107,8 +107,8 @@ public class TextNote
     public String toString()
     {
         return "TextNote:" +
-                "\n_id=" + _id +
-                "\ntextNote='" + textNote +
-                "\nsubjectId=" + subjectId;
+                "\n_id = " + _id +
+                "\ntextNote = " + textNote +
+                "\nsubjectId = " + subjectId;
     }
 }
