@@ -15,46 +15,45 @@ public class DbCon extends SQLiteOpenHelper
 
     /**********************************************************************/
 
-    private static final String TABLE_WHT_SUBJECT = "wht_subject";
-    private static final String COLUMN_WHT_ID = "_id";
-    private static final String COLUMN_WHT_TITLE = "title";
+    public static final String TABLE_WHT_SUBJECT = "wht_subject";
+    public static final String COLUMN_WHT_ID = "_id";
+    public static final String COLUMN_WHT_TITLE = "title";
 
-    private static final String TABLE_WHT_AUDIONOTE = "wht_audio_note";
-    private static final String COLUMN_WHT_FILEPATH = "file_path";
-    private static final String COLUMN_WHT_SUBJECTID = "subject_id";
+    public static final String TABLE_WHT_MEDIANOTE = "wht_audio_note";
+    public static final String COLUMN_WHT_MEDIATYPE = "media_type";
+    public static final String COLUMN_WHT_FILEPATH = "file_path";
+    public static final String COLUMN_WHT_SUBJECTID = "subject_id";
 
-    private static final String TABLE_WHT_IMAGENOTE = "wht_image_note";
-
-    private static final String TABLE_WHT_TEXTNOTE = "wht_text_note";
-    private static final String COLUMN_WHT_TEXT = "subject_text";
-
-    /**********************************************************************/
-
-    private static final String TABLE_WT_TAG = "wt_tag";
-    private static final String COLUMN_WT_ID = "_id";
-    private static final String COLUMN_WT_TAGTEXT = "tag_text";
-
-    private static final String TABLE_WT_DATA = "wt_data";
-    private static final String COLUMN_WT_NAME = "data_name";
-    private static final String COLUMN_WT_DESCRIPTION = "data_description";
-    private static final String COLUMN_WT_TAGID = "tag_id";
-
-    private static final String TABLE_WT_IMAGE = "wt_image";
-    private static final String COLUMN_WT_IMAGETITLE = "image_title";
-    private static final String COLUMN_WT_IMAGEPATH = "image_path";
-    private static final String COLUMN_WT_DATAID = "data_id";
+    public static final String TABLE_WHT_TEXTNOTE = "wht_text_note";
+    public static final String COLUMN_WHT_TEXT = "subject_text";
 
     /**********************************************************************/
 
-    private static final String TABLE_WMC_LOCATIONS = "point_of_interest";
-    private static final String COLUMN_WMC_ID = "_id";
-    private static final String COLUMN_WMC_LONGITUDE = "longitude";
-    private static final String COLUMN_WMC_LATITUDE = "latitude";
-    private static final String COLUMN_WMC_INFORMATION = "information";
+    public static final String TABLE_WT_TAG = "wt_tag";
+    public static final String COLUMN_WT_ID = "_id";
+    public static final String COLUMN_WT_TAGTEXT = "tag_text";
+
+    public static final String TABLE_WT_DATA = "wt_data";
+    public static final String COLUMN_WT_NAME = "data_name";
+    public static final String COLUMN_WT_DESCRIPTION = "data_description";
+    public static final String COLUMN_WT_TAGID = "tag_id";
+
+    public static final String TABLE_WT_IMAGE = "wt_image";
+    public static final String COLUMN_WT_IMAGETITLE = "image_title";
+    public static final String COLUMN_WT_IMAGEPATH = "image_path";
+    public static final String COLUMN_WT_DATAID = "data_id";
 
     /**********************************************************************/
 
-    public final String TAG = "com.ashlimeianwarren.saaf";
+    public static final String TABLE_WMC_LOCATIONS = "point_of_interest";
+    public static final String COLUMN_WMC_ID = "_id";
+    public static final String COLUMN_WMC_LONGITUDE = "longitude";
+    public static final String COLUMN_WMC_LATITUDE = "latitude";
+    public static final String COLUMN_WMC_INFORMATION = "information";
+
+    /**********************************************************************/
+
+    public final String TAG = "ashlimeianwarren.saaf";
 
     /**
      *
@@ -84,20 +83,13 @@ public class DbCon extends SQLiteOpenHelper
                 COLUMN_WHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_WHT_TITLE + " VARCHAR(50) NOT NULL" +
                 ");";
-        String createWhtImageTable =
-                "CREATE TABLE " + TABLE_WHT_IMAGENOTE +
-                "(" +
-                COLUMN_WHT_ID +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WHT_FILEPATH + " VARCHAR(200) NOT NULL," +
-                COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
-                        TABLE_WHT_SUBJECT +
-                        "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
-                ");";
+
         String createWhtAudioTable =
-                "CREATE TABLE " + TABLE_WHT_AUDIONOTE +
+                "CREATE TABLE " + TABLE_WHT_MEDIANOTE +
                         "(" +
                         COLUMN_WHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COLUMN_WHT_FILEPATH + " VARCHAR(200) NOT NULL," +
+                        COLUMN_WHT_MEDIATYPE + " VARCHAR(1), " +
+                        COLUMN_WHT_FILEPATH + " VARCHAR(200) NOT NULL, " +
                         COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
                         TABLE_WHT_SUBJECT +
                         "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
@@ -112,7 +104,6 @@ public class DbCon extends SQLiteOpenHelper
                         ");";
 
         db.execSQL(createWhtSubjectTable);
-        db.execSQL(createWhtImageTable);
         db.execSQL(createWhtAudioTable);
         db.execSQL(createWhtTextTable);
         /*************************************************************************/
@@ -166,8 +157,7 @@ public class DbCon extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHT_SUBJECT);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHT_IMAGENOTE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHT_AUDIONOTE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHT_MEDIANOTE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHT_TEXTNOTE);
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WT_TAG);

@@ -12,27 +12,35 @@ import java.util.ArrayList;
 /**
  * Created by Twiz on 20/02/2015.
  */
-public class TextNote
+public class MediaNote
 {
+    /*
+    Note that I changed this. We no longer have audio, image and maybe video notes...
+    Instead we have media notes and must just set the type...
+    i = image
+    a = audio
+    v = video
+     */
     private int _id;
-    private String textNote;
+    private String mediaType;
+    private String filePath;
     private int subjectId;
     private DbCon dbCon;
 
-    public TextNote()
-    {
-    }
+    public MediaNote(){}
 
-    public TextNote(String textNote, int subjectId)
+    public MediaNote(String mediaType, String filePath, int subjectId)
     {
-        this.textNote = textNote;
+        this.mediaType = mediaType;
+        this.filePath = filePath;
         this.subjectId = subjectId;
     }
 
-    private TextNote(int _id, String textNote, int subjectId)
+    private MediaNote(int _id, String mediaType,  String filePath, int subjectId)
     {
         this._id = _id;
-        this.textNote = textNote;
+        this.mediaType = mediaType;
+        this.filePath = filePath;
         this.subjectId = subjectId;
     }
 
@@ -42,18 +50,19 @@ public class TextNote
         SQLiteDatabase db = dbCon.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DbCon.COLUMN_WHT_TEXT, textNote);
+        contentValues.put(DbCon.COLUMN_WHT_MEDIATYPE, mediaType);
+        contentValues.put(DbCon.COLUMN_WHT_FILEPATH, filePath);
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
         this._id = (int)db.insert(DbCon.TABLE_WHT_MEDIANOTE, null, contentValues);
 
         db.close();
     }
 
-    public TextNote[] retrieve(int subjectId, Context context)
+    public MediaNote[] retrieve(int subjectId, Context context)
     {
-        ArrayList<TextNote> textNoteList = new ArrayList<>();
+        ArrayList<MediaNote> mediaNoteList = new ArrayList<>();
 
-        String query = "SELECT * FROM " + DbCon.TABLE_WHT_TEXTNOTE +
+        String query = "SELECT * FROM " + DbCon.TABLE_WHT_MEDIANOTE +
                 " WHERE " + DbCon.COLUMN_WHT_SUBJECTID + " = " + subjectId + ";";
 
         dbCon = new DbCon(context, null);
@@ -63,32 +72,35 @@ public class TextNote
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast() &&
-                !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT)).isEmpty())
+                !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_FILEPATH)).isEmpty())
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_ID));
-            String retTextNote = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT));
+            String retMediaType = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_MEDIATYPE));
+            String retFilePath = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_FILEPATH));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
+
+            mediaNoteList.add(new MediaNote(retId, retMediaType, retFilePath, retSubjectId));
         }
         db.close();
         cursor.close();
 
-        TextNote[] result = new TextNote[textNoteList.size()];
-        textNoteList.toArray(result);
+        MediaNote[] result = new MediaNote[mediaNoteList.size()];
+        mediaNoteList.toArray(result);
 
         return result;
     }
 
-    public String getTextNote()
+    public String getFilePath()
     {
-        return textNote;
+        return filePath;
     }
 
-    public void setTextNote(String textNote)
+    public void setFilePath(String filePath)
     {
-        this.textNote = textNote;
+        this.filePath = filePath;
     }
 
-    public int getSubjectId()
+    public long getSubjectId()
     {
         return subjectId;
     }
@@ -98,7 +110,7 @@ public class TextNote
         this.subjectId = subjectId;
     }
 
-    public int get_id()
+    public long get_id()
     {
         return _id;
     }
@@ -106,9 +118,10 @@ public class TextNote
     @Override
     public String toString()
     {
-        return "TextNote:" +
+        return "MediaNote:" +
                 "\n_id=" + _id +
-                "\ntextNote='" + textNote +
+                "\nmediaType='" + mediaType +
+                "\nfilePath='" + filePath +
                 "\nsubjectId=" + subjectId;
     }
 }
