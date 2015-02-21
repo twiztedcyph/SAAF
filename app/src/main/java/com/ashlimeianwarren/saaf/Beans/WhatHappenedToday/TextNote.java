@@ -68,6 +68,8 @@ public class TextNote
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_ID));
             String retTextNote = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
+
+            textNoteList.add(new TextNote(retId, retTextNote, retSubjectId));
         }
         db.close();
         cursor.close();

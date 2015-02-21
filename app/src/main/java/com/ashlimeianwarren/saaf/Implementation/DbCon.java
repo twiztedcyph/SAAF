@@ -91,8 +91,7 @@ public class DbCon extends SQLiteOpenHelper
                         COLUMN_WHT_MEDIATYPE + " VARCHAR(1), " +
                         COLUMN_WHT_FILEPATH + " VARCHAR(200) NOT NULL, " +
                         COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
-                        TABLE_WHT_SUBJECT +
-                        "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
+                            TABLE_WHT_SUBJECT + "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
                         ");";
         String createWhtTextTable =
                 "CREATE TABLE " + TABLE_WHT_TEXTNOTE +
@@ -100,7 +99,7 @@ public class DbCon extends SQLiteOpenHelper
                         COLUMN_WHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_WHT_TEXT + " TEXT NOT NULL," +
                         COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
-                        TABLE_WHT_SUBJECT + "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
+                            TABLE_WHT_SUBJECT + "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
                         ");";
 
         db.execSQL(createWhtSubjectTable);
@@ -111,7 +110,7 @@ public class DbCon extends SQLiteOpenHelper
         String createWtTagTable = "CREATE TABLE " + TABLE_WT_TAG +
                 "(" +
                 COLUMN_WT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WT_TAGTEXT + " VARCHAR(50) NOT NULL" +
+                COLUMN_WT_TAGTEXT + " VARCHAR(50) UNIQUE NOT NULL" +
                 ");";
         String createWtDataTable = "CREATE TABLE " + TABLE_WT_DATA +
                 "(" +
@@ -119,7 +118,7 @@ public class DbCon extends SQLiteOpenHelper
                 COLUMN_WT_NAME + " VARCHAR(50) NOT NULL, " +
                 COLUMN_WT_DESCRIPTION + " TEXT NOT NULL, " +
                 COLUMN_WT_TAGID + " INTEGER REFERENCES " +
-                TABLE_WT_TAG + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +
+                    TABLE_WT_TAG + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +
                 ");";
         String createWtImageTable = "CREATE TABLE " + TABLE_WT_IMAGE +
                 "(" +
@@ -127,7 +126,7 @@ public class DbCon extends SQLiteOpenHelper
                 COLUMN_WT_IMAGETITLE + " VARCHAR(50) NOT NULL, " +
                 COLUMN_WT_IMAGEPATH + " VARCHAR(200) NOT NULL, " +
                 COLUMN_WT_DATAID + " INTEGER REFERENCES " +
-                TABLE_WT_DATA + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +
+                    TABLE_WT_DATA + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +
                 ");";
 
         db.execSQL(createWtTagTable);
