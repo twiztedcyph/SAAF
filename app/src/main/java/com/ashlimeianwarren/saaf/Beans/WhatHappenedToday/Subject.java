@@ -10,7 +10,9 @@ import com.ashlimeianwarren.saaf.Implementation.DbCon;
 import java.util.ArrayList;
 
 /**
- * Created by Twiz on 20/02/2015.
+ * Subject class.
+ * <p/>
+ * Defines a subject object for use in the what happened todat app.
  */
 public class Subject
 {
@@ -18,8 +20,18 @@ public class Subject
     private String title;
     private DbCon dbCon;
 
-    public Subject(){}
+    /**
+     * Default empty constructor.
+     */
+    public Subject()
+    {
+    }
 
+    /**
+     * Constructor for a Subject object.
+     *
+     * @param title The subject title.
+     */
     public Subject(String title)
     {
         this.title = title;
@@ -27,10 +39,19 @@ public class Subject
 
     private Subject(int _id, String title)
     {
+        /*
+        Private constructor with id included.
+        Used to initialise from database.
+         */
         this._id = _id;
         this.title = title;
     }
 
+    /**
+     * Persist or save this Subject to the database.
+     *
+     * @param context The context from which this method was called.
+     */
     public void persist(Context context)
     {
         dbCon = new DbCon(context, null);
@@ -40,11 +61,17 @@ public class Subject
 
         contentValues.put(DbCon.COLUMN_WHT_TITLE, this.title);
 
-        this._id = (int)db.insert(DbCon.TABLE_WHT_SUBJECT, null, contentValues);
+        this._id = (int) db.insert(DbCon.TABLE_WHT_SUBJECT, null, contentValues);
 
         db.close();
     }
 
+    /**
+     * Retrieve an array of all Subjects from the database.
+     *
+     * @param context The context from which this method was called.
+     * @return An array of all Subjects contained in the database.
+     */
     public Subject[] retrieve(Context context)
     {
         ArrayList<Subject> subjectList = new ArrayList<>();
@@ -57,7 +84,7 @@ public class Subject
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while(!cursor.isAfterLast() && !cursor.getString(cursor.getColumnIndex("title")).isEmpty())
+        while (!cursor.isAfterLast() && !cursor.getString(cursor.getColumnIndex("title")).isEmpty())
         {
             int retId = cursor.getInt(cursor.getColumnIndex("_id"));
             String retTitle = cursor.getString(cursor.getColumnIndex("title"));
@@ -72,21 +99,41 @@ public class Subject
         return result;
     }
 
+    /**
+     * Get the title.
+     *
+     * @return The subject title.
+     */
     public String getTitle()
     {
         return title;
     }
 
+    /**
+     * Set the title.
+     *
+     * @param title The subject title.
+     */
     public void setTitle(String title)
     {
         this.title = title;
     }
 
+    /**
+     * Get the database id for this subject.
+     *
+     * @return The database if for this subject.
+     */
     public long get_id()
     {
         return _id;
     }
 
+    /**
+     * Get a string representation of this object.
+     *
+     * @return A string representation of this object.
+     */
     @Override
     public String toString()
     {

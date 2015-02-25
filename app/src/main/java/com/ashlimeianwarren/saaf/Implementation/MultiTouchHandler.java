@@ -2,15 +2,17 @@ package com.ashlimeianwarren.saaf.Implementation;
 
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.ashlimeianwarren.saaf.Framework.Input.TouchEvent;
 import com.ashlimeianwarren.saaf.Framework.Pool;
 import com.ashlimeianwarren.saaf.Framework.Pool.PoolObjectFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * MultiTouchHandler class
- *
+ * <p/>
  * This is used for newer devices.
  */
 public class MultiTouchHandler implements TouchHandler
@@ -30,7 +32,7 @@ public class MultiTouchHandler implements TouchHandler
     /**
      * Constructor for the MultiTouchHandler class.
      *
-     * @param view The current view.
+     * @param view   The current view.
      * @param scaleX X scaling factor.
      * @param scaleY Y scaling factor.
      */
@@ -55,9 +57,9 @@ public class MultiTouchHandler implements TouchHandler
      * Called when a touch event is dispatched to a view. This allows listeners to
      * get a chance to respond before the target view.
      *
-     * @param v The view the touch event has been dispatched to.
+     * @param v     The view the touch event has been dispatched to.
      * @param event The MotionEvent object containing full information about
-     *        the event.
+     *              the event.
      * @return True if the listener has consumed the event, false otherwise.
      */
     @Override

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.view.View;
+
 import com.ashlimeianwarren.saaf.Framework.Input;
+
 import java.util.List;
 
 /**
@@ -18,9 +20,9 @@ public class AndroidInput implements Input
      * Constructor for the AndroidInput class.
      *
      * @param context The current context of the app.
-     * @param view The current View.
-     * @param scaleX X scaling factor.
-     * @param scaleY Y scaling factor.
+     * @param view    The current View.
+     * @param scaleX  X scaling factor.
+     * @param scaleY  Y scaling factor.
      */
     public AndroidInput(Context context, View view, float scaleX, float scaleY)
     {

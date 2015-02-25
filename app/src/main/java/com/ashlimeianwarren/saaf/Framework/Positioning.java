@@ -11,5 +11,5 @@ public interface Positioning
 
     public double getDistToLocation(Location location);
 
-    public  double getBearingToLocation(Location location);
+    public double getBearingToLocation(Location location);
 }

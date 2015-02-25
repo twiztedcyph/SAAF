@@ -1,6 +1,7 @@
 package com.ashlimeianwarren.saaf.Implementation;
 
 import android.graphics.Bitmap;
+
 import com.ashlimeianwarren.saaf.Framework.Graphics;
 import com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat;
 import com.ashlimeianwarren.saaf.Framework.Image;
@@ -18,7 +19,7 @@ public class AndroidImage implements Image
      *
      * @param bitmap Imange bitmap to be used.
      * @param format Image format to be used.
-     *               @see com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat
+     * @see com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat
      */
     public AndroidImage(Bitmap bitmap, ImageFormat format)
     {

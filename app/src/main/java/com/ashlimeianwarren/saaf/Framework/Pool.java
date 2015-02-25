@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Pools can reduce the amount of memory usage as well as
  * lightening the load on the system garbage collector.
- *
+ * <p/>
  * This is done by having a standard set group of objects
  * and manipulating them which is faster than creating a
  * new one.

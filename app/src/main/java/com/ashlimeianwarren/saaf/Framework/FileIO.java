@@ -1,12 +1,14 @@
 package com.ashlimeianwarren.saaf.Framework;
 
 import android.content.SharedPreferences;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
  * Interface class for file input and output.
+ *
  * @version 1.0
  */
 public interface FileIO

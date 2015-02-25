@@ -3,6 +3,7 @@ package com.ashlimeianwarren.saaf.Framework;
 
 /**
  * Interface class Audio for AndroidMusic and AndroidSound.
+ *
  * @version 1.0
  */
 public interface Audio

@@ -6,7 +6,7 @@ import com.ashlimeianwarren.saaf.Framework.Sound;
 
 /**
  * AndroidSound class.
- *
+ * <p/>
  * Sounds are typically shorter than music objects.
  */
 public class AndroidSound implements Sound
@@ -18,7 +18,7 @@ public class AndroidSound implements Sound
      * Constructor for the AndroidSound class.
      *
      * @param soundPool Collection of samples loaded into memory.
-     * @param soundId The sound id.
+     * @param soundId   The sound id.
      */
     public AndroidSound(SoundPool soundPool, int soundId)
     {

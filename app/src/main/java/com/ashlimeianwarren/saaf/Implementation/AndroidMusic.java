@@ -6,12 +6,14 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.media.MediaPlayer.OnVideoSizeChangedListener;
+
 import com.ashlimeianwarren.saaf.Framework.Music;
+
 import java.io.IOException;
 
 /**
  * AndroidMusic class.
- *
+ * <p/>
  * Music is typically used for longer files.
  */
 public class AndroidMusic implements Music, OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener
@@ -222,10 +224,8 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
     }
 
     /**
-     *
-     *
      * @param player MediaPlayer object.
-     * @param width New width.
+     * @param width  New width.
      * @param height New Height.
      */
     @Override

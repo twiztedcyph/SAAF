@@ -19,9 +19,9 @@ public interface Graphics
      * Get an Image object from a file in a specific format.
      *
      * @param fileName The path to the image file.
-     * @param format The format to be used.
-     *               @see com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat
+     * @param format   The format to be used.
      * @return An Image object.
+     * @see com.ashlimeianwarren.saaf.Framework.Graphics.ImageFormat
      */
     public Image newImage(String fileName, ImageFormat format);
 
@@ -35,10 +35,10 @@ public interface Graphics
     /**
      * Render a line.
      *
-     * @param x Starting X coordinate for the line.
-     * @param y Starting Y coordinate for the line.
-     * @param x2 Finishing X coordinate for the line.
-     * @param y2 Finishing Y coordinate for the line.
+     * @param x     Starting X coordinate for the line.
+     * @param y     Starting Y coordinate for the line.
+     * @param x2    Finishing X coordinate for the line.
+     * @param y2    Finishing Y coordinate for the line.
      * @param color The colour to be used for the line.
      */
     public void drawLine(int x, int y, int x2, int y2, int color);
@@ -46,23 +46,23 @@ public interface Graphics
     /**
      * Render a rectangle.
      *
-     * @param x Starting X coordinate for the rectangle.
-     * @param y Starting Y coordinate for the rectangle.
-     * @param width The width of the rectangle.
+     * @param x      Starting X coordinate for the rectangle.
+     * @param y      Starting Y coordinate for the rectangle.
+     * @param width  The width of the rectangle.
      * @param height The height of the rectangle.
-     * @param color The colour to be used for the rectangle.
+     * @param color  The colour to be used for the rectangle.
      */
     public void drawRect(int x, int y, int width, int height, int color);
 
     /**
      * Render and scale an image.
      *
-     * @param image Image object to be rendered
-     * @param x Starting X coordinate for the image.
-     * @param y Starting Y coordinate for the image.
-     * @param srcX Image X coordinate.
-     * @param srcY Image Y coordinate.
-     * @param srcWidth The width of the image.
+     * @param image     Image object to be rendered
+     * @param x         Starting X coordinate for the image.
+     * @param y         Starting Y coordinate for the image.
+     * @param srcX      Image X coordinate.
+     * @param srcY      Image Y coordinate.
+     * @param srcWidth  The width of the image.
      * @param srcHeight The height of the image.
      */
     public void drawImage(Image image, int x, int y, int srcX, int srcY,
@@ -72,17 +72,17 @@ public interface Graphics
      * Render an image.
      *
      * @param Image Image object to be rendered.
-     * @param x Starting X coordinate for the image.
-     * @param y Starting Y coordinate for the image.
+     * @param x     Starting X coordinate for the image.
+     * @param y     Starting Y coordinate for the image.
      */
     public void drawImage(Image Image, int x, int y);
 
     /**
      * Render text.
      *
-     * @param text The text to be rendered.
-     * @param x Starting X coordinate for the text.
-     * @param y Starting Y coordinate for the text.
+     * @param text  The text to be rendered.
+     * @param x     Starting X coordinate for the text.
+     * @param y     Starting Y coordinate for the text.
      * @param paint Style and color information.
      */
     void drawString(String text, int x, int y, Paint paint);
