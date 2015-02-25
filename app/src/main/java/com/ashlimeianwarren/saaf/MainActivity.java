@@ -1,8 +1,7 @@
 package com.ashlimeianwarren.saaf;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,18 +16,11 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-
-        // Check if the database exists. If it does not the DbCon class will create it.
         DbCon dbCon = new DbCon(this, null);
-        SQLiteDatabase db = dbCon.getWritableDatabase();
-        db.close();
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
