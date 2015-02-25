@@ -1,11 +1,10 @@
 package com.ashlimeianwarren.saaf;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
@@ -20,7 +19,8 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         DbCon dbCon = new DbCon(this, null);
 
-
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+        db.close();
     }
 
 
@@ -47,11 +47,5 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void launchAsh(View view)
-    {
-        Intent myIntent = new Intent(this, AshTestActivity.class);
-        startActivity(myIntent);
     }
 }

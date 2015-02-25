@@ -9,7 +9,7 @@ import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 /**
  * Tag class.
- *
+ * <p/>
  * Defines an object that will store NFC tag information.
  */
 public class Tag
@@ -87,7 +87,7 @@ public class Tag
     /**
      * Get the unique string identifier for the tag.
      *
-     * @return  The unique string identifier for the tag.
+     * @return The unique string identifier for the tag.
      */
     public String getTagText()
     {

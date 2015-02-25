@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * PointOfInterest class.
- *
+ * <p/>
  * Defines an object that stores details about a point of interest.
  */
 public class PointOfInterest
@@ -32,8 +32,8 @@ public class PointOfInterest
      * Constructor for a PointOfInterst object.
      *
      * @param longitude The longitude of the object.
-     * @param latitude The latitude of the object.
-     * @param info Any associated information for the object.
+     * @param latitude  The latitude of the object.
+     * @param info      Any associated information for the object.
      */
     public PointOfInterest(float longitude, float latitude, String info)
     {

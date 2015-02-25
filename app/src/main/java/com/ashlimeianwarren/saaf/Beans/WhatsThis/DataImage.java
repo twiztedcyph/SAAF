@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * DataImage class.
- *
+ * <p/>
  * Defines an object that points to images associated with a Data object.
  */
 public class DataImage
@@ -32,8 +32,8 @@ public class DataImage
      * Constructor for a DataImage object.
      *
      * @param imageTitle The title of the image.
-     * @param imagePath The path to the image.
-     * @param dataId The associated Data object's id.
+     * @param imagePath  The path to the image.
+     * @param dataId     The associated Data object's id.
      */
     public DataImage(String imageTitle, String imagePath, int dataId)
     {
