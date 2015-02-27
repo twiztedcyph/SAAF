@@ -5,9 +5,9 @@ package com.ashlimeianwarren.saaf.Framework;
  */
 public interface Capture
 {
-    public void captureSound();
+    public String captureSound();
 
-    public void captureImage();
+    public String captureImage();
 
-    public void captureVideo();
+    public String captureVideo();
 }
