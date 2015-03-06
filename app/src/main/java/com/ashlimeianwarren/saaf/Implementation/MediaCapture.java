@@ -95,26 +95,19 @@ public class MediaCapture implements Capture
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, myPicture);
 
-        activity.startActivityForResult(takePictureIntent, 0);
-
         return fileName;
-
     }
 
     @Override
     public String captureVideo()
     {
-
         fileName += ".mp4";
         myVideoFile = new File(fileName);
         myVideoFile.delete();
         myVideo = Uri.fromFile(myVideoFile);
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, myVideo);
-
-        activity.startActivityForResult(takeVideoIntent, 0);
         return fileName;
-
     }
 
     public void stopCaptureSound()
