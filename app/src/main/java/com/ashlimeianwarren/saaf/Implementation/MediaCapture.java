@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+
 import com.ashlimeianwarren.saaf.Framework.Capture;
 
 import java.io.File;
@@ -16,11 +17,11 @@ import java.io.IOException;
 import java.util.Date;
 
 
-
 /**
  * Created by Ash on 20/02/2015.
  */
-public class MediaCapture implements Capture {
+public class MediaCapture implements Capture
+{
 
     private MediaPlayer player = null;
     private static String fileName = null;
@@ -33,15 +34,15 @@ public class MediaCapture implements Capture {
     Activity activity;
 
     /**
-     *
      * @param ac
      */
-    public MediaCapture(Activity ac){
+    public MediaCapture(Activity ac)
+    {
         fileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String datetime=new Date().toString();
-        datetime =datetime.replace(" ", "");
-        datetime =datetime.replace(":", "");
-        fileName += ("/"+datetime);
+        String datetime = new Date().toString();
+        datetime = datetime.replace(" ", "");
+        datetime = datetime.replace(":", "");
+        fileName += ("/" + datetime);
         activity = ac;
 
     }
@@ -50,7 +51,8 @@ public class MediaCapture implements Capture {
      *
      */
     @Override
-    public String captureSound() {
+    public String captureSound()
+    {
 
         String ext = ".3gp";
         fileName += ext;
@@ -66,9 +68,11 @@ public class MediaCapture implements Capture {
         //Setting the Encoder
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-        try {
+        try
+        {
             recorder.prepare();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             Log.e(LOG_TAG, "prepare() failed");
         }
 
@@ -81,7 +85,8 @@ public class MediaCapture implements Capture {
      *
      */
     @Override
-    public String captureImage() {
+    public String captureImage()
+    {
 
         fileName += ".jpg";
         myImageFile = new File(fileName);
@@ -97,7 +102,8 @@ public class MediaCapture implements Capture {
     }
 
     @Override
-    public String captureVideo() {
+    public String captureVideo()
+    {
 
         fileName += ".mp4";
         myVideoFile = new File(fileName);
@@ -111,16 +117,20 @@ public class MediaCapture implements Capture {
 
     }
 
-    public void stopCaptureSound() {
+    public void stopCaptureSound()
+    {
         recorder.stop();
         recorder.release();
         recorder = null;
     }
 
-    public void onRecord(boolean start) {
-        if (start) {
+    public void onRecord(boolean start)
+    {
+        if (start)
+        {
             captureSound();
-        } else {
+        } else
+        {
             stopCaptureSound();
         }
     }

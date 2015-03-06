@@ -1,10 +1,12 @@
 package com.ashlimeianwarren.saaf;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
@@ -47,5 +49,23 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void wheresMyCarClicked(View view)
+    {
+        Intent intent = new Intent(this, WheresMyCarMainActivity.class);
+        startActivity(intent);
+    }
+
+    public void whatHappenedTodayClicked(View view)
+    {
+        Intent intent = new Intent(this, WhatHappenedTodayMainActivity.class);
+        startActivity(intent);
+    }
+
+    public void whatsThisClicked(View view)
+    {
+        Intent intent = new Intent(this, WhatsThisMainActivity.class);
+        startActivity(intent);
     }
 }

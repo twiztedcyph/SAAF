@@ -57,12 +57,10 @@ public class AndroidGraphics implements Graphics
         if (format == ImageFormat.RGB565)
         {
             config = Config.RGB_565;
-        }
-        else if (format == ImageFormat.ARGB4444)
+        } else if (format == ImageFormat.ARGB4444)
         {
             config = Config.ARGB_4444;
-        }
-        else
+        } else
         {
             config = Config.ARGB_8888;
         }
@@ -102,12 +100,10 @@ public class AndroidGraphics implements Graphics
         if (bitmap.getConfig() == Config.RGB_565)
         {
             format = ImageFormat.RGB565;
-        }
-        else if (bitmap.getConfig() == Config.ARGB_4444)
+        } else if (bitmap.getConfig() == Config.ARGB_4444)
         {
             format = ImageFormat.ARGB4444;
-        }
-        else
+        } else
         {
             format = ImageFormat.ARGB8888;
         }

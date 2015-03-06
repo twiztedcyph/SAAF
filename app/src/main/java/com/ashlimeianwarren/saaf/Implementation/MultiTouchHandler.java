@@ -144,8 +144,7 @@ public class MultiTouchHandler implements TouchHandler
             if (index < 0 || index >= MAX_TOUCHPOINTS)
             {
                 return false;
-            }
-            else
+            } else
             {
                 return isTouched[index];
             }
@@ -167,8 +166,7 @@ public class MultiTouchHandler implements TouchHandler
             if (index < 0 || index >= MAX_TOUCHPOINTS)
             {
                 return 0;
-            }
-            else
+            } else
             {
                 return touchX[index];
             }
@@ -190,8 +188,7 @@ public class MultiTouchHandler implements TouchHandler
             if (index < 0 || index >= MAX_TOUCHPOINTS)
             {
                 return 0;
-            }
-            else
+            } else
             {
                 return touchY[index];
             }

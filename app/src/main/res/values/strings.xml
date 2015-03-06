@@ -6,5 +6,11 @@
     <string name="action_settings">Settings</string>
     <string name="text_display">Nothing to see here.... Yet.</string>
     <string name="title_activity_ash_test">AshTestActivity</string>
+    <string name="main_screen_button_text_wheresMyCar">Where\'s my car</string>
+    <string name="main_screen_button_text_whatHappenedToday">What happened today</string>
+    <string name="main_screen_button_text_whatsThis">What\'s this</string>
+    <string name="title_activity_wheres_my_car_main">WheresMyCarMainActivity</string>
+    <string name="title_activity_what_happened_today_main">WhatHappenedTodayMainActivity</string>
+    <string name="title_activity_whats_this_main">WhatsThisMainActivity</string>
 
 </resources>

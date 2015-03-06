@@ -29,8 +29,7 @@ public class AndroidInput implements Input
         if (VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR)
         {
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
-        }
-        else
+        } else
         {
             touchHandler = new MultiTouchHandler(view, scaleX, scaleY);
         }
