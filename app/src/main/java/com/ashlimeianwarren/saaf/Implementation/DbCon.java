@@ -163,8 +163,12 @@ public class DbCon extends SQLiteOpenHelper
                 COLUMN_WMC_INFORMATION + " TEXT" +
                 ");";
         db.execSQL(createWmcTable);
-
         Log.i(TAG, "Database creation complete");
+    }
+
+    public void clear(SQLiteDatabase db)
+    {
+        db.execSQL("DELETE FROM " + TABLE_WHT_SUBJECT);
     }
 
     /**

@@ -1,16 +1,20 @@
 package com.ashlimeianwarren.saaf;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -19,22 +23,23 @@ import com.ashlimeianwarren.saaf.Framework.Input;
 import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
 
 
-
 public class WhatHappenedTodayMainActivity extends ActionBarActivity
 {
 
     private MultiTouchHandler multiTouchHandler;
-    Input input;
-    View v;
+    AlertDialog.Builder alertDialogBuilder;
+    private Subject[] subjectArray;
+    private ListAdapter listAdapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_happened_today_main);
-        Subject[] subjectArray = new Subject().retrieve(this);
-        ListAdapter listAdapter = new CustomFolderListAdapter(this, subjectArray);
-        ListView listView = (ListView)findViewById(R.id.mainActivity_listView);
+        subjectArray = new Subject().retrieve(this);
+        listAdapter = new CustomFolderListAdapter(this, subjectArray);
+        listView = (ListView) findViewById(R.id.mainActivity_listView);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -44,6 +49,16 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             {
                 //TODO SEND TO WHAT HAPPENED TODAY NOTE ACTIVITY
 
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                //TODO delete a subject with a long click....
+                return false;
             }
         });
 
@@ -74,5 +89,45 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void newFolderClicked(View view)
+    {
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.wht_subject_dialog, null);
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptsView);
 
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                Subject s = new Subject();
+                                s.setTitle(userInput.getText().toString());
+                                s.persist(WhatHappenedTodayMainActivity.this);
+
+                                subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
+                                listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
+                                listView = (ListView) findViewById(R.id.mainActivity_listView);
+                                listView.setAdapter(listAdapter);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
 }

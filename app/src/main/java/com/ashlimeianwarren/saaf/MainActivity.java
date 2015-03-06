@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 
@@ -20,9 +21,10 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DbCon dbCon = new DbCon(this, null);
-
         SQLiteDatabase db = dbCon.getWritableDatabase();
         db.close();
+        db = null;
+        dbCon = null;
     }
 
 

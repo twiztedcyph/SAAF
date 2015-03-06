@@ -22,30 +22,30 @@ public class AndroidMusic implements Music, OnCompletionListener, OnSeekComplete
     private boolean isPrepared = false;
 
     /**
- * Constructor for the AndroidMusic class.
- *
- * @param assetDescriptor Descriptor of an entry in the AssetManager.
- */
-public AndroidMusic(AssetFileDescriptor assetDescriptor)
-{
-    mediaPlayer = new MediaPlayer();
-    try
+     * Constructor for the AndroidMusic class.
+     *
+     * @param assetDescriptor Descriptor of an entry in the AssetManager.
+     */
+    public AndroidMusic(AssetFileDescriptor assetDescriptor)
     {
-        mediaPlayer.setDataSource(assetDescriptor.getFileDescriptor(),
-                assetDescriptor.getStartOffset(),
-                assetDescriptor.getLength());
-        mediaPlayer.prepare();
-        isPrepared = true;
-        mediaPlayer.setOnCompletionListener(this);
-        mediaPlayer.setOnSeekCompleteListener(this);
-        mediaPlayer.setOnPreparedListener(this);
-        mediaPlayer.setOnVideoSizeChangedListener(this);
+        mediaPlayer = new MediaPlayer();
+        try
+        {
+            mediaPlayer.setDataSource(assetDescriptor.getFileDescriptor(),
+                    assetDescriptor.getStartOffset(),
+                    assetDescriptor.getLength());
+            mediaPlayer.prepare();
+            isPrepared = true;
+            mediaPlayer.setOnCompletionListener(this);
+            mediaPlayer.setOnSeekCompleteListener(this);
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setOnVideoSizeChangedListener(this);
 
-    } catch (Exception e)
-    {
-        throw new RuntimeException("Couldn't load music");
+        } catch (Exception e)
+        {
+            throw new RuntimeException("Couldn't load music");
+        }
     }
-}
 
 
     /**

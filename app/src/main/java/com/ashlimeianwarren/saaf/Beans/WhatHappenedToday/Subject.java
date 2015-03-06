@@ -84,11 +84,14 @@ public class Subject
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while (!cursor.isAfterLast() && !cursor.getString(cursor.getColumnIndex("title")).isEmpty())
+        int count = 0;
+        while (!cursor.isAfterLast())
         {
             int retId = cursor.getInt(cursor.getColumnIndex("_id"));
             String retTitle = cursor.getString(cursor.getColumnIndex("title"));
             subjectList.add(new Subject(retId, retTitle));
+            cursor.moveToNext();
+            System.out.println(subjectList.size());
         }
         db.close();
         cursor.close();
