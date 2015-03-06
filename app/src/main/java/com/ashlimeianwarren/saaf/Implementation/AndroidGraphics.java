@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import com.ashlimeianwarren.saaf.Framework.Graphics;
 import com.ashlimeianwarren.saaf.Framework.Image;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -37,6 +38,19 @@ public class AndroidGraphics implements Graphics
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer)
     {
         this.assets = assets;
+        this.frameBuffer = frameBuffer;
+        this.canvas = new Canvas(frameBuffer);
+        this.paint = new Paint();
+    }
+
+    /**
+     * Constructor for the AndroidGraphics class.
+     *
+     * @param frameBuffer Bitmap to be used as frame buffer.
+     */
+    public AndroidGraphics(Bitmap frameBuffer)
+    {
+
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
@@ -73,7 +87,7 @@ public class AndroidGraphics implements Graphics
         Bitmap bitmap = null;
         try
         {
-            in = assets.open(fileName);
+            in = new FileInputStream(fileName);
             bitmap = BitmapFactory.decodeStream(in, null, options);
             if (bitmap == null)
             {

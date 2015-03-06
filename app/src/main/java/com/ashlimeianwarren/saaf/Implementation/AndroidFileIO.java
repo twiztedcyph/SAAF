@@ -88,4 +88,16 @@ public class AndroidFileIO implements FileIO
     {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
+
+    /**
+     * Get and OutputStream for a file to be written to.
+     *
+     * @param file Path to the file.
+     * @return An OutputStream for the file to be written to.
+     * @throws IOException If the file cannot be written to.
+     */
+    public OutputStream writeFile(File file) throws IOException
+    {
+        return new FileOutputStream(file);
+    }
 }

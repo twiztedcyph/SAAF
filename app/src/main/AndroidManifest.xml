@@ -13,9 +13,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:launchMode="singleTask">
-
+        android:launchMode="singleTask"
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -23,6 +22,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -36,6 +40,10 @@
         <activity
             android:name=".WhatsThisMainActivity"
             android:label="@string/title_activity_whats_this_main" >
+        </activity>
+        <activity
+            android:name=".WhatHappenedTodayNoteActivity"
+            android:label="@string/title_activity_what_happened_today_note" >
         </activity>
     </application>
 

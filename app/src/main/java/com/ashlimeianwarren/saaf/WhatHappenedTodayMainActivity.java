@@ -1,6 +1,6 @@
 package com.ashlimeianwarren.saaf;
 
-import android.app.Activity;
+
 import android.graphics.Point;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -10,12 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Framework.Input;
-import com.ashlimeianwarren.saaf.Implementation.AndroidInput;
 import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
 
-import java.util.List;
 
 
 public class WhatHappenedTodayMainActivity extends ActionBarActivity
@@ -30,51 +32,21 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_happened_today_main);
+        Subject[] subjectArray = new Subject().retrieve(this);
+        ListAdapter listAdapter = new CustomFolderListAdapter(this, subjectArray);
+        ListView listView = (ListView)findViewById(R.id.mainActivity_listView);
+        listView.setAdapter(listAdapter);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        v = getWindow().getDecorView().findViewById(android.R.id.content);
-        multiTouchHandler = new MultiTouchHandler(v, width, height);
-
-        v.setOnTouchListener(new View.OnTouchListener()
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                int action = MotionEventCompat.getActionMasked(event);
+                //TODO SEND TO WHAT HAPPENED TODAY NOTE ACTIVITY
 
-                switch (action)
-                {
-                    case (MotionEvent.ACTION_DOWN):
-                        multiTouchHandler.onTouch(v, event);
-                        System.out.println("action down " + event.getX() + " " + event.getY());
-                        return true;
-                    case (MotionEvent.ACTION_MOVE):
-                        multiTouchHandler.onTouch(v, event);
-                        System.out.println("action move" + event.getX() + " " + event.getY());
-                        return true;
-                    case (MotionEvent.ACTION_UP):
-                        multiTouchHandler.onTouch(v, event);
-                        System.out.println("action up" + event.getX() + " " + event.getY());
-                        return true;
-                    case (MotionEvent.ACTION_CANCEL):
-                        multiTouchHandler.onTouch(v, event);
-                        System.out.println("action cancel" + event.getX() + " " + event.getY());
-                        return true;
-                    case (MotionEvent.ACTION_OUTSIDE):
-
-                        multiTouchHandler.onTouch(v, event);
-                        System.out.println("action outside" + event.getX() + " " + event.getY());
-                        return true;
-
-                    default:
-                        return v.onTouchEvent(event);
-                }
             }
         });
+
     }
 
     @Override
@@ -101,4 +73,6 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

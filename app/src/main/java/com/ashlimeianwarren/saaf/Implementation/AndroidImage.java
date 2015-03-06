@@ -68,4 +68,9 @@ public class AndroidImage implements Image
     {
         bitmap.recycle();
     }
+
+    public Bitmap getBitmap()
+    {
+        return this.bitmap;
+    }
 }
