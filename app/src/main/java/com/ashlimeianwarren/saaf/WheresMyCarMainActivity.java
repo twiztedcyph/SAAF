@@ -4,18 +4,47 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 
 public class WheresMyCarMainActivity extends ActionBarActivity
 {
+    private PositionManager pm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_main);
+        pm = new PositionManager(this);
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        pm.start();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        System.out.println("OnPause");
+        pm.close();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        System.out.println("OnStop");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -40,5 +69,14 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showLocation(View view)
+    {
+        TextView locDisp = (TextView) findViewById(R.id.wmc_maintext);
+        double lat = pm.getCurrentPosition().getLatitude();
+        double lon = pm.getCurrentPosition().getLongitude();
+
+        locDisp.setText(lat + "\n" + lon);
     }
 }
