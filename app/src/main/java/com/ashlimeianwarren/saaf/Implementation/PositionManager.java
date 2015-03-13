@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.ashlimeianwarren.saaf.Beans.WheresMyCar.PointOfInterest;
 import com.ashlimeianwarren.saaf.Framework.Positioning;
 
 /**
@@ -18,11 +19,11 @@ public class PositionManager implements Positioning
     private Location location;
     private Context context;
     private LocationManager locationManager;
+    private PointOfInterest pointOfInterest;
 
     public PositionManager(Context context)
     {
         this.context = context;
-
     }
 
     public void start()
@@ -67,18 +68,37 @@ public class PositionManager implements Positioning
     @Override
     public double getDistToLocation(Location location)
     {
-        return 0;
+        return this.location.distanceTo(location);
     }
 
     @Override
     public double getBearingToLocation(Location location)
     {
-        return 0;
+        return this.location.bearingTo(location);
+    }
+
+    public void saveLocation(String poiText)
+    {
+        pointOfInterest = new PointOfInterest(location.getLongitude(),
+                location.getLatitude(),
+                poiText);
+
+        pointOfInterest.persist(context);
     }
 
     public void close()
     {
         locationManager.removeUpdates(locationListener);
         locationManager = null;
+    }
+
+    private double rad2deg(double rad)
+    {
+        return (rad * 180 / Math.PI);
+    }
+
+    private double deg2rad(double deg)
+    {
+        return (deg * Math.PI / 180.0);
     }
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PointOfInterest
 {
     private int _id;
-    private float longitude, latitude;
+    private double longitude, latitude;
     private String info;
     private DbCon dbCon;
 
@@ -35,14 +35,14 @@ public class PointOfInterest
      * @param latitude  The latitude of the object.
      * @param info      Any associated information for the object.
      */
-    public PointOfInterest(float longitude, float latitude, String info)
+    public PointOfInterest(double longitude, double latitude, String info)
     {
         this.longitude = longitude;
         this.latitude = latitude;
         this.info = info;
     }
 
-    public PointOfInterest(int _id, float longitude, float latitude, String info)
+    public PointOfInterest(int _id, double longitude, double latitude, String info)
     {
         /*
         Private constructor with id included.
@@ -97,8 +97,8 @@ public class PointOfInterest
                 cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WMC_INFORMATION)).isEmpty()))
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WMC_ID));
-            float retLat = cursor.getFloat(cursor.getColumnIndex(DbCon.COLUMN_WMC_LATITUDE));
-            float retLong = cursor.getFloat(cursor.getColumnIndex(DbCon.COLUMN_WMC_LONGITUDE));
+            double retLat = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LATITUDE));
+            double retLong = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LONGITUDE));
             String retInfo = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WMC_INFORMATION));
             poiList.add(new PointOfInterest(retId, retLat, retLong, retInfo));
         }
@@ -116,7 +116,7 @@ public class PointOfInterest
      *
      * @return The longitude of the object.
      */
-    public float getLongitude()
+    public double getLongitude()
     {
         return longitude;
     }
@@ -126,7 +126,7 @@ public class PointOfInterest
      *
      * @param longitude The longitude of the object.
      */
-    public void setLongitude(float longitude)
+    public void setLongitude(double longitude)
     {
         this.longitude = longitude;
     }
@@ -136,7 +136,7 @@ public class PointOfInterest
      *
      * @return The latitude of the object.
      */
-    public float getLatitude()
+    public double getLatitude()
     {
         return latitude;
     }
@@ -146,7 +146,7 @@ public class PointOfInterest
      *
      * @param latitude The latitude of the object.
      */
-    public void setLatitude(float latitude)
+    public void setLatitude(double latitude)
     {
         this.latitude = latitude;
     }
