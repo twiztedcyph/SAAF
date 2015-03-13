@@ -1,6 +1,5 @@
 package com.ashlimeianwarren.saaf;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -8,14 +7,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Note;
-import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
+import com.ashlimeianwarren.saaf.Implementation.AndroidAudio;
+import com.ashlimeianwarren.saaf.Implementation.AndroidMusic;
 import com.ashlimeianwarren.saaf.Implementation.MediaCapture;
 
 import java.io.File;
@@ -24,11 +26,15 @@ import java.io.File;
 public class WhatHappenedTodayNoteActivity extends ActionBarActivity
 {
 
-    AlertDialog.Builder alertDialogBuilder;
+    boolean mStartRecording = true;
     private Note[] noteArray;
     private ListAdapter listAdapter;
     private ListView listView;
     private int subjectId;
+    private Button newAudioButton, newImageButton, newTextButton;
+    private MediaCapture sound = null;
+    private String soundFile = null;
+    private int audioButtonWidth = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +46,9 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
         if (extras != null) {
             subjectId = extras.getInt("subjectId");
         }
-
+        newAudioButton = (Button) findViewById(R.id.newAudioButton);
+        newImageButton = (Button) findViewById(R.id.newImageButton);
+        newTextButton = (Button) findViewById(R.id.newTextButton);
         noteArray = new MediaNote().retrieve(subjectId, this);
         listAdapter = new CustomNoteListAdapter(this, noteArray);
         listView = (ListView) findViewById(R.id.NoteActivityListView);
@@ -62,14 +70,17 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
                         break;
                     case "Audio":
                         MediaNote mNote = (MediaNote) noteArray[position];
-
+                        AndroidAudio audio = new AndroidAudio(WhatHappenedTodayNoteActivity.this);
+                        AndroidMusic music = audio.createMusic(mNote.getFilePath());
+                        music.play();
+                        System.out.println(mNote.getFilePath());
                         break;
                     case "Image":
                         MediaNote iNote = (MediaNote) noteArray[position];
                         File image = new File(iNote.getFilePath());
                         Intent i = new Intent();
                         i.setAction(android.content.Intent.ACTION_VIEW);
-                        i.setDataAndType(Uri.fromFile(image), "image/");
+                        i.setDataAndType(Uri.fromFile(image), "image/*");
                         startActivity(i);
 
 
@@ -135,6 +146,36 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
     public void newAudioNote(View view)
     {
 
+
+
+        if(mStartRecording == true) {
+            sound = new MediaCapture(this);
+            //sound.onRecord(mStartRecording);
+            soundFile = sound.captureSound();
+            mStartRecording = !mStartRecording;
+            newAudioButton.setText("Recording...");
+            newImageButton.setVisibility(View.GONE);
+            newTextButton.setVisibility(View.GONE);
+            audioButtonWidth = newAudioButton.getLayoutParams().width;
+            ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
+            paramsNew.width = 1000;
+            newAudioButton.setLayoutParams(paramsNew);
+        }else {
+            //sound.onRecord(mStartRecording);
+            sound.stopCaptureSound();
+            MediaNote sNote = new MediaNote("Audio",soundFile,subjectId,"Audio");
+            sNote.persist(this);
+            refreshList();
+            mStartRecording = true;
+
+            ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
+            paramsNew.width = audioButtonWidth;
+            newAudioButton.setText("New Audio Note");
+            newImageButton.setVisibility(View.VISIBLE);
+            newTextButton.setVisibility(View.VISIBLE);
+            newAudioButton.setLayoutParams(paramsNew);
+
+        }
     }
 
     public void newImageNote(View view)
