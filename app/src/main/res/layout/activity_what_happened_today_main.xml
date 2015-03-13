@@ -13,10 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainActivity_listView"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="88dp" />
+        android:layout_marginBottom="88dp"
+        android:layout_alignParentTop="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

@@ -14,12 +14,11 @@ import java.util.ArrayList;
  * <p/>
  * Defines a TextNote object that contains textual information on a subject.
  */
-public class TextNote
+public class TextNote extends Note
 {
-    private int _id;
+
     private String textNote;
-    private int subjectId;
-    private DbCon dbCon;
+
 
     /**
      * Default empty constructor.
@@ -34,21 +33,22 @@ public class TextNote
      * @param textNote  The text note.
      * @param subjectId The subject id for this TextNote.
      */
-    public TextNote(String textNote, int subjectId)
+    public TextNote(String textNote, int subjectId, String fileType)
     {
+        super(subjectId, fileType);
         this.textNote = textNote;
-        this.subjectId = subjectId;
+
     }
 
-    private TextNote(int _id, String textNote, int subjectId)
+    private TextNote(int _id, String textNote, int subjectId, String fileType)
     {
         /*
         Private constructor with id included.
         Used to initialise from database.
          */
-        this._id = _id;
+        super(_id,subjectId,fileType);
         this.textNote = textNote;
-        this.subjectId = subjectId;
+
     }
 
     /**
@@ -66,6 +66,23 @@ public class TextNote
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
         this._id = (int) db.insert(DbCon.TABLE_WHT_MEDIANOTE, null, contentValues);
 
+        db.close();
+    }
+    /**
+     * Delete this text note from to the database.
+     *
+     * @param context The context from which this method was called.
+     * @param textId The id of the note to be deleted
+     */
+    public void delete(int textId, Context context)
+    {
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        String query = "DELETE FROM " + DbCon.TABLE_WHT_TEXTNOTE +
+                " WHERE " + DbCon.COLUMN_WHT_ID + " = " + textId + ";";
+
+        db.execSQL(query);
         db.close();
     }
 
@@ -96,7 +113,8 @@ public class TextNote
             String retTextNote = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
 
-            textNoteList.add(new TextNote(retId, retTextNote, retSubjectId));
+            textNoteList.add(new TextNote(retId, retTextNote, retSubjectId, "Text"));
+            cursor.moveToNext();
         }
         db.close();
         cursor.close();
@@ -127,35 +145,6 @@ public class TextNote
         this.textNote = textNote;
     }
 
-    /**
-     * Get the subject id for this note.
-     *
-     * @return The subject if for this note.
-     */
-    public int getSubjectId()
-    {
-        return subjectId;
-    }
-
-    /**
-     * Set the subject id for this note.
-     *
-     * @param subjectId The subject id for this note.
-     */
-    public void setSubjectId(int subjectId)
-    {
-        this.subjectId = subjectId;
-    }
-
-    /**
-     * Get the database id for this TextNote.
-     *
-     * @return The database id for this TextNote.
-     */
-    public int get_id()
-    {
-        return _id;
-    }
 
     /**
      * Get a string representation of this object.

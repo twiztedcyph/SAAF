@@ -2,7 +2,9 @@ package com.ashlimeianwarren.saaf;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -42,13 +44,17 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         listView = (ListView) findViewById(R.id.mainActivity_listView);
         listView.setAdapter(listAdapter);
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO SEND TO WHAT HAPPENED TODAY NOTE ACTIVITY
-
+                Intent intent = new Intent(WhatHappenedTodayMainActivity.this, WhatHappenedTodayNoteActivity.class);
+                int subjectId =  subjectArray[position].get_id();
+                intent.putExtra("subjectId",subjectId);
+                startActivity(intent);
             }
         });
 
@@ -58,6 +64,13 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO delete a subject with a long click....
+                int subjectId =  subjectArray[position].get_id();
+                subjectArray[position].delete(subjectId, WhatHappenedTodayMainActivity.this);
+
+                subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
+                listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
+                listView = (ListView) findViewById(R.id.mainActivity_listView);
+                listView.setAdapter(listAdapter);
                 return false;
             }
         });
@@ -101,6 +114,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 
         alertDialogBuilder
                 .setCancelable(false)
+                .setTitle("Enter Folder Name:")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener()
                         {
@@ -108,6 +122,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
                             {
                                 Subject s = new Subject();
                                 s.setTitle(userInput.getText().toString());
+
                                 s.persist(WhatHappenedTodayMainActivity.this);
 
                                 subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);

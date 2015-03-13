@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Defines a MediaNote object that points to
  * images, audio or video on a specific subject.
  */
-public class MediaNote
+public class MediaNote extends Note
 {
     /*
     ASH....
@@ -26,11 +26,10 @@ public class MediaNote
     v = video
     I can make this an enum if required.
      */
-    private int _id;
+
     private String mediaType;
     private String filePath;
-    private int subjectId;
-    private DbCon dbCon;
+
 
     /**
      * Default empty constructor.
@@ -46,23 +45,25 @@ public class MediaNote
      * @param filePath  The path to the media file.
      * @param subjectId The subject id for this MediaNote.
      */
-    public MediaNote(String mediaType, String filePath, int subjectId)
+    public MediaNote(String mediaType, String filePath, int subjectId, String fileType)
     {
+        super(subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
-        this.subjectId = subjectId;
+
+
     }
 
-    private MediaNote(int _id, String mediaType, String filePath, int subjectId)
+    private MediaNote(int _id, String mediaType, String filePath, int subjectId, String fileType)
     {
         /*
         Private constructor with id included.
         Used to initialise from database.
          */
-        this._id = _id;
+        super(_id,subjectId,fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
-        this.subjectId = subjectId;
+
     }
 
     /**
@@ -81,6 +82,23 @@ public class MediaNote
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
         this._id = (int) db.insert(DbCon.TABLE_WHT_MEDIANOTE, null, contentValues);
 
+        db.close();
+    }
+    /**
+     * Delete this MediaNote from to the database.
+     *
+     * @param context The context from which this method was called.
+     * @param noteId The id of the note to be deleted
+     */
+    public void delete(int noteId, Context context)
+    {
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        String query = "DELETE FROM " + DbCon.TABLE_WHT_MEDIANOTE +
+                " WHERE " + DbCon.COLUMN_WHT_ID + " = " + noteId + ";";
+
+        db.execSQL(query);
         db.close();
     }
 
@@ -104,6 +122,7 @@ public class MediaNote
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
+
         while (!cursor.isAfterLast() &&
                 !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_FILEPATH)).isEmpty())
         {
@@ -112,7 +131,9 @@ public class MediaNote
             String retFilePath = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_FILEPATH));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
 
-            mediaNoteList.add(new MediaNote(retId, retMediaType, retFilePath, retSubjectId));
+            mediaNoteList.add(new MediaNote(retId, retMediaType, retFilePath, retSubjectId, retMediaType));
+            cursor.moveToNext();
+
         }
         db.close();
         cursor.close();
@@ -143,35 +164,6 @@ public class MediaNote
         this.filePath = filePath;
     }
 
-    /**
-     * Get the subject id.
-     *
-     * @return The subject id.
-     */
-    public long getSubjectId()
-    {
-        return subjectId;
-    }
-
-    /**
-     * Set the subject id.
-     *
-     * @param subjectId The subject id.
-     */
-    public void setSubjectId(int subjectId)
-    {
-        this.subjectId = subjectId;
-    }
-
-    /**
-     * Get the database id for this MediaNote.
-     *
-     * @return The database id for this MediaNote.
-     */
-    public long get_id()
-    {
-        return _id;
-    }
 
     /**
      * Get a string representation of this object.

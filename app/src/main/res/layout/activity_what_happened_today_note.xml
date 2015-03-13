@@ -9,11 +9,12 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/NoteActivityListView"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="96dp" />
+        android:layout_marginBottom="96dp"
+        android:layout_alignParentTop="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -23,7 +24,8 @@
         android:id="@+id/newAudioButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="newAudioNote" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,8 +34,9 @@
         android:text="New Text Note"
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView" />
+        android:layout_alignRight="@+id/NoteActivityListView"
+        android:layout_alignEnd="@+id/NoteActivityListView"
+        android:onClick="newTextNote" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -42,5 +45,6 @@
         android:text="New Image Note"
         android:id="@+id/button3"
         android:layout_alignTop="@+id/newAudioButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="newImageNote" />
 </RelativeLayout>

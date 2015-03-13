@@ -65,6 +65,23 @@ public class Subject
 
         db.close();
     }
+    /**
+     * Delete this subject from to the database.
+     *
+     * @param context The context from which this method was called.
+     * @param subjectId The id of the subject to be deleted
+     */
+    public void delete(int subjectId, Context context)
+    {
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        String query = "DELETE FROM " + DbCon.TABLE_WHT_SUBJECT +
+                " WHERE " + DbCon.COLUMN_WHT_ID+ " = " + subjectId + ";";
+
+        db.execSQL(query);
+        db.close();
+    }
 
     /**
      * Retrieve an array of all Subjects from the database.
@@ -127,7 +144,7 @@ public class Subject
      *
      * @return The database if for this subject.
      */
-    public long get_id()
+    public int get_id()
     {
         return _id;
     }

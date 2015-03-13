@@ -27,7 +27,7 @@ public class CustomFolderListAdapter extends ArrayAdapter
     {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View customView = layoutInflater.inflate(R.layout.custom_folder_list, parent, false);
-        ImageView imageView = (ImageView) customView.findViewById(R.id.customeFolder_folderIcon);
+        ImageView imageView = (ImageView) customView.findViewById(R.id.customFolder_folderIcon);
         TextView textView = (TextView) customView.findViewById(R.id.customFolder_folderName);
         Subject s = (Subject) getItem(position);
 
