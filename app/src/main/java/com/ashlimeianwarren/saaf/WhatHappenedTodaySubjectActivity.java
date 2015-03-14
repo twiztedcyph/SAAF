@@ -1,6 +1,7 @@
 package com.ashlimeianwarren.saaf;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,13 +22,14 @@ import com.ashlimeianwarren.saaf.Implementation.AndroidMusic;
 import com.ashlimeianwarren.saaf.Implementation.MediaCapture;
 
 import java.io.File;
+import java.util.Arrays;
 
 
-public class WhatHappenedTodayNoteActivity extends ActionBarActivity
+public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 {
 
     boolean mStartRecording = true;
-    private Note[] noteArray;
+    private Note[] noteArray, mediaArray, textArray;
     private ListAdapter listAdapter;
     private ListView listView;
     private int subjectId;
@@ -40,7 +42,7 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_what_happened_today_note);
+        setContentView(R.layout.activity_what_happened_today_subject);
         //Retrieving the subject id passed with the intent
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -49,11 +51,8 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
         newAudioButton = (Button) findViewById(R.id.newAudioButton);
         newImageButton = (Button) findViewById(R.id.newImageButton);
         newTextButton = (Button) findViewById(R.id.newTextButton);
-        noteArray = new MediaNote().retrieve(subjectId, this);
-        listAdapter = new CustomNoteListAdapter(this, noteArray);
-        listView = (ListView) findViewById(R.id.NoteActivityListView);
-        listView.setAdapter(listAdapter);
 
+        refreshList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -66,11 +65,16 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
                 {
                     case "Text":
                         TextNote tNote = (TextNote) noteArray[position];
-
+                        System.out.println(tNote);
+                        Intent intent = new Intent(WhatHappenedTodaySubjectActivity.this, WhatHappendTodayNoteActivity.class);
+                        intent.putExtra("subjectId", subjectId);
+                        intent.putExtra("noteId", tNote.get_id());
+                        intent.putExtra("currentText", tNote.getTextNote());
+                        startActivity(intent);
                         break;
                     case "Audio":
                         MediaNote mNote = (MediaNote) noteArray[position];
-                        AndroidAudio audio = new AndroidAudio(WhatHappenedTodayNoteActivity.this);
+                        AndroidAudio audio = new AndroidAudio(WhatHappenedTodaySubjectActivity.this);
                         AndroidMusic music = audio.createMusic(mNote.getFilePath());
                         music.play();
                         System.out.println(mNote.getFilePath());
@@ -82,8 +86,6 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
                         i.setAction(android.content.Intent.ACTION_VIEW);
                         i.setDataAndType(Uri.fromFile(image), "image/*");
                         startActivity(i);
-
-
                         break;
                     default:
 
@@ -103,12 +105,14 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
                 if(noteArray[position].getType() .equals("Text") )
                 {
                     TextNote t = (TextNote) noteArray[position];
-                    t.delete(noteId, WhatHappenedTodayNoteActivity.this);
+                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
                 }
                 else
                 {
                     MediaNote m = (MediaNote) noteArray[position];
-                    m.delete(noteId, WhatHappenedTodayNoteActivity.this);
+                    File mediaFile = new File(m.getFilePath());
+                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
+                    mediaFile.delete();
                 }
 
                 refreshList();
@@ -117,6 +121,12 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
         });
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        refreshList();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -153,7 +163,8 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
             //sound.onRecord(mStartRecording);
             soundFile = sound.captureSound();
             mStartRecording = !mStartRecording;
-            newAudioButton.setText("Recording...");
+            newAudioButton.setText("Stop recording.");
+            newAudioButton.setBackgroundColor(Color.RED);
             newImageButton.setVisibility(View.GONE);
             newTextButton.setVisibility(View.GONE);
             audioButtonWidth = newAudioButton.getLayoutParams().width;
@@ -171,6 +182,7 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
             ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
             paramsNew.width = audioButtonWidth;
             newAudioButton.setText("New Audio Note");
+            newAudioButton.setBackgroundColor(Color.LTGRAY);
             newImageButton.setVisibility(View.VISIBLE);
             newTextButton.setVisibility(View.VISIBLE);
             newAudioButton.setLayoutParams(paramsNew);
@@ -192,14 +204,30 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
 
     public void newTextNote(View view)
     {
-
+        Intent intent = new Intent(this, WhatHappendTodayNoteActivity.class);
+        intent.putExtra("subjectId", subjectId);
+        intent.putExtra("noteId", 0);
+        intent.putExtra("currentText", "");
+        startActivity(intent);
     }
 
     private void refreshList()
     {
-        noteArray = new MediaNote().retrieve(subjectId, WhatHappenedTodayNoteActivity.this);
-        listAdapter = new CustomNoteListAdapter(WhatHappenedTodayNoteActivity.this, noteArray);
+        mediaArray = new MediaNote().retrieve(subjectId, this);
+        textArray = new TextNote().retrieve(subjectId, this);
+        noteArray = concat(mediaArray, textArray);
+        Arrays.sort(noteArray);
+        listAdapter = new CustomNoteListAdapter(this, noteArray);
         listView = (ListView) findViewById(R.id.NoteActivityListView);
         listView.setAdapter(listAdapter);
+    }
+
+    private Note[] concat(Note[] media, Note[] text) {
+        int aLen = media.length;
+        int bLen = text.length;
+        Note[] result= new Note[aLen + bLen];
+        System.arraycopy(media, 0, result, 0, aLen);
+        System.arraycopy(text, 0, result, aLen, bLen);
+        return result;
     }
 }
