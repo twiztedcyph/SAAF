@@ -51,8 +51,11 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         newAudioButton = (Button) findViewById(R.id.newAudioButton);
         newImageButton = (Button) findViewById(R.id.newImageButton);
         newTextButton = (Button) findViewById(R.id.newTextButton);
+        noteArray = new MediaNote().retrieve(subjectId, this);
+        listAdapter = new CustomNoteListAdapter(this, noteArray);
+        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView.setAdapter(listAdapter);
 
-        refreshList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {

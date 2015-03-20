@@ -50,6 +50,10 @@
             android:name=".WhatHappendTodayNoteActivity"
             android:label="@string/title_activity_what_happend_today_note" >
         </activity>
+        <activity
+            android:name=".WheresMyCarTravelActivity"
+            android:label="@string/title_activity_wheres_my_car_travel" >
+        </activity>
     </application>
 
 </manifest>
