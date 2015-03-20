@@ -47,7 +47,7 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_what_happend_today_note, menu);
+        getMenuInflater().inflate(R.menu.menu_what_happened_today_note, menu);
         return true;
     }
 
