@@ -40,12 +40,8 @@ public class TextNote extends Note
 
     }
 
-    private TextNote(int _id, String textNote, int subjectId, String fileType)
+    public TextNote(int _id, String textNote, int subjectId, String fileType)
     {
-        /*
-        Private constructor with id included.
-        Used to initialise from database.
-         */
         super(_id,subjectId,fileType);
         this.textNote = textNote;
 
@@ -64,10 +60,27 @@ public class TextNote extends Note
         ContentValues contentValues = new ContentValues();
         contentValues.put(DbCon.COLUMN_WHT_TEXT, textNote);
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
-        this._id = (int) db.insert(DbCon.TABLE_WHT_MEDIANOTE, null, contentValues);
+        this._id = (int) db.insert(DbCon.TABLE_WHT_TEXTNOTE, null, contentValues);
 
         db.close();
     }
+
+
+    public void update(Context context)
+    {
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        String query = "UPDATE " + DbCon.TABLE_WHT_TEXTNOTE +
+                " SET " + DbCon.COLUMN_WHT_TEXT +
+                " = '" + this.getTextNote() +
+                "' WHERE " + DbCon.COLUMN_WHT_ID + " = " + this.get_id() +
+                ";";
+
+        db.execSQL(query);
+        db.close();
+    }
+
     /**
      * Delete this text note from to the database.
      *

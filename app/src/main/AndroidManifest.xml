@@ -5,13 +5,11 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.NFC" />
-
 
     <application
         android:allowBackup="true"
@@ -56,6 +54,10 @@
         <activity
             android:name=".WhatHappenedTodaySubjectActivity"
             android:label="@string/title_activity_what_happened_today_note" >
+        </activity>
+        <activity
+            android:name=".WhatHappendTodayNoteActivity"
+            android:label="@string/title_activity_what_happend_today_note" >
         </activity>
     </application>
 

@@ -32,7 +32,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="New Text Note"
-        android:id="@+id/button2"
+        android:id="@+id/newTextButton"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/NoteActivityListView"
         android:layout_alignEnd="@+id/NoteActivityListView"
@@ -43,7 +43,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="New Image Note"
-        android:id="@+id/button3"
+        android:id="@+id/newImageButton"
         android:layout_alignTop="@+id/newAudioButton"
         android:layout_centerHorizontal="true"
         android:onClick="newImageNote" />

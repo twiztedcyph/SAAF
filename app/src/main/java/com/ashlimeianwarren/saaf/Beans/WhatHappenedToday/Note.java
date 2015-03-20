@@ -5,7 +5,7 @@ import com.ashlimeianwarren.saaf.Implementation.DbCon;
 /**
  * Created by Ash on 13/03/2015.
  */
-public abstract class Note
+public abstract class Note implements Comparable<Note>
 {
     protected int _id;
     protected int subjectId;
@@ -66,5 +66,11 @@ public abstract class Note
     public int get_id()
     {
         return _id;
+    }
+
+    @Override
+    public int compareTo(Note another)
+    {
+        return ((Integer)this.get_id()).compareTo(another._id);
     }
 }
