@@ -2,18 +2,13 @@ package com.ashlimeianwarren.saaf;
 
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -21,7 +16,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
-import com.ashlimeianwarren.saaf.Framework.Input;
 import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
 
 
@@ -51,7 +45,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO SEND TO WHAT HAPPENED TODAY NOTE ACTIVITY
-                Intent intent = new Intent(WhatHappenedTodayMainActivity.this, WhatHappenedTodayNoteActivity.class);
+                Intent intent = new Intent(WhatHappenedTodayMainActivity.this, WhatHappenedTodaySubjectActivity.class);
                 int subjectId =  subjectArray[position].get_id();
                 intent.putExtra("subjectId",subjectId);
                 startActivity(intent);

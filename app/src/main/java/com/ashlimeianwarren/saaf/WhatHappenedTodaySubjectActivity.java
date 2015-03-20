@@ -14,14 +14,13 @@ import android.widget.ListView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Note;
-import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 import com.ashlimeianwarren.saaf.Implementation.MediaCapture;
 
 import java.io.File;
 
 
-public class WhatHappenedTodayNoteActivity extends ActionBarActivity
+public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 {
 
     AlertDialog.Builder alertDialogBuilder;
@@ -34,7 +33,7 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_what_happened_today_note);
+        setContentView(R.layout.activity_what_happened_today_subject);
         //Retrieving the subject id passed with the intent
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -92,12 +91,12 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
                 if(noteArray[position].getType() .equals("Text") )
                 {
                     TextNote t = (TextNote) noteArray[position];
-                    t.delete(noteId, WhatHappenedTodayNoteActivity.this);
+                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
                 }
                 else
                 {
                     MediaNote m = (MediaNote) noteArray[position];
-                    m.delete(noteId, WhatHappenedTodayNoteActivity.this);
+                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
                 }
 
                 refreshList();
@@ -156,8 +155,8 @@ public class WhatHappenedTodayNoteActivity extends ActionBarActivity
 
     private void refreshList()
     {
-        noteArray = new MediaNote().retrieve(subjectId, WhatHappenedTodayNoteActivity.this);
-        listAdapter = new CustomNoteListAdapter(WhatHappenedTodayNoteActivity.this, noteArray);
+        noteArray = new MediaNote().retrieve(subjectId, WhatHappenedTodaySubjectActivity.this);
+        listAdapter = new CustomNoteListAdapter(WhatHappenedTodaySubjectActivity.this, noteArray);
         listView = (ListView) findViewById(R.id.NoteActivityListView);
         listView.setAdapter(listAdapter);
     }

@@ -47,13 +47,14 @@
             android:label="@string/title_activity_whats_this_main" >
             <intent-filter>
             <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
         <activity
-            android:name=".WhatHappenedTodayNoteActivity"
+            android:name=".WhatHappenedTodaySubjectActivity"
             android:label="@string/title_activity_what_happened_today_note" >
         </activity>
     </application>
