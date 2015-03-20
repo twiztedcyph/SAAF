@@ -4,17 +4,32 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.ashlimeianwarren.saaf.WhatHappenedTodaySubjectActivity">
+    tools:context="com.ashlimeianwarren.saaf.WhatHappenedTodaySubjectActivity"
+    android:background="#015981">
+
+    <TextView
+        android:text="What Happened Today?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wht_main_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:autoText="true"
+        android:textColor="#ffffffff"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/NoteActivityListView"
         android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="96dp"
-        android:layout_alignParentTop="true" />
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="50dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -25,7 +40,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="newAudioNote" />
+        android:onClick="newAudioNote"
+        android:background="#e1e1e1" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -36,7 +52,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/NoteActivityListView"
         android:layout_alignEnd="@+id/NoteActivityListView"
-        android:onClick="newTextNote" />
+        android:onClick="newTextNote"
+        android:background="#e1e1e1" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -46,5 +63,6 @@
         android:id="@+id/newImageButton"
         android:layout_alignTop="@+id/newAudioButton"
         android:layout_centerHorizontal="true"
-        android:onClick="newImageNote" />
+        android:onClick="newImageNote"
+        android:background="#e1e1e1" />
 </RelativeLayout>
