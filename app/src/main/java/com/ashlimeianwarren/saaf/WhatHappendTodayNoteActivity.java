@@ -31,12 +31,16 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
     {
         super.onResume();
 
-        textNoteInput = (EditText)findViewById(R.id.textNoteInput);
-        textNoteInput.clearFocus();
+        textNoteInput = (EditText) findViewById(R.id.textNoteInput);
 
         Intent intent = getIntent();
         subjectId = intent.getIntExtra("subjectId", 0);
         // TODO: Should never be 0.... must test fr this at some stage...
+        if (subjectId == 0)
+        {
+            System.out.println("ZERRROOOOOOOO!!!!");
+        }
+
         noteId = intent.getIntExtra("noteId", 0);
 
         currentText = intent.getStringExtra("currentText");
@@ -70,14 +74,25 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
 
     public void saveTextClicked(View view)
     {
+        System.out.println("NoteId: " + noteId);
+
+        if (textNoteInput.getText().toString().isEmpty())
+        {
+            textNoteInput.setText(" ");
+        }
+
         if (noteId > 0)
         {
+            System.out.println("update");
             TextNote textNote = new TextNote(noteId, textNoteInput.getText().toString(), subjectId, "Text");
             textNote.update(this);
         } else
         {
+            System.out.println("persist");
             TextNote textNote = new TextNote(textNoteInput.getText().toString(), subjectId, "Text");
+
             textNote.persist(this);
+            System.out.println(textNote);
         }
         finish();
     }

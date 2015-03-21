@@ -46,8 +46,8 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             {
                 //TODO SEND TO WHAT HAPPENED TODAY NOTE ACTIVITY
                 Intent intent = new Intent(WhatHappenedTodayMainActivity.this, WhatHappenedTodaySubjectActivity.class);
-                int subjectId =  subjectArray[position].get_id();
-                intent.putExtra("subjectId",subjectId);
+                int subjectId = subjectArray[position].get_id();
+                intent.putExtra("subjectId", subjectId);
                 startActivity(intent);
             }
         });
@@ -58,7 +58,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO delete a subject with a long click....
-                int subjectId =  subjectArray[position].get_id();
+                int subjectId = subjectArray[position].get_id();
                 subjectArray[position].delete(subjectId, WhatHappenedTodayMainActivity.this);
 
                 subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);

@@ -16,7 +16,7 @@ import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 /**
  * Created by Ash on 13/03/2015.
  */
-public class CustomNoteListAdapter  extends ArrayAdapter
+public class CustomNoteListAdapter extends ArrayAdapter
 {
     public CustomNoteListAdapter(Context context, Object[] objects)
     {
@@ -31,7 +31,7 @@ public class CustomNoteListAdapter  extends ArrayAdapter
         ImageView imageView = (ImageView) customView.findViewById(R.id.customNote_noteIcon);
         TextView textView = (TextView) customView.findViewById(R.id.customNote_noteName);
         Note n = (Note) getItem(position);
-        switch(n.getType())
+        switch (n.getType())
         {
             case "Text":
                 TextNote tNote = (TextNote) n;
@@ -52,8 +52,6 @@ public class CustomNoteListAdapter  extends ArrayAdapter
 
 
         }
-
-
 
 
         return customView;
