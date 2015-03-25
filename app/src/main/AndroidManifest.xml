@@ -8,7 +8,7 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.NFC" />
 
     <application
@@ -30,7 +30,6 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".WheresMyCarMainActivity"
@@ -44,9 +43,11 @@
             android:name=".WhatsThisMainActivity"
             android:label="@string/title_activity_whats_this_main" >
             <intent-filter>
-            <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -58,6 +59,10 @@
         <activity
             android:name=".WhatHappendTodayNoteActivity"
             android:label="@string/title_activity_what_happend_today_note" >
+        </activity>
+        <activity
+            android:name=".WhatsThisPlacesActivity"
+            android:label="@string/title_activity_whats_this_places" >
         </activity>
     </application>
 

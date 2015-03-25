@@ -54,14 +54,6 @@ public class WhatsThisMainActivity extends ActionBarActivity
 
         setContentView(R.layout.activity_whats_this_main);
         Button btag = (Button) findViewById(R.id.button_tag);
-        btag.setOnClickListener(new View.OnClickListener()
-        {
-            // @Override
-            public void onClick(View arg0)
-            {
-                startActivity(new Intent(WhatsThisMainActivity.this, WhatsThisMainActivity.class));
-            }
-        });
 
 
         textView = (TextView) findViewById(R.id.whatsthis_maintext);
@@ -136,6 +128,19 @@ public class WhatsThisMainActivity extends ActionBarActivity
         String gotString = this.checkForNdef(this.getIntent());
         Log.i("Resume", "Got String "+gotString);
         textView.setText(gotString);
+
+        Intent currentIntent = getIntent();
+
+        currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+        if(!gotString.equals("Ready To Scan"))
+        {
+            Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
+
+            nextIntent.putExtra("tagID", gotString);
+
+            startActivity(nextIntent);
+        }
     }
 
     @Override
@@ -216,6 +221,7 @@ public class WhatsThisMainActivity extends ActionBarActivity
                         Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
                         lastMessage = payloadString;
                         textView.setText(lastMessage);
+
                         return payloadString;
                     }
                 }
