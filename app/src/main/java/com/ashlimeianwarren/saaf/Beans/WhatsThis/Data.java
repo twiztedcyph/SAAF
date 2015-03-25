@@ -117,6 +117,36 @@ public class Data
     }
 
     /**
+     * Retrieve all Data for a specific tag id from the database.
+     *
+     * @param dataName The data name/title.
+     * @param context The context from which this method was called.
+     * @return An array of Data for the tag id.
+     */
+    public void retrieve(String dataName, Context context)
+    {
+        String query = "SELECT *" +
+                " FROM " + DbCon.TABLE_WT_DATA +
+                " WHERE " + DbCon.COLUMN_WT_NAME + " = '" + dataName + "';";
+
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        if (!(cursor.isAfterLast() && cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_NAME)).isEmpty()))
+        {
+            this._id = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
+            this.dataName = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_NAME));
+            this.dataDescription = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_DESCRIPTION));
+            this.tagId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGID));
+        }
+        db.close();
+        cursor.close();
+    }
+
+    /**
      * Get the data name/title.
      *
      * @return The data name/title.

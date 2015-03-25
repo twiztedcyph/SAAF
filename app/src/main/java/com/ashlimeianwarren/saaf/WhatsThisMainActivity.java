@@ -4,7 +4,7 @@ import android.nfc.NfcEvent;
 import android.support.v7.app.ActionBarActivity;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -221,7 +221,6 @@ public class WhatsThisMainActivity extends ActionBarActivity
                         Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
                         lastMessage = payloadString;
                         textView.setText(lastMessage);
-
                         return payloadString;
                     }
                 }
@@ -280,5 +279,21 @@ public class WhatsThisMainActivity extends ActionBarActivity
         }
 
         return payloadString;
+    }
+
+    public void peopleButtonClicked(View view)
+    {
+        System.out.println("people button clicked.");
+    }
+
+    public void placesButtonClicked(View view)
+    {
+        System.out.println("places button clicked.");
+    }
+
+    public void addContentClicked(View view)
+    {
+        Intent intent = new Intent(this, WhatsThisAddContentActivity.class);
+        startActivity(intent);
     }
 }

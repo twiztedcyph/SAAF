@@ -65,10 +65,11 @@ public class Subject
 
         db.close();
     }
+
     /**
      * Delete this subject from to the database.
      *
-     * @param context The context from which this method was called.
+     * @param context   The context from which this method was called.
      * @param subjectId The id of the subject to be deleted
      */
     public void delete(int subjectId, Context context)
@@ -77,7 +78,7 @@ public class Subject
         SQLiteDatabase db = dbCon.getWritableDatabase();
 
         String query = "DELETE FROM " + DbCon.TABLE_WHT_SUBJECT +
-                " WHERE " + DbCon.COLUMN_WHT_ID+ " = " + subjectId + ";";
+                " WHERE " + DbCon.COLUMN_WHT_ID + " = " + subjectId + ";";
 
         db.execSQL(query);
         db.close();
