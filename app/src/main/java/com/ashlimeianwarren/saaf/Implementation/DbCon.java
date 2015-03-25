@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
 /**
  * DbCon class.
  * <p/>
@@ -18,6 +19,7 @@ public class DbCon extends SQLiteOpenHelper
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "saaf.db";
+    private Context context;
 
     /**
      * ******************************************************************
@@ -82,6 +84,7 @@ public class DbCon extends SQLiteOpenHelper
     public DbCon(Context context, SQLiteDatabase.CursorFactory factory)
     {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        this.context = context;
     }
 
     /**
@@ -135,7 +138,7 @@ public class DbCon extends SQLiteOpenHelper
         String createWtDataTable = "CREATE TABLE " + TABLE_WT_DATA +
                 "(" +
                 COLUMN_WT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WT_NAME + " VARCHAR(50) NOT NULL, " +
+                COLUMN_WT_NAME + " VARCHAR(50) UNIQUE NOT NULL, " +
                 COLUMN_WT_DESCRIPTION + " TEXT NOT NULL, " +
                 COLUMN_WT_TAGID + " INTEGER REFERENCES " +
                 TABLE_WT_TAG + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +
@@ -143,7 +146,7 @@ public class DbCon extends SQLiteOpenHelper
         String createWtImageTable = "CREATE TABLE " + TABLE_WT_IMAGE +
                 "(" +
                 COLUMN_WT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WT_IMAGETITLE + " VARCHAR(50) NOT NULL, " +
+                COLUMN_WT_IMAGETITLE + " VARCHAR(50) UNIQUE NOT NULL, " +
                 COLUMN_WT_IMAGEPATH + " VARCHAR(200) NOT NULL, " +
                 COLUMN_WT_DATAID + " INTEGER REFERENCES " +
                 TABLE_WT_DATA + "(" + COLUMN_WT_ID + ") ON DELETE CASCADE" +

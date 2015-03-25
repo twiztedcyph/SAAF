@@ -102,8 +102,8 @@ public class DataImage
             String retTitle = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGETITLE));
             String retpath = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGEPATH));
             int retDataId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_DATAID));
-
             dataImageList.add(new DataImage(retId, retTitle, retpath, retDataId));
+            cursor.moveToNext();
         }
         db.close();
         cursor.close();

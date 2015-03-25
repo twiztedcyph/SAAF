@@ -42,7 +42,7 @@ public class TextNote extends Note
 
     public TextNote(int _id, String textNote, int subjectId, String fileType)
     {
-        super(_id,subjectId,fileType);
+        super(_id, subjectId, fileType);
         this.textNote = textNote;
 
     }
@@ -85,7 +85,7 @@ public class TextNote extends Note
      * Delete this text note from to the database.
      *
      * @param context The context from which this method was called.
-     * @param textId The id of the note to be deleted
+     * @param textId  The id of the note to be deleted
      */
     public void delete(int textId, Context context)
     {

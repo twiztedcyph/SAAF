@@ -3,7 +3,9 @@ package com.ashlimeianwarren.saaf.Beans.WhatHappenedToday;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 /**
- * Created by Ash on 13/03/2015.
+ * Note super class
+ * <p/>
+ * Defines the base properties of a media and text note.
  */
 public abstract class Note implements Comparable<Note>
 {
@@ -12,29 +14,56 @@ public abstract class Note implements Comparable<Note>
     protected DbCon dbCon;
     protected String type;
 
-
-    public Note() {
+    /**
+     * Default empty constructor
+     */
+    public Note()
+    {
     }
 
-    public Note(int subjectId, String type) {
+    /**
+     * Constructor for a note object
+     *
+     * @param subjectId The subject id for this note.
+     * @param type      The type of note. Can be text, image or audio.
+     */
+    public Note(int subjectId, String type)
+    {
         this.subjectId = subjectId;
         this.type = type;
     }
 
-    public Note(int _id, int subjectId, String type) {
+    /**
+     * Constructor for a note object with id.
+     *
+     * @param _id       The note's id.
+     * @param subjectId The subject id for this note.
+     * @param type      The type of note. Can be text, image or audio.
+     */
+    public Note(int _id, int subjectId, String type)
+    {
         this._id = _id;
         this.subjectId = subjectId;
         this.type = type;
     }
 
-
-
-    public String getType() {
+    /**
+     * Get the type of this note.
+     *
+     * @return The type of this note.
+     */
+    public String getType()
+    {
         return type;
     }
 
-
-    public void setType(String type) {
+    /**
+     * Set the type for this note.
+     *
+     * @param type The type of note. Can be text, image or audio.
+     */
+    public void setType(String type)
+    {
         this.type = type;
     }
 
@@ -68,9 +97,15 @@ public abstract class Note implements Comparable<Note>
         return _id;
     }
 
+    /**
+     * Compare this note's database id to another.
+     *
+     * @param another The note to be compared to.
+     * @return 1 if this note is greater, -1 if this note is lesser, 0 if they are the same.
+     */
     @Override
     public int compareTo(Note another)
     {
-        return ((Integer)this.get_id()).compareTo(another._id);
+        return ((Integer) this.get_id()).compareTo(another._id);
     }
 }

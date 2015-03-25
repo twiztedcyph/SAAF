@@ -81,7 +81,38 @@ public class Tag
         int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
         String retTagText = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGTEXT));
 
+        db.close();
+        dbCon.close();
+
         return new Tag(retId, retTagText);
+    }
+
+    /**
+     * Retrieve a tag from the database by its unique string identifier.
+     *
+     * @param tagText The unique string identifier for the tag.
+     * @param context The context from which this method was called.
+     * @return A tag associated with the input tag text.
+     */
+    public void retrieveNew(String tagText, Context context)
+    {
+        String query = "SELECT * FROM " + DbCon.TABLE_WT_TAG +
+                " WHERE " + DbCon.COLUMN_WT_TAGTEXT + " = '" + tagText + "';";
+
+        dbCon = new DbCon(context, null);
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
+        String retTagText = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGTEXT));
+
+        db.close();
+        dbCon.close();
+
+        this._id = retId;
+        this.tagText = retTagText;
     }
 
     /**

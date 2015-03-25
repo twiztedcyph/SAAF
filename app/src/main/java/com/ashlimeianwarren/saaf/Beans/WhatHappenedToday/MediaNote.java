@@ -60,7 +60,7 @@ public class MediaNote extends Note
         Private constructor with id included.
         Used to initialise from database.
          */
-        super(_id,subjectId,fileType);
+        super(_id, subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
 
@@ -84,11 +84,12 @@ public class MediaNote extends Note
 
         db.close();
     }
+
     /**
      * Delete this MediaNote from to the database.
      *
      * @param context The context from which this method was called.
-     * @param noteId The id of the note to be deleted
+     * @param noteId  The id of the note to be deleted
      */
     public void delete(int noteId, Context context)
     {
