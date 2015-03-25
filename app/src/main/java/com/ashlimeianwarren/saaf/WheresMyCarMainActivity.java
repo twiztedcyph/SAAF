@@ -1,6 +1,7 @@
 package com.ashlimeianwarren.saaf;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     private PositionManager pm;
     private PointOfInterest location;
     private double lon,lat;
+    private Location currentLocation;
 
 
     @Override
@@ -83,13 +85,13 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         location = new PointOfInterest(lon,lat,"Car Location");
         location.persist(this);
         locDisp.setText(lat + "\n" + lon);
+        currentLocation = pm.getCurrentPosition();
     }
 
     public void travelTo(View view)
     {
         Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
-        intent.putExtra("longitude",lon);
-        intent.putExtra("latitude",lat);
+        intent.putExtra("currentLocation",currentLocation);
         startActivity(intent);
     }
 }

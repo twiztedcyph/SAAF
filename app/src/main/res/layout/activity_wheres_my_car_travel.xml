@@ -21,8 +21,27 @@
         android:layout_height="wrap_content"
         android:text="Get Distance"
         android:id="@+id/getDistance"
-        android:layout_alignParentBottom="true"
+        android:onClick="getDistance"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/getDistance"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
-        android:onClick="getDistance" />
+        android:layout_marginTop="32dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET ANGLE OF ARROW"
+        android:id="@+id/getAngleButton"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:onClick="getArrowAngle" />
 </RelativeLayout>
