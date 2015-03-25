@@ -8,7 +8,7 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.NFC" />
 
     <application
@@ -30,7 +30,6 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".WheresMyCarMainActivity"
@@ -67,7 +66,11 @@
         </activity>
         <activity
             android:name=".WhatsThisPlacesActivity"
-            android:label="@string/title_activity_whats_this_places" >
+            android:label="" >
+        </activity>
+        <activity
+            android:name=".WhatsThisDataDisplayActivity"
+            android:label="" >
         </activity>
     </application>
 

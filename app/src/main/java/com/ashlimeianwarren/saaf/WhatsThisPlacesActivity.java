@@ -19,7 +19,7 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 {
     private Tag currentTag;
     private TextView title;
-    private TextView description;
+   // private TextView description;
     private Data[] dataArray;
     private ListAdapter listAdapter;
     private ListView subList;
@@ -31,12 +31,19 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
         setContentView(R.layout.activity_whats_this_places);
 
         title = (TextView) findViewById(R.id.txtTitle);
-        description = (TextView) findViewById(R.id.txtDesc);
 
         String tagName = getIntent().getStringExtra("tagID");
         currentTag = new Tag().retrieve(tagName,this);
 
         int tagID = currentTag.get_id();
+
+        if(tagID == -1)
+        {
+            //TODO toast
+            finish();
+        }
+
+        title.setText(currentTag.getTagText());
 
         dataArray =new Data().retrieve(tagID, this);
 
@@ -50,29 +57,13 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-               /*
-                Intent intent = new Intent(WhatsThisPlacesActivity.this, WhatsThisPlacesActivity.class);
-                int subjectId =  subjectArray[position].get_id();
-                intent.putExtra("subjectId",subjectId);
-                startActivity(intent);*/
+                Intent intent = new Intent(WhatsThisPlacesActivity.this, WhatsThisDataDisplayActivity.class);
+                String dataName =  dataArray[position].getDataName();
+                intent.putExtra("dataName",dataName);
+                startActivity(intent);
             }
         });
-/*
-        Tag testTag = new Tag("CMP");
 
-        testTag.persist(this);
-
-        Data testData = new Data();
-
-        testData.setDataName("Computer Science");
-        testData.setTagId(testTag.get_id());
-
-        String testString = "akmssgsfsefsgrdrgthdefsdgdthyjdftgdg";
-
-        testData.setDataDescription(testString);
-
-        testData.persist(this);
-*/
     }
 
     protected void onResume()
@@ -85,8 +76,8 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 
         dataArray =new Data().retrieve(tagID, this);
 
-        description.setText(dataArray[0].getDataDescription());
-        title.setText(dataArray[0].getDataName());
+        //description.setText(dataArray[0].getDataDescription());
+        //title.setText(dataArray[0].getDataName());
 
     }
 
@@ -115,4 +106,6 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

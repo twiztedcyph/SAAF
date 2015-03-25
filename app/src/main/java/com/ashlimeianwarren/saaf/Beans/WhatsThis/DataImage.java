@@ -89,14 +89,14 @@ public class DataImage
         String query = "SELECT * FROM " + DbCon.TABLE_WT_IMAGE +
                 " WHERE " + DbCon.COLUMN_WT_DATAID + " = " + dataId + ";";
 
+        System.out.println("Query: "+query);
         dbCon = new DbCon(context, null);
         SQLiteDatabase db = dbCon.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while (!cursor.isAfterLast() &&
-                !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGETITLE)).isEmpty())
+        while (!cursor.isAfterLast())
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
             String retTitle = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGETITLE));

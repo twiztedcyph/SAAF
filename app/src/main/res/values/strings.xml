@@ -16,5 +16,6 @@
     <string name="title_activity_what_happend_today_note">WhatHappendTodayNoteActivity</string>
     <string name="title_activity_whats_this_places">WhatsThisPlacesActivity</string>
     <string name="title_activity_whats_this_add_content">WhatsThisAddContentActivity</string>
+    <string name="title_activity_whats_this_data_display">WhatsThisDataDisplayActivity</string>
 
 </resources>

@@ -53,7 +53,6 @@ public class WhatsThisMainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_whats_this_main);
-        Button btag = (Button) findViewById(R.id.button_tag);
 
 
         textView = (TextView) findViewById(R.id.whatsthis_maintext);

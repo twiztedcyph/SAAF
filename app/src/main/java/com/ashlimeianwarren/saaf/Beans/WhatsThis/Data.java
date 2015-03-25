@@ -135,12 +135,14 @@ public class Data
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        if (!(cursor.isAfterLast() && cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_NAME)).isEmpty()))
+        if (!cursor.isAfterLast())
         {
             this._id = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
             this.dataName = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_NAME));
             this.dataDescription = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_DESCRIPTION));
             this.tagId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGID));
+
+            cursor.moveToNext();
         }
         db.close();
         cursor.close();
