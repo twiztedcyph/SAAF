@@ -1,11 +1,14 @@
 package com.ashlimeianwarren.saaf;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -112,5 +115,23 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {}
         return null;
+    }
+
+    public void imageOneClicked(View v)
+    {
+        File file = new File(dataImages[0].getImagePath());
+        Intent i = new Intent();
+        i.setAction(android.content.Intent.ACTION_VIEW);
+        i.setDataAndType(Uri.fromFile(file), "image/*");
+        startActivity(i);
+    }
+
+    public void imageTwoClicked(View v)
+    {
+        File file = new File(dataImages[1].getImagePath());
+        Intent i = new Intent();
+        i.setAction(android.content.Intent.ACTION_VIEW);
+        i.setDataAndType(Uri.fromFile(file), "image/*");
+        startActivity(i);
     }
 }
