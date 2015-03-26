@@ -1,10 +1,8 @@
 package com.ashlimeianwarren.saaf;
 
-import android.content.Intent;
 import android.hardware.GeomagneticField;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import android.hardware.SensorEventListener;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import com.ashlimeianwarren.saaf.Beans.WheresMyCar.PointOfInterest;
 import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 
