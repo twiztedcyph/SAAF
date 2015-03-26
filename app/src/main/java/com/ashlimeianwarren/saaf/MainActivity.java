@@ -3,6 +3,7 @@ package com.ashlimeianwarren.saaf;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -17,6 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
+import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
+import com.ashlimeianwarren.saaf.Beans.WhatsThis.Tag;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 import java.io.UnsupportedEncodingException;
@@ -29,6 +33,8 @@ public class MainActivity extends ActionBarActivity
     private PendingIntent pendingIntent;
     private IntentFilter[] intentFilters;
     private String[][] nfcTechLists;
+    private SharedPreferences prefs;
+    private final String TAG = "com.ashlimeianwarren.saaf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,6 +98,75 @@ public class MainActivity extends ActionBarActivity
         Log.i("Resume", "Entered Resume");
         super.onResume();
 
+        prefs = getSharedPreferences(TAG, MODE_PRIVATE);
+        if (prefs.getBoolean("firstrun", true))
+        {
+            //TODO add whats this content.
+            Tag tag = new Tag("CMP");
+            tag.persist(this);
+
+            String dataName = "Graphics 2";
+            String dataDesc = "This module introduces the fundamentals of 3D geometric " +
+                    "transformations and viewing using OpenGL. It teaches the theory and " +
+                    "implementation of fundamental visibility determination algorithms " +
+                    "and techniques for lighting, shading and anti-aliasing. Issues " +
+                    "involved with modern high performance graphics processor are also" +
+                    " considered. It also studies 3D curves and fundamental geometric data" +
+                    " structures.";
+
+            Data data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            DataImage dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+
+            dataName = "Software Engineering 2";
+            dataDesc = "Industrial software development is seldom started from scratch, " +
+                    "companies generally have large systems of legacy software that need " +
+                    "to be maintained, improved and extended. This module focuses on " +
+                    "advanced software engineering topics, such as reverse engineering to" +
+                    " understand legacy software, refactoring and design patterns to improve" +
+                    " the design of software systems and developing new software products" +
+                    " using third-party software components. Assessment will be done by a " +
+                    "group project which consists of a design and analysis task, and the " +
+                    "group implementation task of a software project. Confidence in Java " +
+                    "programming language skills as well as software engineering practice " +
+                    "(phased development with agile methods, Unified Modeling Language, " +
+                    "test-driven development) are pre-requisites. Software Engineering I " +
+                    "(2M02) is required for this module.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+
+            dataName = "Programming 2";
+            dataDesc = "This is a compulsory year long module for all computing students and" +
+                    " is a continuation of CMP-4008Y. It contains greater breadth and depth " +
+                    "and provides students with the range of skills needed for many of their " +
+                    "subsequent modules. We recap Java and deepen your understanding of the " +
+                    "language by teaching topics such as nested classes, enumeration, generics, " +
+                    "reflection, collections and threaded programming. We then introduce C in " +
+                    "order to improve your low level understanding of how programming works, " +
+                    "before moving on to C++ in semester 2. We conclude by introducing C# to " +
+                    "highlight the similarities and differences between languages.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage.persist(this);
+        }
 
         if (nfcAdapter == null)
         {
@@ -103,7 +178,7 @@ public class MainActivity extends ActionBarActivity
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, nfcTechLists);
 
         String gotString = this.checkForNdef(this.getIntent());
-        Log.i("Resume", "Got String "+gotString);
+        Log.i("Resume", "Got String "+ gotString);
 
         Intent currentIntent = getIntent();
 
