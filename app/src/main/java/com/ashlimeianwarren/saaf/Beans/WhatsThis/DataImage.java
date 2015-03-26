@@ -89,7 +89,6 @@ public class DataImage
         String query = "SELECT * FROM " + DbCon.TABLE_WT_IMAGE +
                 " WHERE " + DbCon.COLUMN_WT_DATAID + " = " + dataId + ";";
 
-        System.out.println("Query: "+query);
         dbCon = new DbCon(context, null);
         SQLiteDatabase db = dbCon.getWritableDatabase();
 
