@@ -77,10 +77,13 @@ public class Tag
 
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-
-        int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
-        String retTagText = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGTEXT));
-
+        int retId = -1;
+        String retTagText = null;
+        if(!cursor.isAfterLast())
+        {
+            retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
+            retTagText = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGTEXT));
+        }
         db.close();
         dbCon.close();
 

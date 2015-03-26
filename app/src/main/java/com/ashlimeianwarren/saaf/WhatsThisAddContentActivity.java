@@ -73,7 +73,8 @@ public class WhatsThisAddContentActivity extends ActionBarActivity
             String imageFile = image.captureImage();
             DataImage dataImage = new DataImage(pt, imageFile, data.get_id());
             dataImage.persist(this);
-
+            System.out.println("Saving: "+dataImage);
+            System.out.println("Data: "+data);
             System.out.println("IMAGE SAVED");
         }else
         {

@@ -95,8 +95,7 @@ public class DataImage
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while (!cursor.isAfterLast() &&
-                !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGETITLE)).isEmpty())
+        while (!cursor.isAfterLast())
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
             String retTitle = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_IMAGETITLE));
