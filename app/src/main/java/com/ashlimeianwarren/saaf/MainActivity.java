@@ -231,10 +231,10 @@ public class MainActivity extends ActionBarActivity
             data = new Data(dataName, dataDesc, tag.get_id());
             data.persist(this);
 
-            dataImage = new DataImage("Biologist doing biology things", "mollbio_one.png", data.get_id());
+            dataImage = new DataImage("Molecules", "mollbio_one.png", data.get_id());
             dataImage.persist(this);
 
-            dataImage = new DataImage("Cells doing cell things", "mollbio_two.png", data.get_id());
+            dataImage = new DataImage("Synapsy looking things", "mollbio_two.png", data.get_id());
             dataImage.persist(this);
 
             dataName = "Fundamentals Of Cell Biology";
@@ -266,10 +266,10 @@ public class MainActivity extends ActionBarActivity
             data = new Data(dataName, dataDesc, tag.get_id());
             data.persist(this);
 
-            dataImage = new DataImage("Cell Biology", "cellbio_one.png", data.get_id());
+            dataImage = new DataImage("Cell biology", "cellbio_one.png", data.get_id());
             dataImage.persist(this);
 
-            dataImage = new DataImage("Cell Biology", "cellbio_two.png", data.get_id());
+            dataImage = new DataImage("More cell biology", "cellbio_two.png", data.get_id());
             dataImage.persist(this);
 
             tag = new Tag("ENV");
@@ -410,7 +410,7 @@ public class MainActivity extends ActionBarActivity
                         }
 
                         Log.d("Payload String", payloadString);
-                        Toast.makeText(this, payloadString, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, payloadString, Toast.LENGTH_SHORT).show();
                         lastMessage = payloadString;
 
                         if (!lastMessage.equals("Ready To Scan"))
