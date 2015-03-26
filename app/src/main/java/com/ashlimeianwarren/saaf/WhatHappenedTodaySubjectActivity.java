@@ -53,7 +53,77 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         newAudioButton = (Button) findViewById(R.id.newAudioButton);
         newImageButton = (Button) findViewById(R.id.newImageButton);
         newTextButton = (Button) findViewById(R.id.newTextButton);
+        noteArray = new MediaNote().retrieve(subjectId, this);
+        listAdapter = new CustomNoteListAdapter(this, noteArray);
+        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView.setAdapter(listAdapter);
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                //TODO OPEN THE FILE
+
+                switch(noteArray[position].getType())
+                {
+                    case "Text":
+                        TextNote tNote = (TextNote) noteArray[position];
+                        System.out.println(tNote);
+                        Intent intent = new Intent(WhatHappenedTodaySubjectActivity.this, WhatHappendTodayNoteActivity.class);
+                        intent.putExtra("subjectId", subjectId);
+                        intent.putExtra("noteId", tNote.get_id());
+                        intent.putExtra("currentText", tNote.getTextNote());
+                        startActivity(intent);
+                        break;
+                    case "Audio":
+                        MediaNote mNote = (MediaNote) noteArray[position];
+                        AndroidAudio audio = new AndroidAudio(WhatHappenedTodaySubjectActivity.this);
+                        AndroidMusic music = audio.createMusic(mNote.getFilePath());
+                        music.play();
+                        System.out.println(mNote.getFilePath());
+                        break;
+                    case "Image":
+                        MediaNote iNote = (MediaNote) noteArray[position];
+                        File image = new File(iNote.getFilePath());
+                        Intent i = new Intent();
+                        i.setAction(android.content.Intent.ACTION_VIEW);
+                        i.setDataAndType(Uri.fromFile(image), "image/*");
+                        startActivity(i);
+                        break;
+                    default:
+
+
+                }
+
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                //TODO delete a note with a long click....
+                int noteId =  noteArray[position].get_id();
+                if(noteArray[position].getType() .equals("Text") )
+                {
+                    TextNote t = (TextNote) noteArray[position];
+                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
+                }
+                else
+                {
+                    MediaNote m = (MediaNote) noteArray[position];
+                    File mediaFile = new File(m.getFilePath());
+                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
+                    mediaFile.delete();
+                }
+
+                refreshList();
+                return false;
+            }
+        });
         refreshList();
     }
 

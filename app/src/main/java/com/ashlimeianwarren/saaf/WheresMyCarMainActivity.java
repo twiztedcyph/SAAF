@@ -1,19 +1,24 @@
 package com.ashlimeianwarren.saaf;
 
+import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.ashlimeianwarren.saaf.Beans.WheresMyCar.PointOfInterest;
 import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 
 public class WheresMyCarMainActivity extends ActionBarActivity
 {
     private PositionManager pm;
+    private PointOfInterest location;
+    private double lon,lat;
+    private Location currentLocation;
 
 
     @Override
@@ -22,6 +27,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_main);
         pm = new PositionManager(this);
+
     }
 
     @Override
@@ -74,9 +80,22 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     public void showLocation(View view)
     {
         TextView locDisp = (TextView) findViewById(R.id.wmc_maintext);
-        double lat = pm.getCurrentPosition().getLatitude();
-        double lon = pm.getCurrentPosition().getLongitude();
+        lat = pm.getCurrentPosition().getLatitude();
+        lon = pm.getCurrentPosition().getLongitude();
+        location = new PointOfInterest(lon,lat,"Car Location");
+        location.persist(this);
+        currentLocation = pm.getCurrentPosition();
+        currentLocation.setLatitude(52.482504);
+        currentLocation.setLongitude(1.744430);
+        currentLocation.setAltitude(0);
+        locDisp.setText(currentLocation.getLatitude() + "\n" + currentLocation.getLongitude());
+        //currentLocation = pm.getCurrentPosition();
+    }
 
-        locDisp.setText(lat + "\n" + lon);
+    public void travelTo(View view)
+    {
+        Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
+        intent.putExtra("currentLocation",currentLocation);
+        startActivity(intent);
     }
 }
