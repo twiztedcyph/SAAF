@@ -44,4 +44,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
         android:onClick="getArrowAngle" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/pointer"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:src="@drawable/pointericon" />
+
 </RelativeLayout>

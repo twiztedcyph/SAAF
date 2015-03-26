@@ -84,8 +84,12 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         lon = pm.getCurrentPosition().getLongitude();
         location = new PointOfInterest(lon,lat,"Car Location");
         location.persist(this);
-        locDisp.setText(lat + "\n" + lon);
         currentLocation = pm.getCurrentPosition();
+        currentLocation.setLatitude(52.482504);
+        currentLocation.setLongitude(1.744430);
+        currentLocation.setAltitude(0);
+        locDisp.setText(currentLocation.getLatitude() + "\n" + currentLocation.getLongitude());
+        //currentLocation = pm.getCurrentPosition();
     }
 
     public void travelTo(View view)
