@@ -220,6 +220,9 @@ public class WhatsThisMainActivity extends ActionBarActivity
                         Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
                         lastMessage = payloadString;
                         textView.setText(lastMessage);
+                        Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
+                        nextIntent.putExtra("dataName", payloadString);
+                        startActivity(nextIntent);
                         return payloadString;
                     }
                 }
@@ -268,6 +271,9 @@ public class WhatsThisMainActivity extends ActionBarActivity
                         Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
                         lastMessage = payloadString;
                         textView.setText(lastMessage);
+                        Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
+                        nextIntent.putExtra("dataName", payloadString);
+                        startActivity(nextIntent);
                     }
                 }
             }
