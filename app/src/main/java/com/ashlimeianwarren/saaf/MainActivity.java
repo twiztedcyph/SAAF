@@ -101,7 +101,9 @@ public class MainActivity extends ActionBarActivity
         prefs = getSharedPreferences(TAG, MODE_PRIVATE);
         if (prefs.getBoolean("firstrun", true))
         {
-            //TODO add whats this content.
+
+            prefs.edit().putBoolean("firstrun", false).apply();
+            System.out.println("LOADING DATA");
             Tag tag = new Tag("CMP");
             tag.persist(this);
 
@@ -117,10 +119,10 @@ public class MainActivity extends ActionBarActivity
             Data data = new Data(dataName, dataDesc, tag.get_id());
             data.persist(this);
 
-            DataImage dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            DataImage dataImage = new DataImage("3d teapot mesh", "graphics_one.png", data.get_id());
             dataImage.persist(this);
 
-            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage = new DataImage("Basic 3d modeling", "graphics_two.png", data.get_id());
             dataImage.persist(this);
 
             dataName = "Software Engineering 2";
@@ -141,10 +143,10 @@ public class MainActivity extends ActionBarActivity
             data = new Data(dataName, dataDesc, tag.get_id());
             data.persist(this);
 
-            dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            dataImage = new DataImage("Programming code", "software_one.png", data.get_id());
             dataImage.persist(this);
 
-            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage = new DataImage("Software engineering", "software_two.png", data.get_id());
             dataImage.persist(this);
 
             dataName = "Programming 2";
@@ -161,11 +163,148 @@ public class MainActivity extends ActionBarActivity
             data = new Data(dataName, dataDesc, tag.get_id());
             data.persist(this);
 
-            dataImage = new DataImage("Have a nice day", "have_a_nice_day.png", data.get_id());
+            dataImage = new DataImage("We have no idea", "prog_one.png", data.get_id());
             dataImage.persist(this);
 
-            dataImage = new DataImage("Have a bad day", "have_a_nice_day.png", data.get_id());
+            dataImage = new DataImage("Java code", "prog_two.png", data.get_id());
             dataImage.persist(this);
+
+            dataName = "Dr Joost Noppen";
+            dataDesc = "Joost Noppen is lecturer in Software Engineering at the University of East " +
+                    "Anglia in Norwich (UK). Joost holds an M.Sc. degree and a Ph. D. degree in " +
+                    "Computer Science from the University of Twente in the Netherlands with a " +
+                    "special focus on computational intelligence in Software Engineering. Joost " +
+                    "has held positions in leading Software Engineering research groups across " +
+                    "Europe, such as the École des Mines and the University of Lancaster, where " +
+                    "he has worked in international research projects. In 2008 Joost was awarded " +
+                    "a prestigious Marie Curie Intra-European fellowship from the EU for his " +
+                    "work on Software Product Line development.\n\nJoost has over 14 years " +
+                    "experience in Software Engineering both from an academic and industrial " +
+                    "perspective. He has founded a successful web development company as a " +
+                    "student and he has developed software in collaboration with multi-national " +
+                    "companies. In his spare time Joost is exploring the application of Software " +
+                    "Engineering principles to mobile games development practice.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Dr Toast Noppen", "joost_one.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Some Joost", "joost_two.png", data.get_id());
+            dataImage.persist(this);
+
+            tag = new Tag("BIO");
+            tag.persist(this);
+
+            dataName = "Skills For Biologists";
+            dataDesc = "This year-long module combines small-group seminars and workshops with " +
+                    "supporting lecture-based sessions. Material will support various first-year " +
+                    "modules such as BIO-4001A, BIO-4002B, BIO-4003A and BIO-4004B. Students " +
+                    "will learn how to access scientific material and to use it critically in " +
+                    "essays, oral presentations and posters. This module will explore how such " +
+                    "scientific material is disseminated to scientists and to the general public. " +
+                    "A combination of lectures and workshops will be used to introduce a range " +
+                    "of topics in maths and statistics that are absolutely essential for a " +
+                    "contemporary undergraduate studying the biological sciences. THIS MODULE IS " +
+                    "ONLY AVAILABLE TO YEAR 1 STUDENTS. THIS MODULE IS NOT AVAILABLE TO " +
+                    "VISITING/EXCHANGE STUDENTS.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Biologist doing biology things", "sfb_one.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Cells doing cell things", "sfb_two.png", data.get_id());
+            dataImage.persist(this);
+
+            dataName = "Fundamentals Of Molecular Biology";
+            dataDesc = "The module aims to provide an introduction to the basic aspects of " +
+                    "biochemistry, molecular biology and genetics. The module explores the " +
+                    "fundamental properties of macromolecules, DNA structure, synthesis and " +
+                    "replication, as well as the structure and function of proteins. The genetic " +
+                    "code, genes and their expression will be covered as well as the rapidly " +
+                    "expanding area of molecular biology. The module also covers chromosome " +
+                    "structure, mechanisms of heredity, medical genetics and cytogenetics.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Biologist doing biology things", "mollbio_one.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Cells doing cell things", "mollbio_two.png", data.get_id());
+            dataImage.persist(this);
+
+            dataName = "Fundamentals Of Cell Biology";
+            dataDesc = "The module aims to provide an introduction to the basic aspects of " +
+                    "biochemistry and cell biology. Basic biochemical processes will be " +
+                    "explored, as well as catalysis and enzymology. There will be an " +
+                    "introduction to the nature of the living cell, its membranes, and " +
+                    "organelles, how cells communicate and also how they are visualised." +
+                    "\n" +
+                    "\n" +
+                    "Cell biology (formerly cytology, from the Greek kytos, \"contain\") is a " +
+                    "branch of biology that studies cells – their physiological properties, " +
+                    "their structure, the organelles they contain, interactions with their " +
+                    "environment, their life cycle, division, death and cell function. This is " +
+                    "done both on a microscopic and molecular level. Cell biology research " +
+                    "encompasses both the great diversity of single-celled organisms like " +
+                    "bacteria and protozoa, as well as the many specialized cells in " +
+                    "multicellular organisms such as humans, plants, and sponges.\n" +
+                    "Knowing the components of cells and how cells work is fundamental to all " +
+                    "biological sciences. Appreciating the similarities and differences between " +
+                    "cell types is particularly important to the fields of cell and molecular " +
+                    "biology as well as to biomedical fields such as cancer research and " +
+                    "developmental biology. These fundamental similarities and differences " +
+                    "provide a unifying theme, sometimes allowing the principles learned from " +
+                    "studying one cell type to be extrapolated and generalized to other cell " +
+                    "types. Therefore, research in cell biology is closely related to genetics, " +
+                    "biochemistry, molecular biology, immunology, and developmental biology.";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Cell Biology", "cellbio_one.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Cell Biology", "cellbio_two.png", data.get_id());
+            dataImage.persist(this);
+
+            tag = new Tag("ENV");
+            tag.persist(this);
+
+            dataName = "Global Environmental Challenges";
+            dataDesc = "What are the most pressing environmental challenges facing the world " +
+                    "today? How do we understand these problems through cutting-edge " +
+                    "environmental science research? What are the possibilities for building " +
+                    "sustainable solutions to address them in policy and society? In this module " +
+                    "you will tackle these questions by taking an interdisciplinary approach to " +
+                    "consider challenges relating to climate change, biodiversity, water " +
+                    "resources, natural hazards, and technological risks. In doing so you will " +
+                    "gain an insight into environmental science research 'in action' and develop " +
+                    "essential academic study skills needed to explore these issues. Please note " +
+                    "that ENV students, BIO Ecology students, NAT SCI students and SCI " +
+                    "Foundation Year students can request a space on this module. Please note " +
+                    "that NAT SCI and SCI Foundation Year students wishing to select this " +
+                    "module must obtain a signature from their advisor confirming they will " +
+                    "meet the marking requirements (which will be to mark the independent " +
+                    "essay component of the module assessments). The advisor must confirm " +
+                    "agreement in writing to env_ug.hub@uea.ac.uk).";
+
+            data = new Data(dataName, dataDesc, tag.get_id());
+            data.persist(this);
+
+            dataImage = new DataImage("Global warming", "gec_one.png", data.get_id());
+            dataImage.persist(this);
+
+            dataImage = new DataImage("Deforestation", "gec_two.png", data.get_id());
+            dataImage.persist(this);
+
+        }else
+        {
+            System.out.println("NOT FIRST RUN");
         }
 
         if (nfcAdapter == null)

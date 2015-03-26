@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
+import com.ashlimeianwarren.saaf.Implementation.WhatsThisImageDisplayActivity;
 import com.ashlimeianwarren.saaf.R;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class WhatsThisDataDisplayActivity extends ActionBarActivity
 {
@@ -58,13 +60,11 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
 
         for(int i = 0; i < imageViews.length; i++)
         {
-            File image = new File(dataImages[i].getImagePath());
-            if(image.exists())
-            {
-                Bitmap bitmap = decodeFile(image);
+
+                Bitmap bitmap = decodeFile(dataImages[i].getImagePath());
 
                 imageViews[i].setImageBitmap(bitmap);
-            }
+
         }
     }
 
@@ -117,21 +117,53 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return null;
     }
 
+    private Bitmap decodeFile(String fileName){
+        try {
+            //Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            InputStream is = getAssets().open(fileName);
+            BitmapFactory.decodeStream(is, null, o);
+
+            //The new size we want to scale to
+            final int REQUIRED_SIZE=70;
+
+            //Find the correct scale value. It should be the power of 2.
+            int scale=1;
+            while(o.outWidth/scale/2>=REQUIRED_SIZE && o.outHeight/scale/2>=REQUIRED_SIZE)
+                scale*=2;
+
+            //Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize=scale;
+            return BitmapFactory.decodeStream(is, null, o2);
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void imageOneClicked(View v)
     {
-        File file = new File(dataImages[0].getImagePath());
-        Intent i = new Intent();
-        i.setAction(android.content.Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.fromFile(file), "image/*");
-        startActivity(i);
+        String name = dataImages[0].getImagePath();
+        String desc = dataImages[0].getImageTitle();
+        Intent intent = new Intent(this, WhatsThisImageDisplayActivity.class);
+        intent.putExtra("imageName", name);
+        intent.putExtra("imageDesc", desc);
+        startActivity(intent);
     }
 
     public void imageTwoClicked(View v)
     {
-        File file = new File(dataImages[1].getImagePath());
-        Intent i = new Intent();
-        i.setAction(android.content.Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.fromFile(file), "image/*");
-        startActivity(i);
+        String name = dataImages[1].getImagePath();
+        String desc = dataImages[1].getImageTitle();
+        Intent intent = new Intent(this, WhatsThisImageDisplayActivity.class);
+        intent.putExtra("imageName", name);
+        intent.putExtra("imageDesc", desc);
+        startActivity(intent);
     }
 }
