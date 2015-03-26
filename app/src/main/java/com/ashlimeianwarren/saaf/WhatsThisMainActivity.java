@@ -1,34 +1,16 @@
 package com.ashlimeianwarren.saaf;
 
-import android.nfc.NfcEvent;
-import android.support.v7.app.ActionBarActivity;
-
-import java.io.UnsupportedEncodingException;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.IntentFilter.MalformedMimeTypeException;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,37 +47,28 @@ public class WhatsThisMainActivity extends ActionBarActivity
             finish();
             return;
         }
-        else
-        {
-
-            if (nfcAdapter.isEnabled())
-            {
-                textView.setText("NFC ready to scan");
-            } else
-            {
-                textView.setText("NFC is disabled.");
-            }
-        }
 
         // create an intent with tag data and deliver to this activity
-       pendingIntent = PendingIntent.getActivity(this, 0,
+        pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         // set an intent filter for all MIME data
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try {
-           ndefIntent.addDataType("*/*");
+        try
+        {
+            ndefIntent.addDataType("*/*");
             intentFilters = new IntentFilter[]{ndefIntent};
-       } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("TagDispatch", e.toString());
         }
 
-       nfcTechLists = new String[][]{new String[]{NfcF.class.getName()}};
-       textView.setText(lastMessage);
+        nfcTechLists = new String[][]{new String[]{NfcF.class.getName()}};
+        textView.setText(lastMessage);
 
-        String gotString = this.checkForNdef(this.getIntent());
-        Log.i("Create ", "Got String "+gotString);
-        textView.setText(gotString);
+        //String gotString = this.checkForNdef(this.getIntent());
+        //Log.i("Create ", "Got String "+gotString);
+        //textView.setText(gotString);
     }
 
     @Override
@@ -103,8 +76,8 @@ public class WhatsThisMainActivity extends ActionBarActivity
     {
         Log.i("Intent", "Entered Intent");
 
-        String gotString = this.checkForNdef(intent);
-        this.setIntent(intent);
+        //String gotString = this.checkForNdef(intent);
+        //this.setIntent(intent);
     }
 
     @Override
@@ -113,41 +86,43 @@ public class WhatsThisMainActivity extends ActionBarActivity
         Log.i("Resume", "Entered Resume");
         super.onResume();
 
-        if (nfcAdapter.isEnabled()) {
-            textView.setText("NFC is Ready to Scan");
-        } else {
-            textView.setText("NFC is disabled.");
+
+        if (nfcAdapter == null)
+        {
+            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
-        if (nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, nfcTechLists);
-        }
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, nfcTechLists);
         textView.setText(lastMessage);
 
-        String gotString = this.checkForNdef(this.getIntent());
-        Log.i("Resume", "Got String "+gotString);
-        textView.setText(gotString);
+        //String gotString = this.checkForNdef(this.getIntent());
+        //Log.i("Resume", "Got String "+gotString);
+        //textView.setText(gotString);
 
         Intent currentIntent = getIntent();
 
         currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
-        if(!gotString.equals("Ready To Scan"))
-        {
-            Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
-
-            nextIntent.putExtra("tagID", gotString);
-
-            startActivity(nextIntent);
-        }
+//        if(!gotString.equals("Ready To Scan"))
+//        {
+//            Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
+//
+//            nextIntent.putExtra("tagID", gotString);
+//
+//            startActivity(nextIntent);
+//        }
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
 
         super.onPause();
 
-        if (nfcAdapter != null) {
+        if (nfcAdapter != null)
+        {
             nfcAdapter.disableForegroundDispatch(this);
         }
     }
@@ -178,113 +153,107 @@ public class WhatsThisMainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private String checkForNdef(Intent intent)
-    {
-        String payloadString = "Ready To Scan";
-        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()))
-        {
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-            if(rawMsgs != null)
-            {
-
-                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
-
-                for(int i = 0; i < rawMsgs.length; i++)
-                {
-                    msgs[i] = (NdefMessage)rawMsgs[i];
-                    NdefRecord[] record = msgs[i].getRecords();
-                    for(int j = 0; j < record.length; j++)
-                    {
-                        byte [] payload = record[i].getPayload();
-
-                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-
-                        // Get the Language Code
-                        int languageCodeLength = payload[0] & 0063;
-
-                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-                        // e.g. "en"
-
-                        // Get the Text
-                        try
-                        {
-                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-                        }
-                        catch (UnsupportedEncodingException e)
-                        {
-                            Log.d("Encode Error", "Error: "+e);
-                        }
-
-                        Log.d("Payload String", payloadString);
-                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
-                        lastMessage = payloadString;
-                        textView.setText(lastMessage);
-                        Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
-                        nextIntent.putExtra("dataName", payloadString);
-                        startActivity(nextIntent);
-                        return payloadString;
-                    }
-                }
-            }
-            else
-            {
-                Log.d("NFC Error","NFC Message are Null");
-            }
-        }
-        else if(NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()))
-        {
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-            if(rawMsgs != null)
-            {
-
-                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
-
-                for(int i = 0; i < rawMsgs.length; i++)
-                {
-                    msgs[i] = (NdefMessage)rawMsgs[i];
-                    NdefRecord[] record = msgs[i].getRecords();
-                    for(int j = 0; j < record.length; j++)
-                    {
-                        byte [] payload = record[i].getPayload();
-
-                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-
-                        // Get the Language Code
-                        int languageCodeLength = payload[0] & 0063;
-
-                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-                        // e.g. "en"
-
-                        // Get the Text
-                        try
-                        {
-                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-                        }
-                        catch (UnsupportedEncodingException e)
-                        {
-                            Log.d("Encode Error", "Error: "+e);
-                        }
-
-                        Log.d("Payload String", payloadString);
-                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
-                        lastMessage = payloadString;
-                        textView.setText(lastMessage);
-                        Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
-                        nextIntent.putExtra("dataName", payloadString);
-                        startActivity(nextIntent);
-                    }
-                }
-            }
-            else
-            {
-                Log.d("NFC Error","NFC Message are Null");
-            }
-        }
-
-        return payloadString;
-    }
+//    private String checkForNdef(Intent intent)
+//    {
+//        String payloadString = "Ready To Scan";
+//        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()))
+//        {
+//            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+//
+//            if(rawMsgs != null)
+//            {
+//
+//                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
+//
+//                for(int i = 0; i < rawMsgs.length; i++)
+//                {
+//                    msgs[i] = (NdefMessage)rawMsgs[i];
+//                    NdefRecord[] record = msgs[i].getRecords();
+//                    for(int j = 0; j < record.length; j++)
+//                    {
+//                        byte [] payload = record[i].getPayload();
+//
+//                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
+//
+//                        // Get the Language Code
+//                        int languageCodeLength = payload[0] & 0063;
+//
+//                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+//                        // e.g. "en"
+//
+//                        // Get the Text
+//                        try
+//                        {
+//                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+//                        }
+//                        catch (UnsupportedEncodingException e)
+//                        {
+//                            Log.d("Encode Error", "Error: "+e);
+//                        }
+//
+//                        Log.d("Payload String", payloadString);
+//                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
+//                        lastMessage = payloadString;
+//                        textView.setText(lastMessage);
+//                        return payloadString;
+//                    }
+//                }
+//            }
+//            else
+//            {
+//                Log.d("NFC Error","NFC Message are Null");
+//            }
+//        }
+//        else if(NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()))
+//        {
+//            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+//
+//            if(rawMsgs != null)
+//            {
+//
+//                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
+//
+//                for(int i = 0; i < rawMsgs.length; i++)
+//                {
+//                    msgs[i] = (NdefMessage)rawMsgs[i];
+//                    NdefRecord[] record = msgs[i].getRecords();
+//                    for(int j = 0; j < record.length; j++)
+//                    {
+//                        byte [] payload = record[i].getPayload();
+//
+//                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
+//
+//                        // Get the Language Code
+//                        int languageCodeLength = payload[0] & 0063;
+//
+//                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+//                        // e.g. "en"
+//
+//                        // Get the Text
+//                        try
+//                        {
+//                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+//                        }
+//                        catch (UnsupportedEncodingException e)
+//                        {
+//                            Log.d("Encode Error", "Error: "+e);
+//                        }
+//
+//                        Log.d("Payload String", payloadString);
+//                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
+//                        lastMessage = payloadString;
+//                        textView.setText(lastMessage);
+//                    }
+//                }
+//            }
+//            else
+//            {
+//                Log.d("NFC Error","NFC Message are Null");
+//            }
+//        }
+//
+//        return payloadString;
+//    }
 
     public void peopleButtonClicked(View view)
     {

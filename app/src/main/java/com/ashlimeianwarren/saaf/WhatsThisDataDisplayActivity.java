@@ -14,6 +14,9 @@ import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
 import com.ashlimeianwarren.saaf.R;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class WhatsThisDataDisplayActivity extends ActionBarActivity
 {
@@ -55,7 +58,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
             File image = new File(dataImages[i].getImagePath());
             if(image.exists())
             {
-                Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+                Bitmap bitmap = decodeFile(image);
 
                 imageViews[i].setImageBitmap(bitmap);
             }
@@ -86,5 +89,28 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Bitmap decodeFile(File f){
+        try {
+            //Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+
+            //The new size we want to scale to
+            final int REQUIRED_SIZE=70;
+
+            //Find the correct scale value. It should be the power of 2.
+            int scale=1;
+            while(o.outWidth/scale/2>=REQUIRED_SIZE && o.outHeight/scale/2>=REQUIRED_SIZE)
+                scale*=2;
+
+            //Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize=scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {}
+        return null;
     }
 }
