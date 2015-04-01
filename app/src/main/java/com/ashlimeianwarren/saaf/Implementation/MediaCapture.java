@@ -122,7 +122,8 @@ public class MediaCapture implements Capture
         if (start)
         {
             captureSound();
-        } else
+        }
+        else
         {
             stopCaptureSound();
         }

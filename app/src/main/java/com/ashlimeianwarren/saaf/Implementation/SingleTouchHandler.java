@@ -104,7 +104,8 @@ public class SingleTouchHandler implements TouchHandler
             if (pointer == 0)
             {
                 return isTouched;
-            } else
+            }
+            else
             {
                 return false;
             }

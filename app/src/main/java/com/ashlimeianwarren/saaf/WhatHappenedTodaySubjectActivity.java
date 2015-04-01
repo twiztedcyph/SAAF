@@ -66,7 +66,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             {
                 //TODO OPEN THE FILE
 
-                switch(noteArray[position].getType())
+                switch (noteArray[position].getType())
                 {
                     case "Text":
                         TextNote tNote = (TextNote) noteArray[position];
@@ -106,8 +106,8 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
                 //TODO delete a note with a long click....
-                int noteId =  noteArray[position].get_id();
-                if(noteArray[position].getType() .equals("Text") )
+                int noteId = noteArray[position].get_id();
+                if (noteArray[position].getType().equals("Text"))
                 {
                     TextNote t = (TextNote) noteArray[position];
                     t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
@@ -175,7 +175,8 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
             paramsNew.width = 1000;
             newAudioButton.setLayoutParams(paramsNew);
-        } else
+        }
+        else
         {
             //sound.onRecord(mStartRecording);
             sound.stopCaptureSound();
@@ -273,7 +274,8 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
                 {
                     TextNote t = (TextNote) noteArray[position];
                     t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
-                } else
+                }
+                else
                 {
                     MediaNote m = (MediaNote) noteArray[position];
                     File mediaFile = new File(m.getFilePath());

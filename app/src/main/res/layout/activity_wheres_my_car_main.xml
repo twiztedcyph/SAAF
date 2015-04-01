@@ -21,9 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/custom_location_list"
-        android:layout_above="@+id/btnSaveLocation"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="44dp" />
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

@@ -19,7 +19,7 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 {
     private Tag currentTag;
     private TextView title;
-   // private TextView description;
+    // private TextView description;
     private Data[] dataArray;
     private ListAdapter listAdapter;
     private ListView subList;
@@ -33,11 +33,11 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
         title = (TextView) findViewById(R.id.txtTitle);
 
         String tagName = getIntent().getStringExtra("tagID");
-        currentTag = new Tag().retrieve(tagName,this);
+        currentTag = new Tag().retrieve(tagName, this);
 
         int tagID = currentTag.get_id();
 
-        if(tagID == -1)
+        if (tagID == -1)
         {
             //TODO toast
             finish();
@@ -45,7 +45,7 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 
         title.setText(currentTag.getTagText());
 
-        dataArray =new Data().retrieve(tagID, this);
+        dataArray = new Data().retrieve(tagID, this);
 
         subList = (ListView) findViewById(R.id.whatsThisList);
         listAdapter = new CustomDataListAdapter(this, dataArray);
@@ -58,8 +58,8 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Intent intent = new Intent(WhatsThisPlacesActivity.this, WhatsThisDataDisplayActivity.class);
-                String dataName =  dataArray[position].getDataName();
-                intent.putExtra("dataName",dataName);
+                String dataName = dataArray[position].getDataName();
+                intent.putExtra("dataName", dataName);
                 startActivity(intent);
             }
         });
@@ -70,11 +70,11 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
     {
         super.onResume();
         String tagName = getIntent().getStringExtra("tagID");
-        currentTag = new Tag().retrieve(tagName,this);
+        currentTag = new Tag().retrieve(tagName, this);
 
         int tagID = currentTag.get_id();
 
-        dataArray =new Data().retrieve(tagID, this);
+        dataArray = new Data().retrieve(tagID, this);
 
         //description.setText(dataArray[0].getDataDescription());
         //title.setText(dataArray[0].getDataName());

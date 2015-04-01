@@ -54,7 +54,8 @@ public class Pool<T>
         if (freeObjects.size() == 0)
         {
             object = factory.createObject();
-        } else
+        }
+        else
         {
             object = freeObjects.remove(freeObjects.size() - 1);
         }

@@ -45,22 +45,22 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         imageViews[1] = (ImageView) findViewById(R.id.imgTwo);
         //TODO check string exists
         String dataString = getIntent().getStringExtra("dataName");
-        System.out.println("Data String == "+dataString);
+        System.out.println("Data String == " + dataString);
         data = new Data();
 
         data.retrieve(dataString, this);
 
         dataImages = new DataImage().retrieve(data.get_id(), this);
-        System.out.println("Data Images Size: "+dataImages.length);
+        System.out.println("Data Images Size: " + dataImages.length);
         title.setText(data.getDataName());
         description.setText(data.getDataDescription());
 
-        for(int i = 0; i < imageViews.length; i++)
+        for (int i = 0; i < imageViews.length; i++)
         {
 
-                Bitmap bitmap = decodeFile(dataImages[i].getImagePath());
+            Bitmap bitmap = decodeFile(dataImages[i].getImagePath());
 
-                imageViews[i].setImageBitmap(bitmap);
+            imageViews[i].setImageBitmap(bitmap);
 
         }
     }
@@ -91,31 +91,37 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private Bitmap decodeFile(File f){
-        try {
+    private Bitmap decodeFile(File f)
+    {
+        try
+        {
             //Decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
 
             //The new size we want to scale to
-            final int REQUIRED_SIZE=70;
+            final int REQUIRED_SIZE = 70;
 
             //Find the correct scale value. It should be the power of 2.
-            int scale=1;
-            while(o.outWidth/scale/2>=REQUIRED_SIZE && o.outHeight/scale/2>=REQUIRED_SIZE)
-                scale*=2;
+            int scale = 1;
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE && o.outHeight / scale / 2 >= REQUIRED_SIZE)
+                scale *= 2;
 
             //Decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize=scale;
+            o2.inSampleSize = scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e)
+        {
+        }
         return null;
     }
 
-    private Bitmap decodeFile(String fileName){
-        try {
+    private Bitmap decodeFile(String fileName)
+    {
+        try
+        {
             //Decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
@@ -123,16 +129,16 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
             BitmapFactory.decodeStream(is, null, o);
 
             //The new size we want to scale to
-            final int REQUIRED_SIZE=70;
+            final int REQUIRED_SIZE = 70;
 
             //Find the correct scale value. It should be the power of 2.
-            int scale=1;
-            while(o.outWidth/scale/2>=REQUIRED_SIZE && o.outHeight/scale/2>=REQUIRED_SIZE)
-                scale*=2;
+            int scale = 1;
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE && o.outHeight / scale / 2 >= REQUIRED_SIZE)
+                scale *= 2;
 
             //Decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize=scale;
+            o2.inSampleSize = scale;
             is.reset();
             return BitmapFactory.decodeStream(is, null, o2);
         } catch (FileNotFoundException e)

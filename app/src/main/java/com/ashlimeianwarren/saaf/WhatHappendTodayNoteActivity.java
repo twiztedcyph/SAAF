@@ -86,7 +86,8 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
             System.out.println("update");
             TextNote textNote = new TextNote(noteId, textNoteInput.getText().toString(), subjectId, "Text");
             textNote.update(this);
-        } else
+        }
+        else
         {
             System.out.println("persist");
             TextNote textNote = new TextNote(textNoteInput.getText().toString(), subjectId, "Text");

@@ -79,7 +79,7 @@ public class Tag
         cursor.moveToFirst();
         int retId = -1;
         String retTagText = null;
-        if(!cursor.isAfterLast())
+        if (!cursor.isAfterLast())
         {
             retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WT_ID));
             retTagText = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WT_TAGTEXT));

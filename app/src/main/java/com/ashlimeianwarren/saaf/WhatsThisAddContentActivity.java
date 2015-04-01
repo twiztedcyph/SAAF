@@ -73,10 +73,11 @@ public class WhatsThisAddContentActivity extends ActionBarActivity
             String imageFile = image.captureImage();
             DataImage dataImage = new DataImage(pt, imageFile, data.get_id());
             dataImage.persist(this);
-            System.out.println("Saving: "+dataImage);
-            System.out.println("Data: "+data);
+            System.out.println("Saving: " + dataImage);
+            System.out.println("Data: " + data);
             System.out.println("IMAGE SAVED");
-        }else
+        }
+        else
         {
             System.out.println("DATA OBJECT NOT FOUND");
         }
@@ -97,7 +98,8 @@ public class WhatsThisAddContentActivity extends ActionBarActivity
             data.persist(this);
 
             System.out.println("DATA SAVED");
-        }else
+        }
+        else
         {
             System.out.println("TAG RECORD NOT FOUND");
         }
@@ -113,7 +115,8 @@ public class WhatsThisAddContentActivity extends ActionBarActivity
             tag.persist(this);
 
             System.out.println("TAG SAVED");
-        }else
+        }
+        else
         {
             System.out.println("TAG TEXT IS EMPTY");
         }

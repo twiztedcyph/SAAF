@@ -111,6 +111,17 @@ public class PointOfInterest
         return result;
     }
 
+    public void delete(int pointOfInterestId, Context context)
+    {
+        dbCon = new DbCon(context, null);
+
+        SQLiteDatabase db = dbCon.getWritableDatabase();
+        String query = "DELETE FROM " + DbCon.TABLE_WMC_LOCATIONS +
+                " WHERE " + DbCon.COLUMN_WMC_ID + " = " + pointOfInterestId + ";";
+        db.execSQL(query);
+        db.close();
+    }
+
     /**
      * Get the longitude for this object.
      *

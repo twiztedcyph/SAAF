@@ -61,7 +61,8 @@ public class MainActivity extends ActionBarActivity
             if (nfcAdapter.isEnabled())
             {
                 System.out.println("NFC CHECK: Enabled");
-            } else
+            }
+            else
             {
                 System.out.println("NFC CHECK: Disabled");
             }
@@ -73,10 +74,12 @@ public class MainActivity extends ActionBarActivity
 
         // set an intent filter for all MIME data
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try {
+        try
+        {
             ndefIntent.addDataType("*/*");
             intentFilters = new IntentFilter[]{ndefIntent};
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("TagDispatch", e.toString());
         }
 
@@ -302,7 +305,8 @@ public class MainActivity extends ActionBarActivity
             dataImage = new DataImage("Deforestation", "gec_two.png", data.get_id());
             dataImage.persist(this);
 
-        }else
+        }
+        else
         {
             System.out.println("NOT FIRST RUN");
         }
@@ -317,13 +321,13 @@ public class MainActivity extends ActionBarActivity
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, nfcTechLists);
 
         String gotString = this.checkForNdef(this.getIntent());
-        Log.i("Resume", "Got String "+ gotString);
+        Log.i("Resume", "Got String " + gotString);
 
         Intent currentIntent = getIntent();
 
         currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
-        if(!gotString.equals("Ready To Scan"))
+        if (!gotString.equals("Ready To Scan"))
         {
             Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
 
@@ -373,23 +377,23 @@ public class MainActivity extends ActionBarActivity
     private String checkForNdef(Intent intent)
     {
         String payloadString = "Ready To Scan";
-        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()))
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()))
         {
             System.out.println("ACTION_NDEF_DISCOVERED");
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
-            if(rawMsgs != null)
+            if (rawMsgs != null)
             {
 
                 NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
 
-                for(int i = 0; i < rawMsgs.length; i++)
+                for (int i = 0; i < rawMsgs.length; i++)
                 {
-                    msgs[i] = (NdefMessage)rawMsgs[i];
+                    msgs[i] = (NdefMessage) rawMsgs[i];
                     NdefRecord[] record = msgs[i].getRecords();
-                    for(int j = 0; j < record.length; j++)
+                    for (int j = 0; j < record.length; j++)
                     {
-                        byte [] payload = record[i].getPayload();
+                        byte[] payload = record[i].getPayload();
 
                         String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
 
@@ -403,8 +407,7 @@ public class MainActivity extends ActionBarActivity
                         try
                         {
                             payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-                        }
-                        catch (UnsupportedEncodingException e)
+                        } catch (UnsupportedEncodingException e)
                         {
                             Log.d("Encode Error", "Error: " + e);
                         }
@@ -424,10 +427,9 @@ public class MainActivity extends ActionBarActivity
             }
             else
             {
-                Log.d("NFC Error","NFC Message are Null");
+                Log.d("NFC Error", "NFC Message are Null");
             }
         }
-
 
 
         return payloadString;
