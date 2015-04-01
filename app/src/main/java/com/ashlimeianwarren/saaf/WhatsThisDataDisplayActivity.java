@@ -136,6 +136,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
             //Decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
+            is.reset();
             return BitmapFactory.decodeStream(is, null, o2);
         } catch (FileNotFoundException e)
         {
