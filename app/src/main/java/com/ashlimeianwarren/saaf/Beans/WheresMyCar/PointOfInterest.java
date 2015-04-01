@@ -93,14 +93,14 @@ public class PointOfInterest
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while (!(cursor.isAfterLast() &&
-                cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WMC_INFORMATION)).isEmpty()))
+        while (!(cursor.isAfterLast()))
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WMC_ID));
             double retLat = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LATITUDE));
             double retLong = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LONGITUDE));
             String retInfo = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WMC_INFORMATION));
             poiList.add(new PointOfInterest(retId, retLat, retLong, retInfo));
+            cursor.moveToNext();
         }
         db.close();
         cursor.close();
