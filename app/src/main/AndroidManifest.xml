@@ -74,7 +74,7 @@
             android:label="@string/title_activity_wheres_my_car_travel" >
         </activity>
         <activity
-            android:name=".Implementation.WhatsThisImageDisplayActivity"
+            android:name=".WhatsThisImageDisplayActivity"
             android:label="@string/title_activity_whats_this_image_display" >
         </activity>
     </application>
