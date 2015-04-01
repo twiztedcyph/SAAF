@@ -8,33 +8,22 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.ashlimeianwarren.saaf.WheresMyCarMainActivity">
 
-    <TextView
-        android:text="Where&apos;s my car?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wmc_maintext"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"/>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Car Location"
-        android:id="@+id/getLocButton"
-        android:layout_below="@+id/wmc_maintext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
-        android:onClick="showLocation"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Travel"
-        android:id="@+id/travelToButton"
+        android:text="Save Current Location"
+        android:id="@+id/btnSaveLocation"
+        android:onClick="saveLocationClicked"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:onClick="travelTo" />
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/custom_location_list"
+        android:layout_above="@+id/btnSaveLocation"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="44dp" />
 
 </RelativeLayout>

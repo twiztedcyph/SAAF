@@ -104,23 +104,26 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void showLocation(View view)
+    public void saveLocationClicked(View view)
     {
         LocationManager manager = (LocationManager)getSystemService(this.LOCATION_SERVICE);
         if(!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
             buildAlertMessageNoGps();
 
-        }else {
+        }
+        else if (pm.getCurrentPosition() == null) {
 
             TextView locDisp = (TextView) findViewById(R.id.wmc_maintext);
 
-            while(pm.getCurrentPosition() == null)
-            {
-               locDisp.setText("Waiting For GPS!!");
-            }
 
+            locDisp.setText("Waiting For GPS!!");
 
+        }
+        else
+        {
+
+            TextView locDisp = (TextView) findViewById(R.id.wmc_maintext);
             lat = pm.getCurrentPosition().getLatitude();
             lon = pm.getCurrentPosition().getLongitude();
             location = new PointOfInterest(lon, lat, "Car Location");
@@ -135,12 +138,11 @@ public class WheresMyCarMainActivity extends ActionBarActivity
 
     public void travelTo(View view)
     {
-        //Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
-        //intent.putExtra("currentLocation",currentLocation);
-        //startActivity(intent);
+        Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
+        intent.putExtra("currentLocation",currentLocation);
+        startActivity(intent);
         locationArray = new PointOfInterest().retrieve(this);
         System.out.println(lon);
         System.out.println(locationArray[0].getLongitude());
-
     }
 }
