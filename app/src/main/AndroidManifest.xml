@@ -32,6 +32,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -47,9 +48,6 @@
         <activity
             android:name=".WhatsThisMainActivity"
             android:label="@string/title_activity_whats_this_main" >
-
-
-
         </activity>
         <activity
             android:name=".WhatHappenedTodaySubjectActivity"
@@ -74,6 +72,10 @@
         <activity
             android:name=".WheresMyCarTravelActivity"
             android:label="@string/title_activity_wheres_my_car_travel" >
+        </activity>
+        <activity
+            android:name=".Implementation.WhatsThisImageDisplayActivity"
+            android:label="@string/title_activity_whats_this_image_display" >
         </activity>
     </application>
 
