@@ -26,25 +26,13 @@
         android:layout_height="wrap_content"
         android:text="@string/main_screen_button_text_whatHappenedToday"
         android:id="@+id/mainActivityWHTButton"
-        android:layout_above="@+id/mainActivityWTButton"
-        android:layout_alignLeft="@+id/mainActivityWTButton"
-        android:layout_alignStart="@+id/mainActivityWTButton"
-        android:layout_marginBottom="66dp"
         android:gravity="center"
         android:onClick="whatHappenedTodayClicked"
-        android:background="#e1e1e1"/>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="@string/main_screen_button_text_whatsThis"
-        android:id="@+id/mainActivityWTButton"
+        android:background="#e1e1e1"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp"
-        android:gravity="center"
-        android:onClick="whatsThisClicked"
-        android:background="#e1e1e1"/>
+        android:layout_alignLeft="@+id/mainActivityWMCButton"
+        android:layout_alignStart="@+id/mainActivityWMCButton"
+        android:layout_marginBottom="152dp"/>
 
     <TextView
         android:layout_width="wrap_content"
