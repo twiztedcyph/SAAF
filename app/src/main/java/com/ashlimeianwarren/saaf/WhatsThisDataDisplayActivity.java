@@ -3,7 +3,6 @@ package com.ashlimeianwarren.saaf;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
-import com.ashlimeianwarren.saaf.Implementation.WhatsThisImageDisplayActivity;
-import com.ashlimeianwarren.saaf.R;
 
 import java.io.File;
 import java.io.FileInputStream;
