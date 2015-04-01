@@ -8,16 +8,19 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 import com.ashlimeianwarren.saaf.Beans.WheresMyCar.PointOfInterest;
 import com.ashlimeianwarren.saaf.Implementation.PositionManager;
@@ -34,6 +37,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     private PointOfInterest[] locationArray;
     private ListView listView;
     private ListAdapter listAdapter;
+    private AlertDialog.Builder alertDialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +45,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_main);
         pm = new PositionManager(this);
+
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
@@ -167,18 +172,45 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         }
         else
         {
+            LayoutInflater li = LayoutInflater.from(this);
+            View promptsView = li.inflate(R.layout.wmc_location_dialog, null);
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setView(promptsView);
 
+            final EditText userLocationInput = (EditText) promptsView.findViewById(R.id.locationNameInput);
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setTitle("Enter Location Name:")
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
 
-            // TextView locDisp = (TextView) findViewById(R.id.wmc_maintext);
-            lat = pm.getCurrentPosition().getLatitude();
-            lon = pm.getCurrentPosition().getLongitude();
-            location = new PointOfInterest(lon, lat, "Car Location");
-            location.persist(this);
+                                    String locName = userLocationInput.getText().toString();
+                                    System.out.println("LOCNAME: " + locName);
+                                    lat = pm.getCurrentPosition().getLatitude();
+                                    lon = pm.getCurrentPosition().getLongitude();
+
+                                    location = new PointOfInterest(lon, lat, locName);
+                                    location.persist(WheresMyCarMainActivity.this);
+                                    refreshList();
+                                }
+                            })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
             refreshList();
-
-            // locDisp.setText("Position Saved");
-
-
         }
     }
 
@@ -189,7 +221,5 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         listAdapter = new CustomLocationListAdapter(this, locationArray);
         listView = (ListView) findViewById(R.id.custom_location_list);
         listView.setAdapter(listAdapter);
-
-
     }
 }
