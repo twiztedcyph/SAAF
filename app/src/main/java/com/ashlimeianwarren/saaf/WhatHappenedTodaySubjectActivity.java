@@ -24,6 +24,10 @@ import com.ashlimeianwarren.saaf.Implementation.MediaCapture;
 import java.io.File;
 import java.util.Arrays;
 
+/**
+ * Class for controlling and simulating being inside a subject folder allowing users to create, view,
+ * edit and delete different types of notes such as TextNotes, AudioNotes and ImageNotes.
+ */
 
 public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 {
@@ -38,6 +42,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private String soundFile = null;
     private int audioButtonWidth = 0;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,6 +69,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         listView.setAdapter(listAdapter);
 
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked.
+         *
+         * @param listener The callback that will be invoked.
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -100,6 +116,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             }
         });
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked and held
+         *
+         * @param listener The callback that will run
+         */
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
             @Override
@@ -127,6 +149,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         refreshList();
     }
 
+    /**
+     * Called when the App is resumed and allows users to interact with the app again.
+     */
     @Override
     protected void onResume()
     {
@@ -134,6 +159,11 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         refreshList();
     }
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -142,6 +172,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -159,6 +195,10 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for creating a new Audio Note and persisting it to the database.
+     * @param view The view that has been clicked
+     */
     public void newAudioNote(View view)
     {
         if (mStartRecording == true)
@@ -196,6 +236,10 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Method for creating a new Image Note and persisting it to the database.
+     * @param view The view that has been clicked
+     */
     public void newImageNote(View view)
     {
         System.out.println("Image Note CLicked");
@@ -208,6 +252,10 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Method for creating a new Text Note and persisting it to the database.
+     * @param view The view that has been clicked
+     */
     public void newTextNote(View view)
     {
         Intent intent = new Intent(this, WhatHappendTodayNoteActivity.class);
@@ -217,6 +265,10 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         startActivity(intent);
     }
 
+    /**
+     * A method which automatically updates a list displayed to a user so that new additions or
+     * deletions are immediately shown to the user.
+     */
     private void refreshList()
     {
         mediaArray = new MediaNote().retrieve(subjectId, this);
@@ -227,8 +279,23 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         listView = (ListView) findViewById(R.id.NoteActivityListView);
         listView.setAdapter(listAdapter);
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked.
+         *
+         * @param listener The callback that will be invoked.
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
+            /**
+             * Callback method to be invoked when an item in this AdapterView has been clicked.
+             *
+             * @param parent    The AdapterView where the click happened.
+             * @param view      The view within the AdapterView that was clicked (this will be a
+             *                  view provided by the adapter)
+             * @param position  The position of the view in the adapter.
+             * @param id        The row id of the item that was clicked.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -264,8 +331,23 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             }
         });
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked and held
+         *
+         * @param listener The callback that will run
+         */
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
+            /**
+             * Callback method to be invoked when an item in this view has been clicked and held.
+             *
+             * @param parent    The AbsListView where the click happened
+             * @param view      The view within the AbsListView that was clicked
+             * @param position  The position of the view in the list
+             * @param id        The row id of the item that was clicked
+             * @return          true if the callback consumed the long click, false otherwise
+             */
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -289,6 +371,13 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         });
     }
 
+    /**
+     * Method for joining two note lists together.
+     * 
+     * @param media Media Note List
+     * @param text  Text Note List
+     * @return      List of combined notes
+     */
     private Note[] concat(Note[] media, Note[] text)
     {
         int aLen = media.length;
