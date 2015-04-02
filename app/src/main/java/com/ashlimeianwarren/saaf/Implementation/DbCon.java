@@ -35,6 +35,7 @@ public class DbCon extends SQLiteOpenHelper
     public static final String COLUMN_WHT_SUBJECTID = "subject_id";
 
     public static final String TABLE_WHT_TEXTNOTE = "wht_text_note";
+    public static final String COLUMN_WHT_TEXTNAME = "subject_text_name";
     public static final String COLUMN_WHT_TEXT = "subject_text";
 
     /**
@@ -119,6 +120,7 @@ public class DbCon extends SQLiteOpenHelper
                 "CREATE TABLE " + TABLE_WHT_TEXTNOTE +
                         "(" +
                         COLUMN_WHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_WHT_TEXTNAME + "  TEXT NOT NULL," +
                         COLUMN_WHT_TEXT + " TEXT NOT NULL," +
                         COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
                         TABLE_WHT_SUBJECT + "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +

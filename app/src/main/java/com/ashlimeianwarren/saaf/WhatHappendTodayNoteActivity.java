@@ -18,8 +18,9 @@ import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 public class WhatHappendTodayNoteActivity extends ActionBarActivity
 {
     private EditText textNoteInput;
+    private TextView titleText;
     private int subjectId, noteId;
-    private String currentText;
+    private String currentText, textName;
 
     /**
      * Android Method, run when this Activity is created.
@@ -43,6 +44,7 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         super.onResume();
 
         textNoteInput = (EditText) findViewById(R.id.textNoteInput);
+        titleText = (TextView) findViewById(R.id.wht_note_title);
 
         Intent intent = getIntent();
         subjectId = intent.getIntExtra("subjectId", 0);
@@ -55,6 +57,8 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         noteId = intent.getIntExtra("noteId", 0);
 
         currentText = intent.getStringExtra("currentText");
+        textName = intent.getStringExtra("noteName");
+        titleText.setText(textName);
         textNoteInput.setText(currentText);
     }
 
@@ -113,13 +117,13 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         if (noteId > 0)
         {
             System.out.println("update");
-            TextNote textNote = new TextNote(noteId, textNoteInput.getText().toString(), subjectId, "Text");
+            TextNote textNote = new TextNote(noteId, textName, textNoteInput.getText().toString(), subjectId, "Text");
             textNote.update(this);
         }
         else
         {
             System.out.println("persist");
-            TextNote textNote = new TextNote(textNoteInput.getText().toString(), subjectId, "Text");
+            TextNote textNote = new TextNote(textName, textNoteInput.getText().toString(), subjectId, "Text");
 
             textNote.persist(this);
             System.out.println(textNote);

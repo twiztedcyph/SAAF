@@ -47,7 +47,7 @@ public class CustomNoteListAdapter extends ArrayAdapter
         {
             case "Text":
                 TextNote tNote = (TextNote) n;
-                textView.setText("Text Note");
+                textView.setText(tNote.getTextName());
                 imageView.setImageResource(R.drawable.fileicon);
                 break;
             case "Audio":

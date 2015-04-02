@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class TextNote extends Note
 {
 
-    private String textNote;
+    private String textName, textNote;
 
 
     /**
@@ -33,26 +33,18 @@ public class TextNote extends Note
      * @param textNote  The text note.
      * @param subjectId The subject id for this TextNote.
      */
-    public TextNote(String textNote, int subjectId, String fileType)
+    public TextNote(String textName, String textNote, int subjectId, String fileType)
     {
         super(subjectId, fileType);
+        this.textName = textName;
         this.textNote = textNote;
-
     }
 
-    /**
-     * Constructor for a TextNote object.
-     *
-     * @param _id           The ID for this TextNote.
-     * @param textNote      The text note.
-     * @param subjectId     The subject id for this TextNote.
-     * @param fileType      The type of this file.
-     */
-    public TextNote(int _id, String textNote, int subjectId, String fileType)
+    public TextNote(int _id, String textName, String textNote, int subjectId, String fileType)
     {
         super(_id, subjectId, fileType);
+        this.textName = textName;
         this.textNote = textNote;
-
     }
 
     /**
@@ -66,6 +58,7 @@ public class TextNote extends Note
         SQLiteDatabase db = dbCon.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DbCon.COLUMN_WHT_TEXTNAME, textName);
         contentValues.put(DbCon.COLUMN_WHT_TEXT, textNote);
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
         this._id = (int) db.insert(DbCon.TABLE_WHT_TEXTNOTE, null, contentValues);
@@ -136,10 +129,11 @@ public class TextNote extends Note
                 !cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT)).isEmpty())
         {
             int retId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_ID));
+            String retTextName = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXTNAME));
             String retTextNote = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_TEXT));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
 
-            textNoteList.add(new TextNote(retId, retTextNote, retSubjectId, "Text"));
+            textNoteList.add(new TextNote(retId, retTextName, retTextNote, retSubjectId, "Text"));
             cursor.moveToNext();
         }
         db.close();
@@ -171,6 +165,25 @@ public class TextNote extends Note
         this.textNote = textNote;
     }
 
+    /**
+     * Get the name of this text note.
+     *
+     * @return The name of this text note.
+     */
+    public String getTextName()
+    {
+        return textName;
+    }
+
+    /**
+     * Set the name of this text note.
+     *
+     * @param textName The name of this text note.
+     */
+    public void setTextName(String textName)
+    {
+        this.textName = textName;
+    }
 
     /**
      * Get a string representation of this object.
@@ -182,6 +195,7 @@ public class TextNote extends Note
     {
         return "TextNote:" +
                 "\n_id = " + _id +
+                "\ntextName = " + textName +
                 "\ntextNote = " + textNote +
                 "\nsubjectId = " + subjectId;
     }

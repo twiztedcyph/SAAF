@@ -24,8 +24,6 @@ import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
  */
 public class WhatHappenedTodayMainActivity extends ActionBarActivity
 {
-
-    private MultiTouchHandler multiTouchHandler;
     private AlertDialog.Builder alertDialogBuilder;
     private Subject[] subjectArray;
     private ListAdapter listAdapter;
@@ -44,7 +42,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         setContentView(R.layout.activity_what_happened_today_main);
         subjectArray = new Subject().retrieve(this);
         listAdapter = new CustomFolderListAdapter(this, subjectArray);
-        listView = (ListView) findViewById(R.id.mainActivity_listView);
+        listView = (ListView) findViewById(R.id.wht_main_listview);
         listView.setAdapter(listAdapter);
 
 
@@ -102,7 +100,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 
                 subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
                 listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
-                listView = (ListView) findViewById(R.id.mainActivity_listView);
+                listView = (ListView) findViewById(R.id.wht_main_listview);
                 listView.setAdapter(listAdapter);
                 return false;
             }
@@ -177,7 +175,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 
                                 subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
                                 listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
-                                listView = (ListView) findViewById(R.id.mainActivity_listView);
+                                listView = (ListView) findViewById(R.id.wht_main_listview);
                                 listView.setAdapter(listAdapter);
                             }
                         })

@@ -3,7 +3,6 @@ package com.ashlimeianwarren.saaf;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.*;
-import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 /**
  * Class used to control the activity which displays a list of previously scanned NFC tags.
@@ -40,7 +38,7 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_places);
 
-        title = (TextView) findViewById(R.id.txtTitle);
+        title = (TextView) findViewById(R.id.wt_display_title);
 
         String tagName = getIntent().getStringExtra("tagID");
         currentTag = new Tag().retrieve(tagName, this);

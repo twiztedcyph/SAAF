@@ -1,21 +1,26 @@
 package com.ashlimeianwarren.saaf;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Note;
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 import com.ashlimeianwarren.saaf.Implementation.AndroidAudio;
 import com.ashlimeianwarren.saaf.Implementation.AndroidMusic;
@@ -41,6 +46,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private MediaCapture sound = null;
     private String soundFile = null;
     private int audioButtonWidth = 0;
+    private AlertDialog.Builder alertDialogBuilder;
 
     /**
      * Android Method, run when this Activity is created.
@@ -60,12 +66,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             subjectId = extras.getInt("subjectId");
         }
 
-        newAudioButton = (Button) findViewById(R.id.newAudioButton);
-        newImageButton = (Button) findViewById(R.id.newImageButton);
-        newTextButton = (Button) findViewById(R.id.newTextButton);
+        newAudioButton = (Button) findViewById(R.id.wht_subject_audio_button);
+        newImageButton = (Button) findViewById(R.id.wht_subject_image_button);
+        newTextButton = (Button) findViewById(R.id.wht_subject_text_button);
         noteArray = new MediaNote().retrieve(subjectId, this);
         listAdapter = new CustomNoteListAdapter(this, noteArray);
-        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView = (ListView) findViewById(R.id.wht_subject_listview);
         listView.setAdapter(listAdapter);
 
 
@@ -207,8 +213,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             //sound.onRecord(mStartRecording);
             soundFile = sound.captureSound();
             mStartRecording = !mStartRecording;
-            newAudioButton.setText("Stop recording.");
-            newAudioButton.setBackgroundColor(Color.RED);
+            newAudioButton.setText("STOP RECORDING");
+            newAudioButton.setBackgroundResource(R.drawable.button_style_recording);
+            newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
             newImageButton.setVisibility(View.GONE);
             newTextButton.setVisibility(View.GONE);
             audioButtonWidth = newAudioButton.getLayoutParams().width;
@@ -227,8 +234,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
             ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
             paramsNew.width = audioButtonWidth;
-            newAudioButton.setText("New Audio Note");
-            newAudioButton.setBackgroundColor(Color.LTGRAY);
+            newAudioButton.setText("RECORD\nAUDIO");
+            newAudioButton.setBackgroundResource(R.drawable.button_style);
+            newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
             newImageButton.setVisibility(View.VISIBLE);
             newTextButton.setVisibility(View.VISIBLE);
             newAudioButton.setLayoutParams(paramsNew);
@@ -258,11 +266,52 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
      */
     public void newTextNote(View view)
     {
-        Intent intent = new Intent(this, WhatHappendTodayNoteActivity.class);
-        intent.putExtra("subjectId", subjectId);
-        intent.putExtra("noteId", 0);
-        intent.putExtra("currentText", "");
-        startActivity(intent);
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.wht_subject_dialog, null);
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setTitle("Enter Note Ttile:")
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                Intent intent = new Intent(WhatHappenedTodaySubjectActivity.this, WhatHappendTodayNoteActivity.class);
+                                //TODO get the name for the text here....
+
+                                intent.putExtra("subjectId", subjectId);
+                                intent.putExtra("noteId", 0);
+                                String enteredTitle = userInput.getText().toString();
+                                if (!enteredTitle.isEmpty())
+                                {
+                                    intent.putExtra("noteName", userInput.getText().toString());
+                                }else
+                                {
+                                    intent.putExtra("noteName", "Text Note");
+                                }
+                                intent.putExtra("currentText", "");
+                                startActivity(intent);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
     /**
@@ -276,7 +325,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         noteArray = concat(mediaArray, textArray);
         Arrays.sort(noteArray);
         listAdapter = new CustomNoteListAdapter(this, noteArray);
-        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView = (ListView) findViewById(R.id.wht_subject_listview);
         listView.setAdapter(listAdapter);
 
         /**
@@ -307,6 +356,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
                         Intent intent = new Intent(WhatHappenedTodaySubjectActivity.this, WhatHappendTodayNoteActivity.class);
                         intent.putExtra("subjectId", subjectId);
                         intent.putExtra("noteId", tNote.get_id());
+                        intent.putExtra("noteName", tNote.getTextName());
                         intent.putExtra("currentText", tNote.getTextNote());
                         startActivity(intent);
                         break;

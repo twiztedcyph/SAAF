@@ -2,25 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativeLayout">
+    android:id="@+id/relativeLayout"
+    android:background="#015981">
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/customLocation_pinIcon"
-        android:src="@drawable/pinicon" />
+        android:src="@drawable/pinicon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Location"
         android:id="@+id/customLocation_locationName"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/customLocation_pinIcon"
         android:layout_toEndOf="@+id/customLocation_pinIcon"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:gravity="center_vertical|left" />
+        android:gravity="center_vertical|fill_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/customLocation_pinIcon"
+        android:layout_alignBottom="@+id/customLocation_pinIcon"
+        android:textColor="#ffffffff"
+        android:textSize="20dp" />
 </RelativeLayout>

@@ -10,12 +10,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
+import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
 
@@ -50,7 +54,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         //For the moment we are limiting each NFC tag to only storing and displaying two images.
         imageViews = new ImageView[2];
 
-        title = (TextView) findViewById(R.id.txtTitle);
+        title = (TextView) findViewById(R.id.wt_display_title);
         description = (TextView) findViewById(R.id.txtDescription);
 
         imageViews[0] = (ImageView) findViewById(R.id.imgOne);
@@ -215,5 +219,21 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         intent.putExtra("imageName", name);
         intent.putExtra("imageDesc", desc);
         startActivity(intent);
+    }
+
+    public void saveAsNoteClicked(View view)
+    {
+        Subject subject = new Subject();
+        subject.setTitle(data.getDataName());
+        subject.persist(this);
+
+        TextNote textNote = new TextNote();
+        textNote.setSubjectId(subject.get_id());
+        textNote.setTextNote(data.getDataDescription());
+        textNote.setType("text");
+        textNote.persist(this);
+        Toast toast = Toast.makeText(getApplicationContext(), "Saved as note", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 400);
+        toast.show();
     }
 }
