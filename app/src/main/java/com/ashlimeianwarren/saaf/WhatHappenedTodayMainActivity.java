@@ -21,8 +21,6 @@ import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
 
 public class WhatHappenedTodayMainActivity extends ActionBarActivity
 {
-
-    private MultiTouchHandler multiTouchHandler;
     private AlertDialog.Builder alertDialogBuilder;
     private Subject[] subjectArray;
     private ListAdapter listAdapter;
