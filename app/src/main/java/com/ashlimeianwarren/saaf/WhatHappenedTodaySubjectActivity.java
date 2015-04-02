@@ -50,12 +50,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             subjectId = extras.getInt("subjectId");
         }
 
-        newAudioButton = (Button) findViewById(R.id.newAudioButton);
-        newImageButton = (Button) findViewById(R.id.newImageButton);
-        newTextButton = (Button) findViewById(R.id.newTextButton);
+        newAudioButton = (Button) findViewById(R.id.wht_subject_audio_button);
+        newImageButton = (Button) findViewById(R.id.wht_subject_image_button);
+        newTextButton = (Button) findViewById(R.id.wht_subject_text_button);
         noteArray = new MediaNote().retrieve(subjectId, this);
         listAdapter = new CustomNoteListAdapter(this, noteArray);
-        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView = (ListView) findViewById(R.id.wht_subject_listview);
         listView.setAdapter(listAdapter);
 
 
@@ -167,8 +167,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             //sound.onRecord(mStartRecording);
             soundFile = sound.captureSound();
             mStartRecording = !mStartRecording;
-            newAudioButton.setText("Stop recording.");
-            newAudioButton.setBackgroundColor(Color.RED);
+            newAudioButton.setText("STOP RECORDING");
+            newAudioButton.setBackgroundResource(R.drawable.button_style_recording);
+            newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
             newImageButton.setVisibility(View.GONE);
             newTextButton.setVisibility(View.GONE);
             audioButtonWidth = newAudioButton.getLayoutParams().width;
@@ -187,8 +188,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
             ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
             paramsNew.width = audioButtonWidth;
-            newAudioButton.setText("New Audio Note");
-            newAudioButton.setBackgroundColor(Color.LTGRAY);
+            newAudioButton.setText("RECORD\nAUDIO");
+            newAudioButton.setBackgroundResource(R.drawable.button_style);
+            newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
             newImageButton.setVisibility(View.VISIBLE);
             newTextButton.setVisibility(View.VISIBLE);
             newAudioButton.setLayoutParams(paramsNew);
@@ -224,7 +226,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         noteArray = concat(mediaArray, textArray);
         Arrays.sort(noteArray);
         listAdapter = new CustomNoteListAdapter(this, noteArray);
-        listView = (ListView) findViewById(R.id.NoteActivityListView);
+        listView = (ListView) findViewById(R.id.wht_subject_listview);
         listView.setAdapter(listAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()

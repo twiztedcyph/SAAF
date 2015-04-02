@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#015981">
 
     <ImageView
         android:layout_width="50dp"
@@ -9,10 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/foldericon"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp" />
+        android:src="@drawable/foldericon" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -22,8 +20,9 @@
         android:id="@+id/customFolder_folderName"
         android:layout_alignBottom="@+id/customFolder_folderIcon"
         android:layout_toRightOf="@+id/customFolder_folderIcon"
-        android:textSize="30dp"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/customFolder_folderIcon"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:textColor="#ffffffff"
+        android:gravity="center_vertical|fill_vertical" />
 </RelativeLayout>

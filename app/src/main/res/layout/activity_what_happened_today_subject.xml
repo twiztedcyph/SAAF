@@ -8,61 +8,66 @@
     android:background="#015981">
 
     <TextView
-        android:text="What Happened Today?"
+        android:text="Notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/wht_main_title"
+        android:id="@+id/wht_subject_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
-        android:autoText="true"
-        android:textColor="#ffffffff"
-        android:textAlignment="center"
-        android:layout_marginBottom="10dp" />
+        android:autoText="false"
+        android:textColor="#ffffffff" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/NoteActivityListView"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="false"
+        android:id="@+id/wht_subject_listview"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="70dp"
-        android:layout_alignParentTop="false"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/wht_subject_title"
+        android:layout_above="@+id/wht_subject_image_button"
+        android:layout_centerHorizontal="true"
+        android:dividerHeight="10dp"
+        android:background="#015981"
+        android:divider="#015981" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="New Audio Note"
-        android:id="@+id/newAudioButton"
+        android:text="RECORD\nAUDIO"
+        android:id="@+id/wht_subject_audio_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="newAudioNote"
-        android:background="#e1e1e1" />
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="New Text Note"
-        android:id="@+id/newTextButton"
+        android:text="MAKE A\nNOTE"
+        android:id="@+id/wht_subject_text_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/NoteActivityListView"
-        android:layout_alignEnd="@+id/NoteActivityListView"
+        android:layout_alignRight="@+id/wht_subject_listview"
+        android:layout_alignEnd="@+id/wht_subject_listview"
         android:onClick="newTextNote"
-        android:background="#e1e1e1" />
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="New Image Note"
-        android:id="@+id/newImageButton"
-        android:layout_alignTop="@+id/newAudioButton"
+        android:text="TAKE A\nPHOTO"
+        android:id="@+id/wht_subject_image_button"
+        android:layout_alignTop="@+id/wht_subject_audio_button"
         android:layout_centerHorizontal="true"
         android:onClick="newImageNote"
-        android:background="#e1e1e1" />
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour" />
+
 </RelativeLayout>

@@ -12,19 +12,37 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mainActivity_listView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:id="@+id/wht_main_listview"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/wht_subject_title"
+        android:layout_above="@+id/wht_main_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:dividerHeight="10dp"
+        android:background="#015981"
+        android:divider="#015981" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="New Folder"
-        android:id="@+id/newFolderButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="ADD NEW FOLDER"
+        android:id="@+id/wht_main_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="newFolderClicked"
-        android:background="#e1e1e1"/>
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What Happened Today?"
+        android:id="@+id/wht_subject_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:textColor="#ffffffff" />
 </RelativeLayout>
