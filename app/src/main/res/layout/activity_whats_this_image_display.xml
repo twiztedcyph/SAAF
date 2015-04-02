@@ -11,14 +11,15 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:layout_height="wrap_content"
+        android:text="Image Caption"
         android:id="@+id/imageDescDisplay"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:gravity="center_horizontal|bottom"/>
+        android:gravity="center_horizontal|bottom"
+        android:textColor="#ffffffff"
+        android:layout_marginTop="10dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/mainImageDisplay"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/imageDescDisplay"/>
+        android:layout_above="@+id/imageDescDisplay"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

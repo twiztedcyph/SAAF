@@ -24,16 +24,19 @@
         android:layout_alignParentTop="true" />
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/scvDescriptionScroll"
         android:layout_below="@+id/wt_display_title"
-        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/wt_display_title"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:paddingBottom="20dp"
-        android:layout_above="@+id/imgOne">
+        android:layout_above="@+id/imgOne"
+        android:fillViewport="false"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp">
         android:layout_marginBottom="10dp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true">
@@ -41,9 +44,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/txtDescription"/>
+            android:text="Tag Information"
+            android:id="@+id/txtDescription"
+            android:textColor="#ffffffff" />
     </ScrollView>
 
     <ImageView
@@ -65,15 +68,18 @@
         android:onClick="imageTwoClicked"
         android:layout_below="@+id/scvDescriptionScroll"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Save as note"
+        android:text="SAVE AS NOTE"
         android:id="@+id/saveAsNoteButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="saveAsNoteClicked"/>
+        android:onClick="saveAsNoteClicked"
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
