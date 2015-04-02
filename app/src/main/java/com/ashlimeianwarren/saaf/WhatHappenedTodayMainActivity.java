@@ -23,7 +23,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 {
 
     private MultiTouchHandler multiTouchHandler;
-    AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog.Builder alertDialogBuilder;
     private Subject[] subjectArray;
     private ListAdapter listAdapter;
     private ListView listView;
