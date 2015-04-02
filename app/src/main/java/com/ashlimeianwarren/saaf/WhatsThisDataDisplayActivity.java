@@ -42,7 +42,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
 
         imageViews = new ImageView[2];
 
-        title = (TextView) findViewById(R.id.txtTitle);
+        title = (TextView) findViewById(R.id.wt_display_title);
         description = (TextView) findViewById(R.id.txtDescription);
 
         imageViews[0] = (ImageView) findViewById(R.id.imgOne);

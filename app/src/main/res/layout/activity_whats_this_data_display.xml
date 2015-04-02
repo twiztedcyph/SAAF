@@ -6,40 +6,47 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.ashlimeianwarren.saaf.WhatsThisDataDisplayActivity">
+                tools:context="com.ashlimeianwarren.saaf.WhatsThisDataDisplayActivity"
+    android:background="#015981">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/txtTitle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:text="Tag Display"
+        android:id="@+id/wt_display_title"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#ffffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/scvDescriptionScroll"
-        android:layout_below="@+id/txtTitle"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/wt_display_title"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/txtTitle"
-        android:layout_alignEnd="@+id/txtTitle"
-        android:layout_marginTop="10dp"
+        android:layout_alignEnd="@+id/wt_display_title"
+        android:layout_marginTop="20dp"
         android:paddingBottom="20dp"
-        android:layout_above="@+id/imgOne">
+        android:layout_above="@+id/imgOne"
+        android:fillViewport="false"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/txtDescription"/>
+            android:text="Tag Information"
+            android:id="@+id/txtDescription"
+            android:textColor="#ffffffff" />
     </ScrollView>
 
     <ImageView
@@ -61,15 +68,18 @@
         android:onClick="imageTwoClicked"
         android:layout_below="@+id/scvDescriptionScroll"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Save as note"
+        android:text="SAVE AS NOTE"
         android:id="@+id/saveAsNoteButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="saveAsNoteClicked"/>
+        android:onClick="saveAsNoteClicked"
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

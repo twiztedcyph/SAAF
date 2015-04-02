@@ -28,7 +28,8 @@
             android:ems="10"
             android:id="@+id/textNoteInput"
             android:editable="true"
-            android:autoText="false" />
+            android:autoText="false"
+            android:textColor="#ffffffff" />
     </ScrollView>
 
     <Button

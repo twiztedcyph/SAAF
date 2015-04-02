@@ -23,7 +23,7 @@
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/txtTitle"
+        android:id="@+id/wt_display_title"
         android:layout_above="@+id/whatsThisList"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
