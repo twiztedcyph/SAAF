@@ -1,5 +1,10 @@
 package com.ashlimeianwarren.saaf;
 
+/**
+ * What's This Data Display Activity.
+ *
+ * Activity for controlling the display of data once an NFC tag has been scanned.
+ */
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,12 +35,19 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
     Data data;
     DataImage dataImages[];
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_data_display);
 
+        //For the moment we are limiting each NFC tag to only storing and displaying two images.
         imageViews = new ImageView[2];
 
         title = (TextView) findViewById(R.id.txtTitle);
@@ -43,11 +55,15 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
 
         imageViews[0] = (ImageView) findViewById(R.id.imgOne);
         imageViews[1] = (ImageView) findViewById(R.id.imgTwo);
+
         //TODO check string exists
+
+        //Get the dataString passed across which was read from the NFC tag
         String dataString = getIntent().getStringExtra("dataName");
         System.out.println("Data String == " + dataString);
         data = new Data();
 
+        //Find the data that matches the scanned String's title
         data.retrieve(dataString, this);
 
         dataImages = new DataImage().retrieve(data.get_id(), this);
@@ -57,15 +73,19 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
 
         for (int i = 0; i < imageViews.length; i++)
         {
-
+            //Get a bitmap image from the file path
             Bitmap bitmap = decodeFile(dataImages[i].getImagePath());
 
             imageViews[i].setImageBitmap(bitmap);
-
         }
     }
 
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -74,6 +94,12 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -91,6 +117,12 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for transforming a File into a bitmap image
+     *
+     * @param f File to be transformed
+     * @return  Bitmap image from the File
+     */
     private Bitmap decodeFile(File f)
     {
         try
@@ -118,6 +150,12 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return null;
     }
 
+    /**
+     * Method to find and decode a bitmap image from a given file path.
+     *
+     * @param fileName File path from which to find Bitmap Image.
+     * @return         Bitmap image from file path.
+     */
     private Bitmap decodeFile(String fileName)
     {
         try
@@ -151,6 +189,10 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         return null;
     }
 
+    /**
+     * Method for handling when the first image is clicked
+     * @param v The view that has been clicked
+     */
     public void imageOneClicked(View v)
     {
         String name = dataImages[0].getImagePath();
@@ -161,6 +203,10 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         startActivity(intent);
     }
 
+    /**
+     * Method for handling when the second image is clicked
+     * @param v The view that has been clicked
+     */
     public void imageTwoClicked(View v)
     {
         String name = dataImages[1].getImagePath();

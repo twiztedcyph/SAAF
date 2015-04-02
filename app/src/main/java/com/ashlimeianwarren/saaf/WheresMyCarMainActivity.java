@@ -27,6 +27,11 @@ import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 import java.io.File;
 
+/**
+ * A class used to control a users interaction with the "Where's My Car" section of the app.
+ * Responsible for allowing users to set up a new location for later navigation and for choosing
+ * a pre saved location to navigate too.
+ */
 
 public class WheresMyCarMainActivity extends ActionBarActivity
 {
@@ -39,6 +44,12 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     private ListAdapter listAdapter;
     private AlertDialog.Builder alertDialogBuilder;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -69,6 +80,10 @@ public class WheresMyCarMainActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Method for building an alert dialog which informs the user that their GPS is switched off
+     * and asks if they would like to enable it.
+     */
     private void buildAlertMessageNoGps()
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -92,6 +107,10 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         alert.show();
     }
 
+    /**
+     * A method which builds and alert to tell users that their device is still searching for a GPS
+     * signal and advises them to wait until a GPS lock has been obtained.
+     */
     private void gpsLoadingAlert()
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -108,6 +127,9 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         alert.show();
     }
 
+    /**
+     * Called when the App is resumed and allows users to interact with the app again.
+     */
     @Override
     protected void onResume()
     {
@@ -118,6 +140,9 @@ public class WheresMyCarMainActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Called as part of the activity lifecycle when an activity is going into the background, but has not (yet) been killed.
+     */
     @Override
     protected void onPause()
     {
@@ -126,6 +151,9 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         pm.close();
     }
 
+    /**
+     * Called when the activity is no longer visible to the user.
+     */
     @Override
     protected void onStop()
     {
@@ -133,6 +161,11 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         System.out.println("OnStop");
     }
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -141,6 +174,12 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -158,6 +197,11 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method which runs when the save location button is clicked. The current location is obtained
+     * and persisted to the database for later navigation.
+     * @param view view The view that has been clicked
+     */
     public void saveLocationClicked(View view)
     {
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
@@ -214,9 +258,12 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * A method which automatically updates a list displayed to a user so that new additions or
+     * deletions are immediately shown to the user.
+     */
     private void refreshList()
     {
-
         locationArray = new PointOfInterest().retrieve(this);
         listAdapter = new CustomLocationListAdapter(this, locationArray);
         listView = (ListView) findViewById(R.id.custom_location_list);

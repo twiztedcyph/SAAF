@@ -15,6 +15,10 @@ import android.widget.TextView;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.*;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
+/**
+ * Class used to control the activity which displays a list of previously scanned NFC tags.
+ */
+
 public class WhatsThisPlacesActivity extends ActionBarActivity
 {
     private Tag currentTag;
@@ -24,6 +28,12 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
     private ListAdapter listAdapter;
     private ListView subList;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,6 +76,9 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Called when the App is resumed and allows users to interact with the app again.
+     */
     protected void onResume()
     {
         super.onResume();
@@ -82,6 +95,11 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
     }
 
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -90,6 +108,12 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -106,6 +130,4 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

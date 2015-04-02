@@ -17,16 +17,6 @@ import java.util.ArrayList;
  */
 public class MediaNote extends Note
 {
-    /*
-    ASH....
-    Note that I changed this. We no longer have audio, image and maybe video notes...
-    Instead we have media notes and must just set the type...
-    i = image
-    a = audio
-    v = video
-    I can make this an enum if required.
-     */
-
     private String mediaType;
     private String filePath;
 
@@ -41,29 +31,32 @@ public class MediaNote extends Note
     /**
      * Constructor for a MediaNote object.
      *
-     * @param mediaType 'i' - Image, 'a' - Audio, 'v' - Video.
+     * @param mediaType "Image" or "Audio".
      * @param filePath  The path to the media file.
      * @param subjectId The subject id for this MediaNote.
+     * @param fileType  "Image" or "Audio".
      */
     public MediaNote(String mediaType, String filePath, int subjectId, String fileType)
     {
         super(subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
-
-
     }
 
+    /**
+     * Constructor for a MediaNote object.
+     *
+     * @param _id       The database ID for this MediaNote.
+     * @param mediaType "Image" or "Audio".
+     * @param filePath  The path to the media file.
+     * @param subjectId The subject id for this MediaNote.
+     * @param fileType  "Image" or "Audio".
+     */
     private MediaNote(int _id, String mediaType, String filePath, int subjectId, String fileType)
     {
-        /*
-        Private constructor with id included.
-        Used to initialise from database.
-         */
         super(_id, subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
-
     }
 
     /**

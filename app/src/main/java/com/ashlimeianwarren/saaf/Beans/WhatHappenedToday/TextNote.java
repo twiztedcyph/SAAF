@@ -40,6 +40,14 @@ public class TextNote extends Note
 
     }
 
+    /**
+     * Constructor for a TextNote object.
+     *
+     * @param _id           The ID for this TextNote.
+     * @param textNote      The text note.
+     * @param subjectId     The subject id for this TextNote.
+     * @param fileType      The type of this file.
+     */
     public TextNote(int _id, String textNote, int subjectId, String fileType)
     {
         super(_id, subjectId, fileType);
@@ -66,6 +74,11 @@ public class TextNote extends Note
     }
 
 
+    /**
+     * Update this TextNote in the database.
+     * 0
+     * @param context   The context from which this method was called.
+     */
     public void update(Context context)
     {
         dbCon = new DbCon(context, null);

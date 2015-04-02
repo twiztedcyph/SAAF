@@ -25,6 +25,10 @@ import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 import java.io.UnsupportedEncodingException;
 
+/**
+ * The main class for controlling the app allowing for users to navigate to different sections of
+ * the app.
+ */
 
 public class MainActivity extends ActionBarActivity
 {
@@ -36,6 +40,12 @@ public class MainActivity extends ActionBarActivity
     private SharedPreferences prefs;
     private final String TAG = "com.ashlimeianwarren.saaf";
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -86,6 +96,11 @@ public class MainActivity extends ActionBarActivity
         nfcTechLists = new String[][]{new String[]{NfcF.class.getName()}};
     }
 
+    /**
+     * Hook activated when a new Intent is created.
+     *
+     * @param intent The new intent that was started for the activity.
+     */
     @Override
     protected void onNewIntent(Intent intent)
     {
@@ -95,11 +110,17 @@ public class MainActivity extends ActionBarActivity
         this.setIntent(intent);
     }
 
+    /**
+     * Called when the App is resumed and allows users to interact with the app again.
+     */
     @Override
     protected void onResume()
     {
         Log.i("Resume", "Entered Resume");
         super.onResume();
+
+        //If the app has not been run before we need to populate the database with our NFC
+        //information.
 
         prefs = getSharedPreferences(TAG, MODE_PRIVATE);
         if (prefs.getBoolean("firstrun", true))
@@ -337,6 +358,9 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Called as part of the activity lifecycle when an activity is going into the background, but has not (yet) been killed.
+     */
     @Override
     protected void onPause()
     {
@@ -349,6 +373,11 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -357,6 +386,12 @@ public class MainActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -374,6 +409,13 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method to check for an NDEF message contained in a tag, run when an intent containing a tag
+     * has been found.
+     *
+     * @param intent The current Intent.
+     * @return       The plain text string contained on the NFC tag.
+     */
     private String checkForNdef(Intent intent)
     {
         String payloadString = "Ready To Scan";
@@ -435,18 +477,30 @@ public class MainActivity extends ActionBarActivity
         return payloadString;
     }
 
+    /**
+     * Method for handling when the first "Where's My Car" button is clicked.
+     * @param view The view that has been clicked
+     */
     public void wheresMyCarClicked(View view)
     {
         Intent intent = new Intent(this, WheresMyCarMainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method for handling when the first "What Happened Today" button is clicked.
+     * @param view The view that has been clicked
+     */
     public void whatHappenedTodayClicked(View view)
     {
         Intent intent = new Intent(this, WhatHappenedTodayMainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method for handling when the first "What's This" button is clicked.
+     * @param view The view that has been clicked
+     */
     public void whatsThisClicked(View view)
     {
         Intent intent = new Intent(this, WhatsThisMainActivity.class);

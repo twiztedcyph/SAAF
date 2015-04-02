@@ -12,26 +12,36 @@ import android.widget.TextView;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
 
 /**
- * Created by Liam on 23/03/2015.
+ * A class representing a list of NFC Data objects.
  */
 public class CustomDataListAdapter extends ArrayAdapter
 {
+    /**
+     * Constructor for this List Adapter
+     * @param context The Context from which this list was created.
+     * @param objects The objects to be stored in this list.
+     */
     public CustomDataListAdapter(Context context, Object[] objects)
     {
         super(context, R.layout.custom_folder_list, objects);
     }
 
+    /**
+     * Get a View that displays the data at the specified position in the data set.
+     *
+     * @param position    The position of the item within the adapter's data set.
+     * @param convertView The old view to reuse, if possible.
+     * @param parent      The parent that this view will eventually be attached to.
+     * @return            A View corresponding to the data at the specified position.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        Log.d("Custom Data Adapter", "Loaded Into Adapter");
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View customView = layoutInflater.inflate(R.layout.custom_places_list, parent, false);
         ImageView imageView = (ImageView) customView.findViewById(R.id.customFolder_folderIcon);
         TextView textView = (TextView) customView.findViewById(R.id.customFolder_folderName);
         Data d = (Data) getItem(position);
-        Log.d("Custom Data Adapter", "Setting Text");
-        Log.d("Found Data", d.toString());
         textView.setText(d.getDataName());
         imageView.setImageResource(R.drawable.foldericon);
 

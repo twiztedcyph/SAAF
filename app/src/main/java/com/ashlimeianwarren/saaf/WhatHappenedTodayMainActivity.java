@@ -18,7 +18,10 @@ import android.widget.ListView;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
 
-
+/**
+ * Main Activity of the "What Happened Today" section of the app allowing for users to create,
+ * view and open subject folders in which notes are stored.
+ */
 public class WhatHappenedTodayMainActivity extends ActionBarActivity
 {
 
@@ -28,6 +31,12 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
     private ListAdapter listAdapter;
     private ListView listView;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,8 +48,23 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         listView.setAdapter(listAdapter);
 
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked.
+         *
+         * @param listener The callback that will be invoked.
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
+            /**
+             * Callback method to be invoked when an item in this AdapterView has been clicked.
+             *
+             * @param parent    The AdapterView where the click happened.
+             * @param view      The view within the AdapterView that was clicked (this will be a
+             *                  view provided by the adapter)
+             * @param position  The position of the view in the adapter.
+             * @param id        The row id of the item that was clicked.
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -52,8 +76,23 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             }
         });
 
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked and held
+         *
+         * @param listener The callback that will run
+         */
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
+            /**
+             * Callback method to be invoked when an item in this view has been clicked and held.
+             *
+             * @param parent    The AbsListView where the click happened
+             * @param view      The view within the AbsListView that was clicked
+             * @param position  The position of the view in the list
+             * @param id        The row id of the item that was clicked
+             * @return          true if the callback consumed the long click, false otherwise
+             */
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -71,6 +110,11 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -79,6 +123,12 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -96,6 +146,12 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for creating a new subject folder in which notes can be stored and persisting it to
+     * the database for later viewing.
+     *
+     * @param view The view that has been clicked
+     */
     public void newFolderClicked(View view)
     {
         LayoutInflater li = LayoutInflater.from(this);

@@ -373,7 +373,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     /**
      * Method for joining two note lists together.
-     * 
+     *
      * @param media Media Note List
      * @param text  Text Note List
      * @return      List of combined notes
