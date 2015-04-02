@@ -32,6 +32,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/wt_display_title"
         android:layout_marginTop="10dp"
+        android:paddingBottom="20dp"
+        android:layout_above="@+id/imgOne">
         android:layout_marginBottom="10dp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true">
@@ -48,22 +50,30 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/imgOne"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:onClick="imageOneClicked"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="59dp"/>
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/imgTwo"
-        android:layout_alignTop="@+id/imgOne"
-        android:layout_alignRight="@+id/scvDescriptionScroll"
-        android:layout_alignEnd="@+id/scvDescriptionScroll"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:clickable="true"
-        android:onClick="imageTwoClicked"/>
+        android:onClick="imageTwoClicked"
+        android:layout_below="@+id/scvDescriptionScroll"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save as note"
+        android:id="@+id/saveAsNoteButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="saveAsNoteClicked"/>
 
 </RelativeLayout>
