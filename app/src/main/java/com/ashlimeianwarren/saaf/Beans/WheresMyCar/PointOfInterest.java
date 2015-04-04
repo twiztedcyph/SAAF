@@ -29,7 +29,7 @@ public class PointOfInterest
     }
 
     /**
-     * Constructor for a PointOfInterst object.
+     * Constructor for a PointOfInterest object.
      *
      * @param longitude The longitude of the object.
      * @param latitude  The latitude of the object.
@@ -42,12 +42,16 @@ public class PointOfInterest
         this.info = info;
     }
 
+    /**
+     * Constructor for a PointOfInterest object.
+     *
+     * @param _id       The id for the object.
+     * @param longitude The longitude of the object.
+     * @param latitude  The latitude of the object.
+     * @param info      Any associated information for the object.
+     */
     public PointOfInterest(int _id, double longitude, double latitude, String info)
     {
-        /*
-        Private constructor with id included.
-        Used to initialise from database.
-         */
         this._id = _id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -111,6 +115,12 @@ public class PointOfInterest
         return result;
     }
 
+    /**
+     * Delete a PointOfInterest from the database.
+     *
+     * @param pointOfInterestId     ID of the PointOfInterest for deletion.
+     * @param context               The context from which this method was called.
+     */
     public void delete(int pointOfInterestId, Context context)
     {
         dbCon = new DbCon(context, null);
@@ -185,13 +195,17 @@ public class PointOfInterest
     /**
      * Get the database id for this PointOfInterest.
      *
-     * @return
+     * @return The database id for this PointOfInterest.
      */
     public int get_id()
     {
         return _id;
     }
 
+    /**
+     * Method to return a string representation of this PointOfInterest.
+     * @return String representation of this PointOfInterest.
+     */
     @Override
     public String toString()
     {

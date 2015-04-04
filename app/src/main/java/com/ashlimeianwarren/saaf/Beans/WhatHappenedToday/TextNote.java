@@ -67,6 +67,11 @@ public class TextNote extends Note
     }
 
 
+    /**
+     * Update this TextNote in the database.
+     * 0
+     * @param context   The context from which this method was called.
+     */
     public void update(Context context)
     {
         dbCon = new DbCon(context, null);

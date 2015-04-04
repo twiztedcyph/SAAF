@@ -42,12 +42,16 @@ public class DataImage
         this.dataId = dataId;
     }
 
+    /**
+     * Private Constructor for a DataImage object.
+     *
+     * @param _id        The ID for this DataImage.
+     * @param imageTitle The title of the image.
+     * @param imagePath  The path to the image.
+     * @param dataId     The associated Data object's id.
+     */
     private DataImage(int _id, String imageTitle, String imagePath, int dataId)
     {
-        /*
-        Private constructor with id included.
-        Used to initialise from database.
-         */
         this._id = _id;
         this.imageTitle = imageTitle;
         this.imagePath = imagePath;

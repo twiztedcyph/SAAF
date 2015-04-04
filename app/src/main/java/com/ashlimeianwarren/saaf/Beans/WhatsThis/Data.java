@@ -42,12 +42,16 @@ public class Data
         this.tagId = tagId;
     }
 
+    /**
+     * Private constructor for a Data Object.
+     *
+     * @param _id               The ID for this Data Object.
+     * @param dataName          The name/title of this Data object.
+     * @param dataDescription   A description of the data.
+     * @param tagId             The tag id this Data object is associated with.
+     */
     private Data(int _id, String dataName, String dataDescription, int tagId)
     {
-        /*
-        Private constructor with id included.
-        Used to initialise from database.
-         */
         this._id = _id;
         this.dataName = dataName;
         this.dataDescription = dataDescription;
@@ -121,7 +125,6 @@ public class Data
      *
      * @param dataName The data name/title.
      * @param context  The context from which this method was called.
-     * @return An array of Data for the tag id.
      */
     public void retrieve(String dataName, Context context)
     {

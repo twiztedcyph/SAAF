@@ -28,6 +28,12 @@ public class WhatsThisMainActivity extends ActionBarActivity
     private IntentFilter[] intentFilters;
     private String[][] nfcTechLists;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

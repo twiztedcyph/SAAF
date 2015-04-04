@@ -14,11 +14,20 @@ import com.ashlimeianwarren.saaf.R;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Class for controlling the Activity used to display Images from the NFC Data in full screen.
+ */
 public class WhatsThisImageDisplayActivity extends ActionBarActivity
 {
     private TextView imageDescription;
     private ImageView imageDisplay;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,6 +60,11 @@ public class WhatsThisImageDisplayActivity extends ActionBarActivity
     }
 
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -59,6 +73,12 @@ public class WhatsThisImageDisplayActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {

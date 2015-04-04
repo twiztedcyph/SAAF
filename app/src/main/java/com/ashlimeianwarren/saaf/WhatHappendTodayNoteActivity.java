@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 
-
+/**
+ * Class used to interact with a user when they are viewing available notes.
+ */
 public class WhatHappendTodayNoteActivity extends ActionBarActivity
 {
     private EditText textNoteInput;
@@ -20,6 +22,12 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
     private int subjectId, noteId;
     private String currentText, textName;
 
+    /**
+     * Android Method, run when this Activity is created.
+     *
+     * @param savedInstanceState Allows for saving the state of of the application without
+     *                           persisting data.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -27,6 +35,9 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         setContentView(R.layout.activity_what_happend_today_note);
     }
 
+    /**
+     * Called when the App is resumed and allows users to interact with the app again.
+     */
     @Override
     protected void onResume()
     {
@@ -51,6 +62,11 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         textNoteInput.setText(currentText);
     }
 
+    /**
+     * Method used for controlling our custom list adapters
+     * @param menu The options menu in which to place items
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -59,6 +75,12 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Method run when a menu item is selected.
+     *
+     * @param item The menu item that was selected
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -76,6 +98,13 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for handling when the first "Save Text" button is clicked. Depending on whether the
+     * user has created a new TextNote or is editing an old one a TextNote is either created and
+     * persisted to the database or updated.
+     *
+     * @param view The view that has been clicked
+     */
     public void saveTextClicked(View view)
     {
         System.out.println("NoteId: " + noteId);

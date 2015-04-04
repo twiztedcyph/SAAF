@@ -35,6 +35,12 @@ public class Tag
         this.tagText = tagText;
     }
 
+    /**
+     * Private Constructor for a Tag object.
+     *
+     * @param _id     The ID for this Tag.
+     * @param tagText The unique string identifier for the tag.
+     */
     private Tag(int _id, String tagText)
     {
         this._id = _id;
@@ -95,7 +101,6 @@ public class Tag
      *
      * @param tagText The unique string identifier for the tag.
      * @param context The context from which this method was called.
-     * @return A tag associated with the input tag text.
      */
     public void retrieveNew(String tagText, Context context)
     {

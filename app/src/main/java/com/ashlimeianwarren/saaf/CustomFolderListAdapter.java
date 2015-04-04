@@ -11,17 +11,28 @@ import android.widget.TextView;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 
 /**
- * Created by Ash on 06/03/2015.
+ * A class representing a list of subject folders in which notes can be stored.
  */
 public class CustomFolderListAdapter extends ArrayAdapter
 {
-
-
+    /**
+     * Constructor for this List Adapter
+     * @param context The Context from which this list was created.
+     * @param objects The objects to be stored in this list.
+     */
     public CustomFolderListAdapter(Context context, Object[] objects)
     {
         super(context, R.layout.custom_folder_list, objects);
     }
 
+    /**
+     * Get a View that displays the data at the specified position in the data set.
+     *
+     * @param position    The position of the item within the adapter's data set.
+     * @param convertView The old view to reuse, if possible.
+     * @param parent      The parent that this view will eventually be attached to.
+     * @return            A View corresponding to the data at the specified position.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
