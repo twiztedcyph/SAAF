@@ -77,6 +77,10 @@
             android:name=".WhatsThisImageDisplayActivity"
             android:label="@string/title_activity_whats_this_image_display" >
         </activity>
+        <activity
+            android:name=".WheresMyCarTestActivity"
+            android:label="@string/title_activity_wheres_my_car_test" >
+        </activity>
     </application>
 
 </manifest>

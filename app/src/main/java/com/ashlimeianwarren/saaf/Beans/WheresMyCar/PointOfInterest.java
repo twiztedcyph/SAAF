@@ -99,7 +99,7 @@ public class PointOfInterest
             double retLat = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LATITUDE));
             double retLong = cursor.getDouble(cursor.getColumnIndex(DbCon.COLUMN_WMC_LONGITUDE));
             String retInfo = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WMC_INFORMATION));
-            poiList.add(new PointOfInterest(retId, retLat, retLong, retInfo));
+            poiList.add(new PointOfInterest(retId, retLong, retLat, retInfo));
             cursor.moveToNext();
         }
         db.close();

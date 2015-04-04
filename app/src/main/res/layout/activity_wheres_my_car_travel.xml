@@ -6,52 +6,60 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ashlimeianwarren.saaf.WheresMyCarTravelActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView2"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/pointerIconPic"
+        android:src="@drawable/pointericon"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="157dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Distance"
-        android:id="@+id/getDistance"
-        android:onClick="getDistance"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/pointerIconPicTwo"
+        android:layout_alignStart="@+id/pointerIconPicTwo"
+        android:layout_marginTop="79dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/getDistance"
+        android:text="Info One"
+        android:id="@+id/infoOneDisplay"
+        android:layout_below="@+id/pointerIconPicTwo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="45dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GET ANGLE OF ARROW"
-        android:id="@+id/getAngleButton"
-        android:layout_below="@+id/textView3"
+        android:text="Start Navigation"
+        android:id="@+id/startNavButton"
+        android:layout_marginBottom="28dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:onClick="getArrowAngle" />
+        android:onClick="startNavClicked"/>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/pointer"
+        android:id="@+id/pointerIconPicTwo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Info Two"
+        android:id="@+id/infoTwoDisplay"
+        android:layout_below="@+id/infoOneDisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Info Three"
+        android:id="@+id/infoThreeDisplay"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:src="@drawable/pointericon" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -19,5 +19,6 @@
     <string name="title_activity_whats_this_add_content">WhatsThisAddContentActivity</string>
     <string name="title_activity_whats_this_data_display">WhatsThisDataDisplayActivity</string>
     <string name="title_activity_whats_this_image_display">WhatsThisImageDisplayActivity</string>
+    <string name="title_activity_wheres_my_car_test">WheresMyCarTestActivity</string>
 
 </resources>

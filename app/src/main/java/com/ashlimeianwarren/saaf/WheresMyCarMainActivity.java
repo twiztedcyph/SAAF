@@ -66,7 +66,20 @@ public class WheresMyCarMainActivity extends ActionBarActivity
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Location selectedLoc = new Location("selectedLoc");
+                selectedLoc.setLatitude(locationArray[position].getLatitude());
+                selectedLoc.setLongitude(locationArray[position].getLongitude());
 
+                Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
+                intent.putExtra("currentLocation", selectedLoc);
+                startActivity(intent);
+            }
+        });
     }
 
     private void buildAlertMessageNoGps()
