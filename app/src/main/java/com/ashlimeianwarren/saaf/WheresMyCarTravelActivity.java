@@ -1,6 +1,8 @@
 package com.ashlimeianwarren.saaf;
 
-import android.hardware.GeomagneticField;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
@@ -19,13 +21,12 @@ import android.hardware.SensorEvent;
 import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 
-public class WheresMyCarTravelActivity extends ActionBarActivity implements SensorEventListener
-{
-    private ImageView pointer, pointerTwo;
+public class WheresMyCarTravelActivity extends ActionBarActivity implements SensorEventListener {
+    private ImageView pointerTwo;
     private SensorManager sensorManager;
     private Sensor accel;
     private Sensor magne;
-    private TextView infoOneDisplay, infoTwoDisplay, infoThreeDisplay;
+    private TextView distanceDisplay, destinationDisplay;
     private float[] lastAccelerometer = new float[3];
     private float[] lastMagnetometer = new float[3];
     private float[] adjLastAccelerometer = new float[3];
@@ -41,48 +42,50 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     float azimuthInRadians;
     float azimuthInDegress;
     private final float ALPHA = 0.25f;
+    int[] pointers;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_travel);
+
+        pointers = new int[3];
+        pointers[0] = R.drawable.greenpointer;
+        pointers[1] = R.drawable.orangepointer;
+        pointers[2] = R.drawable.redpointer;
 
         pm = new PositionManager(this);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null)
-        {
+        String name = "";
+        if (extras != null) {
             oldLocation = (Location) extras.get("currentLocation");
+            name = extras.getString("locationName");
+        } else {
+            finish();
         }
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magne = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        pointer = (ImageView) findViewById(R.id.pointerIconPic);
         pointerTwo = (ImageView) findViewById(R.id.pointerIconPicTwo);
-        pointerTwo.setImageResource(R.drawable.greenpointer);
-
-        infoOneDisplay = (TextView) findViewById(R.id.infoOneDisplay);
-        infoTwoDisplay = (TextView) findViewById(R.id.infoTwoDisplay);
-        infoThreeDisplay = (TextView) findViewById(R.id.infoThreeDisplay);
-
-
+        pointerTwo.setImageResource(pointers[0]);
+        distanceDisplay = (TextView) findViewById(R.id.distDisplay);
+        destinationDisplay = (TextView) findViewById(R.id.destDisplay);
+        destinationDisplay.setText("Navigating to:\n" + name);
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_wheres_my_car_test, menu);
         return true;
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
 
         pm.start();
@@ -91,8 +94,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
 
         pm.close();
@@ -101,66 +103,47 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
+        if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void startNavClicked(View view)
-    {
+    public void startNavClicked(View view) {
 
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event)
-    {
-        if (event.sensor == accel)
-        {
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor == accel) {
             System.arraycopy(event.values, 0, lastAccelerometer, 0, event.values.length);
             adjLastAccelerometer = lowPass(event.values.clone(), adjLastAccelerometer);
             lastAccelerometerSet = true;
-        }
-        else if (event.sensor == magne)
-        {
+        } else if (event.sensor == magne) {
             System.arraycopy(event.values, 0, lastMagnetometer, 0, event.values.length);
             adjLastMagnetometer = lowPass(event.values.clone(), adjLastMagnetometer);
             lastMagnetometerSet = true;
         }
-        if (lastAccelerometerSet && lastMagnetometerSet)
-        {
+        if (lastAccelerometerSet && lastMagnetometerSet) {
             SensorManager.getRotationMatrix(mR, null, adjLastAccelerometer, adjLastMagnetometer);
             SensorManager.getOrientation(mR, orientation);
             azimuthInRadians = orientation[0];
             azimuthInDegress = (float) (Math.toDegrees(azimuthInRadians) + 360) % 360;
-            RotateAnimation ra = new RotateAnimation(currentDegree, -azimuthInDegress, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
-            ra.setDuration(250);
-
-            ra.setFillAfter(true);
-
-            pointer.startAnimation(ra);
             currentDegree = (int) -azimuthInDegress;
-
-            infoOneDisplay.setText(String.valueOf((int) azimuthInDegress));
         }
-        if (pm.getCurrentPosition() != null)
-        {
+        if (pm.getCurrentPosition() != null) {
             currentLocation = pm.getCurrentPosition();
+            double dist = currentLocation.distanceTo(oldLocation);
 
-            infoTwoDisplay.setText(String.valueOf(pm.getBearingToLocation(oldLocation)));
-
-            infoThreeDisplay.setText(oldLocation.getLongitude() + " : " + oldLocation.getLatitude() + "\n" + currentLocation.getLongitude() + " : " + currentLocation.getLatitude());
+            distanceDisplay.setText(String.valueOf(dist));
 
             RotateAnimation ra = new RotateAnimation(currentDegree + (float) pm.getBearingToLocation(oldLocation), (-azimuthInDegress + (float) pm.getBearingToLocation(oldLocation)), Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             ra.setDuration(2000);
@@ -172,21 +155,35 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy)
-    {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Not used but required for the implementation.
     }
 
-    private float[] lowPass(float[] input, float[] output)
-    {
-        if (output == null)
-        {
+    private float[] lowPass(float[] input, float[] output) {
+        if (output == null) {
             return input;
         }
-        for (int i = 0; i < input.length; i++)
-        {
+        for (int i = 0; i < input.length; i++) {
             output[i] = output[i] + ALPHA * (input[i] - output[i]);
         }
         return output;
+    }
+
+    private void buildAlertMessageArrived() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You have arrived at you save location.")
+                .setCancelable(false)
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        finish();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 }

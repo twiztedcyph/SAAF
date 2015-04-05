@@ -88,6 +88,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
 
                 Intent intent = new Intent(WheresMyCarMainActivity.this, WheresMyCarTravelActivity.class);
                 intent.putExtra("currentLocation", selectedLoc);
+                intent.putExtra("locationName", locationArray[position].getInfo());
                 startActivity(intent);
             }
         });
