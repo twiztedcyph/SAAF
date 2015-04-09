@@ -58,6 +58,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         setContentView(R.layout.activity_wheres_my_car_main);
         pm = new PositionManager(this);
 
+
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
@@ -182,6 +183,12 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         refreshList();
         pm.start();
 
+        if (WheresMyCarTravelActivity.arrived)
+        {
+
+            buildAlertMessageArrived("You have reached your destination.");
+            WheresMyCarTravelActivity.arrived = false;
+        }
     }
 
     /**
@@ -312,5 +319,21 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         listAdapter = new CustomLocationListAdapter(this, locationArray);
         listView = (ListView) findViewById(R.id.custom_location_list);
         listView.setAdapter(listAdapter);
+    }
+
+    private void buildAlertMessageArrived(String message)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(final DialogInterface dialog,
+                                        @SuppressWarnings("unused") final int id)
+                    {
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 }

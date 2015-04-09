@@ -48,6 +48,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private int audioButtonWidth = 0;
     private AlertDialog.Builder alertDialogBuilder;
     int clickedPosition;
+    private int latestNoteId;
 
     /**
      * Android Method, run when this Activity is created.
@@ -253,7 +254,8 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
             paramsNew.width = 1000;
             newAudioButton.setLayoutParams(paramsNew);
-        } else
+        }
+        else
         {
             //sound.onRecord(mStartRecording);
             sound.stopCaptureSound();
@@ -286,10 +288,24 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         String imageFile = image.captureImage();
         MediaNote iNote = new MediaNote("Image", imageFile, subjectId, "Image");
         iNote.persist(this);
-        refreshList();
+        latestNoteId = iNote.get_id();
         System.out.println(iNote);
 
+
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        //Checking to determine if the file was actually taken
+        if (resultCode == 0)
+        {
+            MediaNote latestImageNote = new MediaNote();
+            latestImageNote.delete(latestNoteId,this);
+        }
+        refreshList();
+        }
 
     /**
      * Method for creating a new Text Note and persisting it to the database.

@@ -45,6 +45,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     float azimuthInDegress;
     private final float ALPHA = 0.25f;
     int[] pointers;
+    public static boolean arrived = false;
 
 
     @Override
@@ -79,7 +80,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
         pointerTwo.setImageResource(pointers[0]);
         distanceDisplay = (TextView) findViewById(R.id.distDisplay);
         destinationDisplay = (TextView) findViewById(R.id.destDisplay);
-        destinationDisplay.setText("Navigating to:\n" + name);
+        destinationDisplay.setText(name);
     }
 
 
@@ -158,12 +159,13 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
 
             if(dist < 5)
             {
-                Toast.makeText(getApplicationContext(),
-                        "You have reached your destination.", Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(WheresMyCarTravelActivity.this, WheresMyCarMainActivity.class);
+                this.arrived = true;
+                //startActivity(intent);
                 finish();
             }
 
-            distanceDisplay.setText(String.valueOf(dist));
+            distanceDisplay.setText(String.format("%5d meters", (int)dist));
 
             RotateAnimation ra = new RotateAnimation(
                     currentDegree + (float) pm.getBearingToLocation(oldLocation),
@@ -197,31 +199,5 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
             output[i] = output[i] + ALPHA * (input[i] - output[i]);
         }
         return output;
-    }
-
-    private void buildAlertMessageArrived()
-    {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("You have arrived at you save location.")
-                .setCancelable(false)
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog,
-                                        @SuppressWarnings("unused") final int id)
-                    {
-                        startActivity(new Intent(
-                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setPositiveButton("No", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(final DialogInterface dialog,
-                                        @SuppressWarnings("unused") final int id)
-                    {
-                        finish();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
     }
 }
