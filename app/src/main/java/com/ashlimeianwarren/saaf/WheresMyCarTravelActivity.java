@@ -159,11 +159,12 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
             if(dist < 5)
             {
                 Toast.makeText(getApplicationContext(),
-                        "You have reached your destination.", Toast.LENGTH_LONG).show();
-                finish();
+                        "You have reached your destination.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(WheresMyCarTravelActivity.this, WheresMyCarMainActivity.class);
+                intent.putExtra("Message", "You have reached your destination");
             }
 
-            distanceDisplay.setText(String.valueOf(dist));
+            distanceDisplay.setText(String.format("%5d meters", (int)dist));
 
             RotateAnimation ra = new RotateAnimation(
                     currentDegree + (float) pm.getBearingToLocation(oldLocation),
