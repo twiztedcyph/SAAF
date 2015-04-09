@@ -94,9 +94,13 @@ public class MediaCapture implements Capture
         myPicture = Uri.fromFile(myImageFile);
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, myPicture);
+
         activity.startActivityForResult(takePictureIntent, 0);
+
         return fileName;
     }
+
+
 
     @Override
     public String captureVideo()
