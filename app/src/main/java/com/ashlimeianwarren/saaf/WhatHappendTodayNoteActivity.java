@@ -58,6 +58,7 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
 
         currentText = intent.getStringExtra("currentText");
         textName = intent.getStringExtra("noteName");
+
         titleText.setText(textName);
         textNoteInput.setText(currentText);
     }
