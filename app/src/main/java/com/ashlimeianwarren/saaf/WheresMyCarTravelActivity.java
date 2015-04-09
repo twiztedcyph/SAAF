@@ -54,10 +54,11 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_travel);
 
-        pointers = new int[3];
+        pointers = new int[4];
         pointers[0] = R.drawable.greenpointer;
         pointers[1] = R.drawable.orangepointer;
         pointers[2] = R.drawable.redpointer;
+        pointers[3] = R.drawable.pointericon;
 
         pm = new PositionManager(this);
 
@@ -77,7 +78,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magne = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         pointerTwo = (ImageView) findViewById(R.id.pointerIconPicTwo);
-        pointerTwo.setImageResource(pointers[0]);
+        pointerTwo.setImageResource(pointers[3]);
         distanceDisplay = (TextView) findViewById(R.id.distDisplay);
         destinationDisplay = (TextView) findViewById(R.id.destDisplay);
         destinationDisplay.setText(name);
@@ -165,7 +166,25 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
                 finish();
             }
 
-            distanceDisplay.setText(String.format("%5d meters", (int)dist));
+            float test = currentDegree + (float) pm.getBearingToLocation(oldLocation);
+            test = (test + 360) % 360;
+
+            if(test > 30 && test < 330)
+            {
+                pointerTwo.setImageResource(pointers[2]);
+            }
+            else if(test > 15 && test < 345)
+            {
+                pointerTwo.setImageResource(pointers[1]);
+            }
+            else
+            {
+                pointerTwo.setImageResource(pointers[0]);
+            }
+
+            System.out.println("BEARING TO: " + (int) pm.getBearingToLocation(oldLocation)  + " " + test);
+
+            distanceDisplay.setText(String.format("%d meters", (int)dist));
 
             RotateAnimation ra = new RotateAnimation(
                     currentDegree + (float) pm.getBearingToLocation(oldLocation),
