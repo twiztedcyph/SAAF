@@ -43,6 +43,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     private ListView listView;
     private ListAdapter listAdapter;
     private AlertDialog.Builder alertDialogBuilder;
+    private int clickedPosition;
 
     /**
      * Android Method, run when this Activity is created.
@@ -69,12 +70,41 @@ public class WheresMyCarMainActivity extends ActionBarActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                int locationId = locationArray[position].get_id();
-                PointOfInterest pointOfInterest = new PointOfInterest();
-                pointOfInterest.delete(locationId, WheresMyCarMainActivity.this);
 
+                clickedPosition = position;
+                AlertDialog.Builder alert = new AlertDialog.Builder(WheresMyCarMainActivity.this);
+                alert.setTitle("Confirm Deletion");
+                alert.setMessage("Are you sure you want to delete this folder?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                int locationId = locationArray[clickedPosition].get_id();
+                                PointOfInterest pointOfInterest = new PointOfInterest();
+                                pointOfInterest.delete(locationId, WheresMyCarMainActivity.this);
+                                refreshList();
+                                dialog.dismiss();
+
+                            }
+                        }
+                );
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                alert.show();
                 refreshList();
-                return false;
+                return true;
+
+
             }
         });
 

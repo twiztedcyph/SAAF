@@ -47,6 +47,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private String soundFile = null;
     private int audioButtonWidth = 0;
     private AlertDialog.Builder alertDialogBuilder;
+    int clickedPosition;
     private int latestNoteId;
 
     /**
@@ -98,6 +99,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
                         intent.putExtra("subjectId", subjectId);
                         intent.putExtra("noteId", tNote.get_id());
                         intent.putExtra("currentText", tNote.getTextNote());
+                        intent.putExtra("noteName", tNote.getTextName());
                         startActivity(intent);
                         break;
                     case "Audio":
@@ -123,6 +125,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             }
         });
 
+
         /**
          * Register a callback to be invoked when an item in this AdapterView has
          * been clicked and held
@@ -134,26 +137,52 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //TODO delete a note with a long click....
-                int noteId = noteArray[position].get_id();
-                if (noteArray[position].getType().equals("Text"))
-                {
-                    TextNote t = (TextNote) noteArray[position];
-                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
-                }
-                else
-                {
-                    MediaNote m = (MediaNote) noteArray[position];
-                    File mediaFile = new File(m.getFilePath());
-                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
-                    mediaFile.delete();
-                }
+                System.out.println("Entered Long Click On Create Section");
+                clickedPosition = position;
 
-                refreshList();
-                return false;
+                AlertDialog.Builder alert = new AlertDialog.Builder(WhatHappenedTodaySubjectActivity.this);
+                alert.setTitle("Confirm Deletion");
+                alert.setMessage("Are you sure you want to delete this note?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                int noteId = noteArray[clickedPosition].get_id();
+
+                                if (noteArray[clickedPosition].getType().equals("Text"))
+                                {
+                                    TextNote t = (TextNote) noteArray[clickedPosition];
+                                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
+                                } else
+                                {
+                                    MediaNote m = (MediaNote) noteArray[clickedPosition];
+                                    File mediaFile = new File(m.getFilePath());
+                                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
+                                    mediaFile.delete();
+                                }
+
+                                refreshList();
+                            }
+                        }
+                );
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+
+
+                return true;
             }
         });
-        refreshList();
+        // refreshList();
     }
 
     /**
@@ -168,6 +197,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     /**
      * Method used for controlling our custom list adapters
+     *
      * @param menu The options menu in which to place items
      * @return True to display the menu, false otherwise.
      */
@@ -204,6 +234,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     /**
      * Method for creating a new Audio Note and persisting it to the database.
+     *
      * @param view The view that has been clicked
      */
     public void newAudioNote(View view)
@@ -247,6 +278,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     /**
      * Method for creating a new Image Note and persisting it to the database.
+     *
      * @param view The view that has been clicked
      */
     public void newImageNote(View view)
@@ -277,6 +309,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     /**
      * Method for creating a new Text Note and persisting it to the database.
+     *
      * @param view The view that has been clicked
      */
     public void newTextNote(View view)
@@ -306,7 +339,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
                                 if (!enteredTitle.isEmpty())
                                 {
                                     intent.putExtra("noteName", userInput.getText().toString());
-                                }else
+                                } else
                                 {
                                     intent.putExtra("noteName", "Text Note");
                                 }
@@ -343,97 +376,6 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         listView = (ListView) findViewById(R.id.wht_subject_listview);
         listView.setAdapter(listAdapter);
 
-        /**
-         * Register a callback to be invoked when an item in this AdapterView has
-         * been clicked.
-         *
-         * @param listener The callback that will be invoked.
-         */
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            /**
-             * Callback method to be invoked when an item in this AdapterView has been clicked.
-             *
-             * @param parent    The AdapterView where the click happened.
-             * @param view      The view within the AdapterView that was clicked (this will be a
-             *                  view provided by the adapter)
-             * @param position  The position of the view in the adapter.
-             * @param id        The row id of the item that was clicked.
-             */
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                switch (noteArray[position].getType())
-                {
-                    case "Text":
-                        TextNote tNote = (TextNote) noteArray[position];
-                        System.out.println(tNote);
-                        Intent intent = new Intent(WhatHappenedTodaySubjectActivity.this, WhatHappendTodayNoteActivity.class);
-                        intent.putExtra("subjectId", subjectId);
-                        intent.putExtra("noteId", tNote.get_id());
-                        intent.putExtra("noteName", tNote.getTextName());
-                        intent.putExtra("currentText", tNote.getTextNote());
-                        startActivity(intent);
-                        break;
-                    case "Audio":
-                        MediaNote mNote = (MediaNote) noteArray[position];
-                        AndroidAudio audio = new AndroidAudio(WhatHappenedTodaySubjectActivity.this);
-                        AndroidMusic music = audio.createMusic(mNote.getFilePath());
-                        music.play();
-                        System.out.println(mNote.getFilePath());
-                        break;
-                    case "Image":
-                        MediaNote iNote = (MediaNote) noteArray[position];
-                        File image = new File(iNote.getFilePath());
-                        Intent i = new Intent();
-                        i.setAction(android.content.Intent.ACTION_VIEW);
-                        i.setDataAndType(Uri.fromFile(image), "image/*");
-                        startActivity(i);
-                        break;
-                    default:
-                }
-
-            }
-        });
-
-        /**
-         * Register a callback to be invoked when an item in this AdapterView has
-         * been clicked and held
-         *
-         * @param listener The callback that will run
-         */
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
-            /**
-             * Callback method to be invoked when an item in this view has been clicked and held.
-             *
-             * @param parent    The AbsListView where the click happened
-             * @param view      The view within the AbsListView that was clicked
-             * @param position  The position of the view in the list
-             * @param id        The row id of the item that was clicked
-             * @return          true if the callback consumed the long click, false otherwise
-             */
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                int noteId = noteArray[position].get_id();
-                if (noteArray[position].getType().equals("Text"))
-                {
-                    TextNote t = (TextNote) noteArray[position];
-                    t.delete(noteId, WhatHappenedTodaySubjectActivity.this);
-                }
-                else
-                {
-                    MediaNote m = (MediaNote) noteArray[position];
-                    File mediaFile = new File(m.getFilePath());
-                    m.delete(noteId, WhatHappenedTodaySubjectActivity.this);
-                    mediaFile.delete();
-                }
-
-                refreshList();
-                return false;
-            }
-        });
     }
 
     /**
@@ -443,7 +385,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
      * @param text  Text Note List
      * @return      List of combined notes
      */
-    private Note[] concat(Note[] media, Note[] text)
+    private Note[] concat (Note[]media, Note[]text)
     {
         int aLen = media.length;
         int bLen = text.length;

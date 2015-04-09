@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Implementation.MultiTouchHandler;
@@ -28,6 +29,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
     private Subject[] subjectArray;
     private ListAdapter listAdapter;
     private ListView listView;
+    private int clickedPosition;
 
     /**
      * Android Method, run when this Activity is created.
@@ -94,15 +96,40 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //TODO delete a subject with a long click....
-                int subjectId = subjectArray[position].get_id();
-                subjectArray[position].delete(subjectId, WhatHappenedTodayMainActivity.this);
+                clickedPosition = position;
+                AlertDialog.Builder alert = new AlertDialog.Builder(WhatHappenedTodayMainActivity.this);
+                alert.setTitle("Confirm Deletion");
+                alert.setMessage("Are you sure you want to delete this folder?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                   @Override
+                        public void onClick(DialogInterface dialog, int which)
+                   {
+                       //TODO delete a subject with a long click....
+                       int subjectId = subjectArray[clickedPosition].get_id();
+                       subjectArray[clickedPosition].delete(subjectId, WhatHappenedTodayMainActivity.this);
 
-                subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
-                listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
-                listView = (ListView) findViewById(R.id.wht_main_listview);
-                listView.setAdapter(listAdapter);
-                return false;
+                       subjectArray = new Subject().retrieve(WhatHappenedTodayMainActivity.this);
+                       listAdapter = new CustomFolderListAdapter(WhatHappenedTodayMainActivity.this, subjectArray);
+                       listView = (ListView) findViewById(R.id.wht_main_listview);
+                       listView.setAdapter(listAdapter);
+                       dialog.dismiss();
+                   }
+                }
+                );
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                alert.show();
+                return true;
             }
         });
 
@@ -193,4 +220,5 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         // show it
         alertDialog.show();
     }
+
 }
