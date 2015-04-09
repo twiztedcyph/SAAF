@@ -53,6 +53,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_travel);
+        getSupportActionBar().hide();
 
         pointers = new int[4];
         pointers[0] = R.drawable.greenpointer;

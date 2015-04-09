@@ -37,6 +37,7 @@ public class WhatsThisPlacesActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_places);
+        getSupportActionBar().hide();
 
         title = (TextView) findViewById(R.id.wt_display_title);
 

@@ -51,6 +51,7 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         DbCon dbCon = new DbCon(this, null);
         SQLiteDatabase db = dbCon.getWritableDatabase();
         db.close();

@@ -39,9 +39,8 @@ public class WhatsThisMainActivity extends ActionBarActivity
     {
         Log.i("Create", "Entered Create");
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_whats_this_main);
-
+        getSupportActionBar().hide();
 
         textView = (TextView) findViewById(R.id.whatsthis_maintext);
 
