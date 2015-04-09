@@ -6,25 +6,42 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.ashlimeianwarren.saaf.WheresMyCarMainActivity">
+                tools:context="com.ashlimeianwarren.saaf.WheresMyCarMainActivity"
+    android:background="#015981">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Save Current Location"
+        android:text="SAVE CURRENT LOCATION"
         android:id="@+id/btnSaveLocation"
         android:onClick="saveLocationClicked"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/button_style"
+        android:textColor="@color/button_text_colour" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/custom_location_list"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="70dp"
-        android:layout_alignParentTop="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/wmc_location_textView"
+        android:layout_above="@+id/btnSaveLocation"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:dividerHeight="10dp"
+        android:background="#015981"
+        android:divider="#015981" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Locations"
+        android:id="@+id/wmc_location_textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff"
+        android:textSize="30dp" />
 
 </RelativeLayout>
