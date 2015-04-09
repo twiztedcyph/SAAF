@@ -229,6 +229,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
 
         TextNote textNote = new TextNote();
         textNote.setSubjectId(subject.get_id());
+        textNote.setTextName("Description");
         textNote.setTextNote(data.getDataDescription());
         textNote.setType("text");
         textNote.persist(this);
