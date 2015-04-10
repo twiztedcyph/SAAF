@@ -46,7 +46,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         listAdapter = new CustomFolderListAdapter(this, subjectArray);
         listView = (ListView) findViewById(R.id.wht_main_listview);
         listView.setAdapter(listAdapter);
-
+        getSupportActionBar().hide();
 
         /**
          * Register a callback to be invoked when an item in this AdapterView has

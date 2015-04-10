@@ -29,6 +29,7 @@ public class WhatsThisAddContentActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_add_content);
+        getSupportActionBar().hide();
 
         tagName = (EditText) findViewById(R.id.tagNameInput);
         dataTitle = (EditText) findViewById(R.id.dataTitleInput);

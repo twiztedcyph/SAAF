@@ -56,6 +56,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_main);
+        getSupportActionBar().hide();
         pm = new PositionManager(this);
 
 
@@ -143,7 +144,8 @@ public class WheresMyCarMainActivity extends ActionBarActivity
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener()
                 {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id)
+                    public void onClick(final DialogInterface dialog,
+                                        @SuppressWarnings("unused") final int id)
                     {
                         dialog.cancel();
                     }
@@ -163,7 +165,8 @@ public class WheresMyCarMainActivity extends ActionBarActivity
                 .setCancelable(false)
                 .setNegativeButton("Ok", new DialogInterface.OnClickListener()
                 {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id)
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog,
+                                        @SuppressWarnings("unused") final int id)
                     {
 
                     }
