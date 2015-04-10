@@ -142,8 +142,21 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(WhatHappenedTodaySubjectActivity.this);
                 alert.setTitle("Confirm Deletion");
-                alert.setMessage("Are you sure you want to delete this note?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+
+                if (noteArray[clickedPosition].getType().equals("Text"))
+                {
+                    alert.setMessage("Are you sure you want to delete this text note?");
+                }
+                else if(noteArray[clickedPosition].getType().equals("Audio"))
+                {
+                    alert.setMessage("Are you sure you want to delete this audio recording?");
+                }
+                else if(noteArray[clickedPosition].getType().equals("Image"))
+                {
+                    alert.setMessage("Are you sure you want to delete this image?");
+                }
+
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which)
@@ -324,7 +337,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setTitle("Enter Note Ttile:")
+                .setTitle("Enter Note Title:")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener()
                         {

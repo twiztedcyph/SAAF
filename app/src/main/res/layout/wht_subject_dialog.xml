@@ -4,15 +4,18 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
-              android:padding="10dp" >
+              android:padding="10dp"
+    android:background="#015981">
 
 
 
     <EditText
         android:id="@+id/editTextDialogUserInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"
+        android:hint="Text Note"
+        android:textColor="#ffffffff"
+        android:textColorHint="#bacfcfcf">
         <requestFocus />
 
     </EditText>

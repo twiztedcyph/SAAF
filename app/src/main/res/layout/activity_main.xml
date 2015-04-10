@@ -10,31 +10,34 @@
                 android:background="#015981">
 
     <Button
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_screen_button_text_wheresMyCar"
         android:id="@+id/mainActivityWMCButton"
-        android:layout_above="@+id/mainActivityWHTButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp"
         android:gravity="center"
         android:onClick="wheresMyCarClicked"
         android:background="@drawable/button_style"
-        android:textColor="@color/button_text_colour" />
+        android:textColor="@color/button_text_colour"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:layout_alignLeft="@+id/mainActivityWHTButton"
+        android:layout_alignRight="@+id/mainActivityWHTButton" />
 
     <Button
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_screen_button_text_whatHappenedToday"
         android:id="@+id/mainActivityWHTButton"
-        android:gravity="center"
         android:onClick="whatHappenedTodayClicked"
         android:background="@drawable/button_style"
         android:textColor="@color/button_text_colour"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/mainActivityWMCButton"
-        android:layout_alignStart="@+id/mainActivityWMCButton"
-        android:layout_marginBottom="152dp" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_below="@+id/mainActivityWMCButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -10,7 +10,7 @@
     android:background="#015981" >
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE CURRENT LOCATION"
         android:id="@+id/btnSaveLocation"
@@ -18,7 +18,9 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_style"
-        android:textColor="@color/button_text_colour" />
+        android:textColor="@color/button_text_colour"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <ListView
         android:layout_width="wrap_content"
