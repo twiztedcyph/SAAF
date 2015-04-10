@@ -183,8 +183,6 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
                 pointerTwo.setImageResource(pointers[0]);
             }
 
-            System.out.println("BEARING TO: " + (int) pm.getBearingToLocation(oldLocation)  + " " + test);
-
             distanceDisplay.setText(String.format("%d meters", (int)dist));
 
             RotateAnimation ra = new RotateAnimation(
