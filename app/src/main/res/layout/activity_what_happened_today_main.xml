@@ -17,7 +17,7 @@
         android:layout_below="@+id/wht_subject_title"
         android:layout_above="@+id/wht_main_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="20dp"
         android:dividerHeight="10dp"
         android:background="#015981"
@@ -41,10 +41,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What Happened Today?"
+        android:text="What Happened\n        Today?"
         android:id="@+id/wht_subject_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffffff"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-5dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/uealogo_white_stacked_small"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

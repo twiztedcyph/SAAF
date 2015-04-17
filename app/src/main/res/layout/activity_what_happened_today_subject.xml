@@ -16,14 +16,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
         android:autoText="false"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffffff"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/wht_subject_listview"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/wht_subject_title"
         android:layout_above="@+id/wht_subject_image_button"
@@ -75,5 +77,15 @@
         android:textColor="@color/button_text_colour"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/uealogo_white_stacked_small"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

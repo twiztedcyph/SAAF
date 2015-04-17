@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/wmc_location_textView"
         android:layout_above="@+id/btnSaveLocation"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="20dp"
         android:dividerHeight="10dp"
         android:background="#015981"
@@ -44,6 +44,18 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffffff"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView8"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/uealogo_white_stacked_small"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
