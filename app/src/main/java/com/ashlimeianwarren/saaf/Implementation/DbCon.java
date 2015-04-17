@@ -33,6 +33,7 @@ public class DbCon extends SQLiteOpenHelper
     public static final String COLUMN_WHT_MEDIATYPE = "media_type";
     public static final String COLUMN_WHT_FILEPATH = "file_path";
     public static final String COLUMN_WHT_SUBJECTID = "subject_id";
+    public static final String COLUMN_WHT_NAME = "name";
 
     public static final String TABLE_WHT_TEXTNOTE = "wht_text_note";
     public static final String COLUMN_WHT_TEXTNAME = "subject_text_name";
@@ -113,6 +114,7 @@ public class DbCon extends SQLiteOpenHelper
                         COLUMN_WHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_WHT_MEDIATYPE + " VARCHAR(1), " +
                         COLUMN_WHT_FILEPATH + " VARCHAR(200) NOT NULL, " +
+                        COLUMN_WHT_NAME + " VARCHAR(150) NOT NULL," +
                         COLUMN_WHT_SUBJECTID + " INTEGER REFERENCES " +
                         TABLE_WHT_SUBJECT + "(" + COLUMN_WHT_ID + ") ON DELETE CASCADE" +
                         ");";

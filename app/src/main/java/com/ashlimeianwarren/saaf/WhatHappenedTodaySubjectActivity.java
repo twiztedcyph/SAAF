@@ -49,6 +49,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private AlertDialog.Builder alertDialogBuilder;
     int clickedPosition;
     private int latestNoteId;
+    private String noteName;
 
     /**
      * Android Method, run when this Activity is created.
@@ -243,25 +244,67 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     {
         if (mStartRecording == true)
         {
-            sound = new MediaCapture(this);
-            //sound.onRecord(mStartRecording);
-            soundFile = sound.captureSound();
-            mStartRecording = !mStartRecording;
-            newAudioButton.setText("STOP RECORDING");
-            newAudioButton.setBackgroundResource(R.drawable.button_style_recording);
-            newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
-            newImageButton.setVisibility(View.GONE);
-            newTextButton.setVisibility(View.GONE);
-            audioButtonWidth = newAudioButton.getLayoutParams().width;
-            ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
-            paramsNew.width = 1000;
-            newAudioButton.setLayoutParams(paramsNew);
+            LayoutInflater li = LayoutInflater.from(this);
+            View promptsView = li.inflate(R.layout.wht_note_dialog, null);
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setView(promptsView);
+
+            final EditText userInput = (EditText) promptsView
+                    .findViewById(R.id.editTextDialogNoteInput);
+
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setTitle("Enter Audio Name:")
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
+
+                                    noteName = userInput.getText().toString();
+                                    if(noteName.isEmpty())
+                                    {
+                                        noteName = "Audio Note";
+                                    }
+                                    sound = new MediaCapture(WhatHappenedTodaySubjectActivity.this);
+                                    //sound.onRecord(mStartRecording);
+                                    soundFile = sound.captureSound();
+                                    mStartRecording = !mStartRecording;
+                                    newAudioButton.setText("STOP RECORDING");
+                                    newAudioButton.setBackgroundResource(R.drawable.button_style_recording);
+                                    newAudioButton.setTextColor(getResources().getColorStateList(R.color.button_text_colour));
+                                    newImageButton.setVisibility(View.GONE);
+                                    newTextButton.setVisibility(View.GONE);
+                                    audioButtonWidth = newAudioButton.getLayoutParams().width;
+                                    ViewGroup.LayoutParams paramsNew = newAudioButton.getLayoutParams();
+                                    paramsNew.width = 1000;
+                                    newAudioButton.setLayoutParams(paramsNew);
+
+
+
+                                }
+                            })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
+
+
         }
         else
         {
             //sound.onRecord(mStartRecording);
             sound.stopCaptureSound();
-            MediaNote sNote = new MediaNote("Audio", soundFile, subjectId, "Audio");
+            MediaNote sNote = new MediaNote("Audio", soundFile, subjectId, "Audio", noteName);
             sNote.persist(this);
             refreshList();
             mStartRecording = true;
@@ -285,13 +328,53 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
      */
     public void newImageNote(View view)
     {
-        System.out.println("Image Note CLicked");
-        MediaCapture image = new MediaCapture(this);
-        String imageFile = image.captureImage();
-        MediaNote iNote = new MediaNote("Image", imageFile, subjectId, "Image");
-        iNote.persist(this);
-        latestNoteId = iNote.get_id();
-        System.out.println(iNote);
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.wht_note_dialog, null);
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogNoteInput);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setTitle("Enter Image Name:")
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+
+                                String imageName = userInput.getText().toString();
+                                if(imageName.isEmpty())
+                                {
+                                    imageName = "Image Note";
+                                }
+                                System.out.println("Image Note CLicked");
+                                MediaCapture image = new MediaCapture(WhatHappenedTodaySubjectActivity.this);
+                                String imageFile = image.captureImage();
+                                MediaNote iNote = new MediaNote("Image", imageFile, subjectId, "Image",imageName);
+                                iNote.persist(WhatHappenedTodaySubjectActivity.this);
+                                latestNoteId = iNote.get_id();
+                                System.out.println(iNote);
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+
 
 
 
