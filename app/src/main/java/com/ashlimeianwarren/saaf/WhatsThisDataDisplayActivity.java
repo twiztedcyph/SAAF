@@ -69,9 +69,21 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         data = new Data();
 
         //Find the data that matches the scanned String's title
-        data.retrieve(dataString, this);
+         data.retrieve(dataString, this);
+         dataImages = new DataImage().retrieve(data.get_id(), this);
 
-        dataImages = new DataImage().retrieve(data.get_id(), this);
+        if(data.getDataName() == null || data.getDataName().equals("null"))
+        {
+
+            Toast.makeText(this, "NFC Tag invalid, look for the UEA logo for a vaild tag", Toast.LENGTH_SHORT).show();
+            finish();
+
+            return;
+        }
+
+        System.out.println(data);
+        System.out.println(dataImages);
+
         System.out.println("Data Images Size: " + dataImages.length);
         title.setText(data.getDataName());
         description.setText(data.getDataDescription());
