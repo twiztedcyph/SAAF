@@ -22,6 +22,7 @@ import com.ashlimeianwarren.saaf.Beans.WhatsThis.Data;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.DataImage;
 import com.ashlimeianwarren.saaf.Beans.WhatsThis.Tag;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
+import com.ashlimeianwarren.saaf.Implementation.PositionManager;
 
 import java.io.UnsupportedEncodingException;
 
@@ -34,6 +35,7 @@ public class MainActivity extends ActionBarActivity
 {
     private String lastMessage = "No NFC Message";
     private NfcAdapter nfcAdapter;
+    public static PositionManager pm = null;
     private PendingIntent pendingIntent;
     private IntentFilter[] intentFilters;
     private String[][] nfcTechLists;
@@ -55,6 +57,7 @@ public class MainActivity extends ActionBarActivity
         DbCon dbCon = new DbCon(this, null);
         SQLiteDatabase db = dbCon.getWritableDatabase();
         db.close();
+
         db = null;
         dbCon = null;
 
@@ -119,6 +122,20 @@ public class MainActivity extends ActionBarActivity
     {
         Log.i("Resume", "Entered Resume");
         super.onResume();
+
+        if (pm == null)
+        {
+            System.out.println("PM IS NULL");
+            pm = new PositionManager(this);
+        }else
+        {
+            System.out.println("NOT NULL");
+            if (pm.isRunning())
+            {
+                System.out.println("CLOSE!!!");
+                pm.close();
+            }
+        }
 
         //If the app has not been run before we need to populate the database with our NFC
         //information.
@@ -348,15 +365,6 @@ public class MainActivity extends ActionBarActivity
         Intent currentIntent = getIntent();
 
         currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-        if (!gotString.equals("Ready To Scan"))
-        {
-            Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
-
-            nextIntent.putExtra("tagID", gotString);
-
-            startActivity(nextIntent);
-        }
     }
 
     /**
@@ -438,32 +446,36 @@ public class MainActivity extends ActionBarActivity
                     {
                         byte[] payload = record[i].getPayload();
 
-                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
 
-                        // Get the Language Code
-                        int languageCodeLength = payload[0] & 0063;
-
-                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-                        // e.g. "en"
-
-                        // Get the Text
-                        try
+                        if (payload.length > 0)
                         {
-                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-                        } catch (UnsupportedEncodingException e)
-                        {
-                            Log.d("Encode Error", "Error: " + e);
-                        }
+                            String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
 
-                        Log.d("Payload String", payloadString);
-                        //Toast.makeText(this, payloadString, Toast.LENGTH_SHORT).show();
-                        lastMessage = payloadString;
+                            // Get the Language Code
+                            int languageCodeLength = payload[0] & 0063;
 
-                        if (!lastMessage.equals("Ready To Scan"))
-                        {
-                            Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
-                            nextIntent.putExtra("dataName", payloadString);
-                            startActivity(nextIntent);
+                            // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+                            // e.g. "en"
+
+                            // Get the Text
+                            try
+                            {
+                                payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+                            } catch (UnsupportedEncodingException e)
+                            {
+                                Log.d("Encode Error", "Error: " + e);
+                            }
+
+                            Log.d("Payload String", payloadString);
+                            //Toast.makeText(this, payloadString, Toast.LENGTH_SHORT).show();
+                            lastMessage = payloadString;
+
+                            if (!lastMessage.equals("Ready To Scan"))
+                            {
+                                Intent nextIntent = new Intent(this, WhatsThisDataDisplayActivity.class);
+                                nextIntent.putExtra("dataName", payloadString);
+                                startActivity(nextIntent);
+                            }
                         }
                     }
                 }
@@ -484,6 +496,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void wheresMyCarClicked(View view)
     {
+        pm.start();
         Intent intent = new Intent(this, WheresMyCarMainActivity.class);
         startActivity(intent);
     }

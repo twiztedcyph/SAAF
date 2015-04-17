@@ -35,7 +35,6 @@ import java.io.File;
 
 public class WheresMyCarMainActivity extends ActionBarActivity
 {
-    private PositionManager pm;
     private PointOfInterest location;
     private double lon, lat;
     private Location currentLocation = null;
@@ -57,7 +56,6 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheres_my_car_main);
         getSupportActionBar().hide();
-        pm = new PositionManager(this);
 
 
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
@@ -184,7 +182,6 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         super.onResume();
 
         refreshList();
-        pm.start();
 
         if (WheresMyCarTravelActivity.arrived)
         {
@@ -202,7 +199,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     {
         super.onPause();
         System.out.println("OnPause");
-        pm.close();
+
     }
 
     /**
@@ -264,7 +261,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
             buildAlertMessageNoGps();
 
         }
-        else if (pm.getCurrentPosition() == null)
+        else if (MainActivity.pm.getCurrentPosition() == null)
         {
             gpsLoadingAlert();
         }
@@ -287,8 +284,8 @@ public class WheresMyCarMainActivity extends ActionBarActivity
 
                                     String locName = userLocationInput.getText().toString();
                                     System.out.println("LOCNAME: " + locName);
-                                    lat = pm.getCurrentPosition().getLatitude();
-                                    lon = pm.getCurrentPosition().getLongitude();
+                                    lat = MainActivity.pm.getCurrentPosition().getLatitude();
+                                    lon = MainActivity.pm.getCurrentPosition().getLongitude();
 
                                     location = new PointOfInterest(lon, lat, locName);
                                     location.persist(WheresMyCarMainActivity.this);

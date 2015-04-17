@@ -38,7 +38,6 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     private float[] mR = new float[9];
     private float[] orientation = new float[3];
     private float currentDegree = 0f;
-    private PositionManager pm;
     private Location oldLocation;
     private Location currentLocation;
     float azimuthInRadians;
@@ -60,8 +59,6 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
         pointers[1] = R.drawable.orangepointer;
         pointers[2] = R.drawable.redpointer;
         pointers[3] = R.drawable.pointericon;
-
-        pm = new PositionManager(this);
 
         Bundle extras = getIntent().getExtras();
         String name = "";
@@ -98,8 +95,6 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     protected void onResume()
     {
         super.onResume();
-
-        pm.start();
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, magne, SensorManager.SENSOR_DELAY_GAME);
     }
@@ -108,8 +103,6 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
     protected void onPause()
     {
         super.onPause();
-
-        pm.close();
         sensorManager.unregisterListener(this, accel);
         sensorManager.unregisterListener(this, magne);
     }
@@ -154,9 +147,9 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
             azimuthInDegress = (float) (Math.toDegrees(azimuthInRadians) + 360) % 360;
             currentDegree = (int) -azimuthInDegress;
         }
-        if (pm.getCurrentPosition() != null)
+        if (MainActivity.pm.getCurrentPosition() != null)
         {
-            currentLocation = pm.getCurrentPosition();
+            currentLocation = MainActivity.pm.getCurrentPosition();
             double dist = currentLocation.distanceTo(oldLocation);
 
             if(dist < 5)
@@ -167,7 +160,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
                 finish();
             }
 
-            float test = currentDegree + (float) pm.getBearingToLocation(oldLocation);
+            float test = currentDegree + (float) MainActivity.pm.getBearingToLocation(oldLocation);
             test = (test + 360) % 360;
 
             if(test > 30 && test < 330)
@@ -186,8 +179,8 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
             distanceDisplay.setText(String.format("%d meters", (int)dist));
 
             RotateAnimation ra = new RotateAnimation(
-                    currentDegree + (float) pm.getBearingToLocation(oldLocation),
-                    (-azimuthInDegress + (float) pm.getBearingToLocation(oldLocation)),
+                    currentDegree + (float) MainActivity.pm.getBearingToLocation(oldLocation),
+                    (-azimuthInDegress + (float) MainActivity.pm.getBearingToLocation(oldLocation)),
                     Animation.RELATIVE_TO_SELF,
                     0.5f,
                     Animation.RELATIVE_TO_SELF,

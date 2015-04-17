@@ -109,15 +109,6 @@ public class WhatsThisMainActivity extends ActionBarActivity
         Intent currentIntent = getIntent();
 
         currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
-//        if(!gotString.equals("Ready To Scan"))
-//        {
-//            Intent nextIntent = new Intent(this, WhatsThisPlacesActivity.class);
-//
-//            nextIntent.putExtra("tagID", gotString);
-//
-//            startActivity(nextIntent);
-//        }
     }
 
     @Override

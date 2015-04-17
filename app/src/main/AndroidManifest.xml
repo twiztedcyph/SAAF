@@ -70,11 +70,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".WhatsThisPlacesActivity"
-            android:label=""
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".WhatsThisDataDisplayActivity"
             android:label=""
             android:screenOrientation="portrait">

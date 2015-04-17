@@ -20,6 +20,7 @@ public class PositionManager implements Positioning
     private Context context;
     private LocationManager locationManager;
     private PointOfInterest pointOfInterest;
+    private boolean running = false;
 
     public PositionManager(Context context)
     {
@@ -28,6 +29,7 @@ public class PositionManager implements Positioning
 
     public void start()
     {
+        running = true;
         locationListener = new LocationListener()
         {
             @Override
@@ -57,6 +59,7 @@ public class PositionManager implements Positioning
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+        System.out.println("PM START");
     }
 
     @Override
@@ -90,15 +93,12 @@ public class PositionManager implements Positioning
     {
         locationManager.removeUpdates(locationListener);
         locationManager = null;
+        running = false;
+        System.out.println("PM STOP");
     }
 
-    private double rad2deg(double rad)
+    public boolean isRunning()
     {
-        return (rad * 180 / Math.PI);
-    }
-
-    private double deg2rad(double deg)
-    {
-        return (deg * Math.PI / 180.0);
+        return running;
     }
 }
