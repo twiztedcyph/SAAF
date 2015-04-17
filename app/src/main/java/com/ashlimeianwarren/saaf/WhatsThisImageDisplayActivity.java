@@ -33,6 +33,7 @@ public class WhatsThisImageDisplayActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_image_display);
+        getSupportActionBar().hide();
 
         imageDescription = (TextView) findViewById(R.id.imageDescDisplay);
         imageDisplay = (ImageView) findViewById(R.id.mainImageDisplay);

@@ -50,6 +50,7 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_this_data_display);
+        getSupportActionBar().hide();
 
         //For the moment we are limiting each NFC tag to only storing and displaying two images.
         imageViews = new ImageView[2];

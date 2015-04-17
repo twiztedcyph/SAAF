@@ -33,6 +33,7 @@ public class WhatHappendTodayNoteActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_happend_today_note);
+        getSupportActionBar().hide();
     }
 
     /**

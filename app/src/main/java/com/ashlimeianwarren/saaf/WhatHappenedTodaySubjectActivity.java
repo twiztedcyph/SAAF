@@ -61,6 +61,8 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_happened_today_subject);
+        getSupportActionBar().hide();
+
         //Retrieving the subject id passed with the intent
         Bundle extras = getIntent().getExtras();
         if (extras != null)

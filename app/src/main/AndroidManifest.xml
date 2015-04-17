@@ -61,7 +61,8 @@
         <activity
             android:name=".WhatHappendTodayNoteActivity"
             android:label="@string/title_activity_what_happend_today_note"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".WhatsThisAddContentActivity"
