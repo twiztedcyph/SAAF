@@ -75,7 +75,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
                 clickedPosition = position;
                 AlertDialog.Builder alert = new AlertDialog.Builder(WheresMyCarMainActivity.this);
                 alert.setTitle("Confirm Deletion");
-                alert.setMessage("Are you sure you want to delete this folder?");
+                alert.setMessage("Are you sure you want to delete this location?");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override
@@ -135,14 +135,14 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener()
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id)
                     {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setPositiveButton("No", new DialogInterface.OnClickListener()
+                .setNegativeButton("No", new DialogInterface.OnClickListener()
                 {
                     public void onClick(final DialogInterface dialog,
                                         @SuppressWarnings("unused") final int id)

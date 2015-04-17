@@ -9,12 +9,10 @@
 
 
     <EditText
-        android:id="@+id/editTextDialogUserInput"
+        android:id="@+id/editTextDialogNoteInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Text Note"
-        android:textColorHint="#bacfcfcf"
-        android:maxLength="20" >
+        android:layout_height="wrap_content" >
+
         <requestFocus />
 
     </EditText>

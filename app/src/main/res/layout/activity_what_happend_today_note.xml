@@ -17,7 +17,7 @@
         android:layout_alignParentEnd="false"
         android:layout_marginBottom="20dp"
         android:fillViewport="false"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/wht_note_title">
 
@@ -33,7 +33,7 @@
     </ScrollView>
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE NOTE"
         android:id="@+id/saveTextButton"
@@ -41,7 +41,9 @@
         android:layout_centerHorizontal="true"
         android:onClick="saveTextClicked"
         android:background="@drawable/button_style"
-        android:textColor="@color/button_text_colour" />
+        android:textColor="@color/button_text_colour"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <TextView
         android:text="Text Note"
@@ -52,5 +54,17 @@
         android:autoText="false"
         android:textColor="#ffffffff"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/uealogo_white_stacked_small"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>
