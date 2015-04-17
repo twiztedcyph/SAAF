@@ -68,7 +68,7 @@ public class WheresMyCarTravelActivity extends ActionBarActivity implements Sens
         if (extras != null)
         {
             oldLocation = (Location) extras.get("currentLocation");
-            name = "Navigating to: " + extras.getString("locationName");
+            name = extras.getString("locationName");
         }
         else
         {
