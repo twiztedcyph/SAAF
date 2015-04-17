@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Note;
@@ -49,6 +50,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     private AlertDialog.Builder alertDialogBuilder;
     int clickedPosition;
     private int latestNoteId;
+    private TextView titleText;
 
     /**
      * Android Method, run when this Activity is created.
@@ -61,6 +63,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_happened_today_subject);
+        titleText = (TextView) findViewById(R.id.wht_subject_title);
         getSupportActionBar().hide();
 
         //Retrieving the subject id passed with the intent
@@ -68,6 +71,12 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         if (extras != null)
         {
             subjectId = extras.getInt("subjectId");
+            String subjectName = extras.getString("subjectName");
+
+            if (!subjectName.isEmpty())
+            {
+                titleText.setText(subjectName);
+            }
         }
 
         newAudioButton = (Button) findViewById(R.id.wht_subject_audio_button);
