@@ -40,17 +40,21 @@
         android:layout_marginTop="20dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Open Day \n     App"
+        android:text="Open Day \nApp"
         android:id="@+id/textView"
         android:textSize="30dp"
         android:textColor="#ffffffff"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-5dp"
-        android:layout_marginRight="-5dp" />
+        android:layout_marginRight="-5dp"
+        android:layout_alignTop="@+id/main_activity_logo"
+        android:layout_alignBottom="@+id/main_activity_logo"
+        android:layout_toRightOf="@+id/main_activity_logo"
+        android:gravity="center" />
 
     <ImageView
         android:layout_width="wrap_content"

@@ -13,8 +13,8 @@
         android:id="@+id/pointerIconPicTwo"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/destDisplay"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:text="Distance"
         android:id="@+id/distanceLabel"
         android:textColor="#ffffffff"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:layout_below="@+id/pointerIconPicTwo"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp" />
@@ -43,12 +43,14 @@
         android:textColor="#ffffffff"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/destLabel" />
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="20dp"
+        android:text="Navigating To" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Navigate to:\n"
+        android:text="Navigation"
         android:id="@+id/destLabel"
         android:textColor="#ffffffff"
         android:textSize="30dp"
@@ -56,7 +58,12 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="-5dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/imageView9"
+        android:layout_alignBottom="@+id/imageView9"
+        android:layout_toRightOf="@+id/imageView9"
+        android:gravity="center"
+        android:maxWidth="150dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -67,5 +74,16 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textColor="#ffffffff"
+        android:textSize="25dp"
+        android:text="Navigating To"
+        android:layout_below="@+id/destLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
 
 </RelativeLayout>

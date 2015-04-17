@@ -18,7 +18,12 @@
         android:autoText="false"
         android:textColor="#ffffffff"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp" />
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_toRightOf="@+id/imageView4"
+        android:gravity="center"
+        android:maxWidth="150dp"
+        android:layout_marginTop="-5dp" />
 
     <ListView
         android:layout_width="wrap_content"

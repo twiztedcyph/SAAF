@@ -57,6 +57,8 @@
         android:textSize="30dp"
         android:textColor="#ffffffff"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView6"
+        android:layout_alignBottom="@+id/imageView6"
+        android:layout_toRightOf="@+id/imageView6" />
 </RelativeLayout>

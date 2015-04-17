@@ -11,8 +11,10 @@
     <EditText
         android:id="@+id/editTextDialogNoteInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"
+        android:hint="Media Note"
+        android:textColorHint="#bacfcfcf"
+        android:maxLength="20" >
         <requestFocus />
 
     </EditText>
