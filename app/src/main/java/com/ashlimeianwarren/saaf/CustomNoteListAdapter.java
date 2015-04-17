@@ -52,12 +52,12 @@ public class CustomNoteListAdapter extends ArrayAdapter
                 break;
             case "Audio":
                 MediaNote mNote = (MediaNote) n;
-                textView.setText("Audio Note");
+                textView.setText(mNote.getNoteName());
                 imageView.setImageResource(R.drawable.audioicon);
                 break;
             case "Image":
                 MediaNote iNote = (MediaNote) n;
-                textView.setText("Image Note");
+                textView.setText(iNote.getNoteName());
                 imageView.setImageResource(R.drawable.imageicon);
                 break;
             default:

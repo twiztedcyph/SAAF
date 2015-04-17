@@ -19,6 +19,7 @@ public class MediaNote extends Note
 {
     private String mediaType;
     private String filePath;
+    private String name;
 
 
     /**
@@ -35,12 +36,14 @@ public class MediaNote extends Note
      * @param filePath  The path to the media file.
      * @param subjectId The subject id for this MediaNote.
      * @param fileType  "Image" or "Audio".
+     * @param name      "Name of the file e.g. 'Picture of lecturer'"
      */
-    public MediaNote(String mediaType, String filePath, int subjectId, String fileType)
+    public MediaNote(String mediaType, String filePath, int subjectId, String fileType, String name)
     {
         super(subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
+        this.name = name;
     }
 
     /**
@@ -52,11 +55,12 @@ public class MediaNote extends Note
      * @param subjectId The subject id for this MediaNote.
      * @param fileType  "Image" or "Audio".
      */
-    private MediaNote(int _id, String mediaType, String filePath, int subjectId, String fileType)
+    private MediaNote(int _id, String mediaType, String filePath, int subjectId, String fileType, String name)
     {
         super(_id, subjectId, fileType);
         this.mediaType = mediaType;
         this.filePath = filePath;
+        this.name = name;
     }
 
     /**
@@ -73,6 +77,7 @@ public class MediaNote extends Note
         contentValues.put(DbCon.COLUMN_WHT_MEDIATYPE, mediaType);
         contentValues.put(DbCon.COLUMN_WHT_FILEPATH, filePath);
         contentValues.put(DbCon.COLUMN_WHT_SUBJECTID, subjectId);
+        contentValues.put(DbCon.COLUMN_WHT_NAME, name);
         this._id = (int) db.insert(DbCon.TABLE_WHT_MEDIANOTE, null, contentValues);
 
         db.close();
@@ -124,8 +129,9 @@ public class MediaNote extends Note
             String retMediaType = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_MEDIATYPE));
             String retFilePath = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_FILEPATH));
             int retSubjectId = cursor.getInt(cursor.getColumnIndex(DbCon.COLUMN_WHT_SUBJECTID));
+            String retName = cursor.getString(cursor.getColumnIndex(DbCon.COLUMN_WHT_NAME));
 
-            mediaNoteList.add(new MediaNote(retId, retMediaType, retFilePath, retSubjectId, retMediaType));
+            mediaNoteList.add(new MediaNote(retId, retMediaType, retFilePath, retSubjectId, retMediaType, retName));
             cursor.moveToNext();
 
         }
@@ -157,7 +163,15 @@ public class MediaNote extends Note
     {
         this.filePath = filePath;
     }
-
+    /**
+     * Get the media note name.
+     *
+     * @return The media media .
+     */
+    public String getNoteName()
+    {
+        return name;
+    }
 
     /**
      * Get a string representation of this object.
