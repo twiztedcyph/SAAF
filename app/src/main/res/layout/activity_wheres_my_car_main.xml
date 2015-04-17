@@ -46,7 +46,10 @@
         android:textColor="#ffffffff"
         android:textSize="30dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp" />
+        android:layout_alignTop="@+id/imageView8"
+        android:layout_alignBottom="@+id/imageView8"
+        android:layout_toRightOf="@+id/imageView8"
+        android:gravity="center" />
 
     <ImageView
         android:layout_width="wrap_content"
