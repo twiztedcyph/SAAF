@@ -270,7 +270,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
             alertDialogBuilder.setView(promptsView);
 
             final EditText userInput = (EditText) promptsView
-                    .findViewById(R.id.editTextDialogNoteInput);
+                    .findViewById(R.id.editAudioDialogNoteInput);
 
             alertDialogBuilder
                     .setCancelable(false)
@@ -354,7 +354,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         alertDialogBuilder.setView(promptsView);
 
         final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.editTextDialogNoteInput);
+                .findViewById(R.id.editImageDialogNoteInput);
 
         alertDialogBuilder
                 .setCancelable(false)

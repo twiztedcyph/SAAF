@@ -4,10 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +67,16 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         {
             buildAlertMessageNoGps();
         }
+
+        if (MainActivity.pm.getCurrentPosition() == null)
+        {
+            Toast.makeText(this, "GPS locking... Please Wait.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Your GPS location is locked!", Toast.LENGTH_SHORT).show();
+        }
+
         refreshList();
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
@@ -181,6 +195,20 @@ public class WheresMyCarMainActivity extends ActionBarActivity
     {
         super.onResume();
 
+        LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            buildAlertMessageNoGps();
+        }
+
+        if (MainActivity.pm.getCurrentPosition() == null)
+        {
+            Toast.makeText(this, "GPS locking... Please Wait.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Your GPS location is locked!", Toast.LENGTH_SHORT).show();
+        }
         refreshList();
 
         if (WheresMyCarTravelActivity.arrived)
@@ -272,7 +300,7 @@ public class WheresMyCarMainActivity extends ActionBarActivity
             alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setView(promptsView);
 
-            final EditText userLocationInput = (EditText) promptsView.findViewById(R.id.locationNameInput);
+            final EditText userLocationInput = (EditText) promptsView.findViewById(R.id.editLocationDialogUserInput);
             alertDialogBuilder
                     .setCancelable(false)
                     .setTitle("Enter Location Name:")
@@ -283,6 +311,10 @@ public class WheresMyCarMainActivity extends ActionBarActivity
                                 {
 
                                     String locName = userLocationInput.getText().toString();
+                                    if(locName.isEmpty())
+                                    {
+                                        locName = "New Location";
+                                    }
                                     System.out.println("LOCNAME: " + locName);
                                     lat = MainActivity.pm.getCurrentPosition().getLatitude();
                                     lon = MainActivity.pm.getCurrentPosition().getLongitude();
