@@ -3,7 +3,6 @@ package com.ashlimeianwarren.saaf;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.MediaNote;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Note;
-import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.Subject;
 import com.ashlimeianwarren.saaf.Beans.WhatHappenedToday.TextNote;
 import com.ashlimeianwarren.saaf.Implementation.AndroidAudio;
 import com.ashlimeianwarren.saaf.Implementation.AndroidMusic;
@@ -267,16 +265,16 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
         if (mStartRecording == true)
         {
             LayoutInflater li = LayoutInflater.from(this);
-            View promptsView = li.inflate(R.layout.wht_note_dialog, null);
+            View promptsView = li.inflate(R.layout.wht_audio_note_dialog, null);
             alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setView(promptsView);
 
             final EditText userInput = (EditText) promptsView
-                    .findViewById(R.id.editTextDialogNoteInput);
+                    .findViewById(R.id.editAudioDialogNoteInput);
 
             alertDialogBuilder
                     .setCancelable(false)
-                    .setTitle("Enter Audio Name:")
+                    .setTitle("Enter Audio Note Name:")
                     .setPositiveButton("OK",
                             new DialogInterface.OnClickListener()
                             {
@@ -351,16 +349,16 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     public void newImageNote(View view)
     {
         LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.wht_note_dialog, null);
+        View promptsView = li.inflate(R.layout.wht_image_note_dialog, null);
         alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptsView);
 
         final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.editTextDialogNoteInput);
+                .findViewById(R.id.editImageDialogNoteInput);
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setTitle("Enter Image Name:")
+                .setTitle("Enter Image Note Name:")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener()
                         {
@@ -372,7 +370,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
                                 {
                                     imageName = "Image Note";
                                 }
-                                System.out.println("Image Note CLicked");
+                                System.out.println("Image Note Clicked");
                                 MediaCapture image = new MediaCapture(WhatHappenedTodaySubjectActivity.this);
                                 String imageFile = image.captureImage();
                                 MediaNote iNote = new MediaNote("Image", imageFile, subjectId, "Image",imageName);
@@ -422,7 +420,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
     public void newTextNote(View view)
     {
         LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.wht_subject_dialog, null);
+        View promptsView = li.inflate(R.layout.wht_text_note_dialog, null);
         alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptsView);
 
@@ -431,7 +429,7 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
         alertDialogBuilder
                 .setCancelable(false)
-                .setTitle("Enter Note Title:")
+                .setTitle("Enter Text Note Name:")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener()
                         {

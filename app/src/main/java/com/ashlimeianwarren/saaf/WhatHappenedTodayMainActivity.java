@@ -100,7 +100,7 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
                 clickedPosition = position;
                 AlertDialog.Builder alert = new AlertDialog.Builder(WhatHappenedTodayMainActivity.this);
                 alert.setTitle("Confirm Deletion");
-                alert.setMessage("Are you sure you want to delete this folder?");
+                alert.setMessage("Are you sure you want to delete this folder and all its contents?");
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
                    @Override
@@ -197,7 +197,14 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
                             public void onClick(DialogInterface dialog, int id)
                             {
                                 Subject s = new Subject();
-                                s.setTitle(userInput.getText().toString());
+                                String name = userInput.getText().toString();
+
+                                if(!name.isEmpty()) {
+                                    s.setTitle(name);
+                                } else {
+                                    s.setTitle("New Folder");
+                                }
+
 
                                 s.persist(WhatHappenedTodayMainActivity.this);
 
