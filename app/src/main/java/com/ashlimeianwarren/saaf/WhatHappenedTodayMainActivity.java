@@ -228,5 +228,4 @@ public class WhatHappenedTodayMainActivity extends ActionBarActivity
         // show it
         alertDialog.show();
     }
-
 }

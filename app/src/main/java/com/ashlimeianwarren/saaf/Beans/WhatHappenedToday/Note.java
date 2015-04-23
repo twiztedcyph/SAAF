@@ -3,7 +3,7 @@ package com.ashlimeianwarren.saaf.Beans.WhatHappenedToday;
 import com.ashlimeianwarren.saaf.Implementation.DbCon;
 
 /**
- * Note super class
+ * Note super class to allow text and media notes into same list.
  * <p/>
  * Defines the base properties of a media and text note.
  */

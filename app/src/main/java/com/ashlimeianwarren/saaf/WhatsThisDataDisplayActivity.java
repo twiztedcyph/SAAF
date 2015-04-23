@@ -234,6 +234,10 @@ public class WhatsThisDataDisplayActivity extends ActionBarActivity
         startActivity(intent);
     }
 
+    /**
+     * Saves the current information as a note in the what happened today application.
+     * @param view The view that has been clicked
+     */
     public void saveAsNoteClicked(View view)
     {
         Subject subject = new Subject();

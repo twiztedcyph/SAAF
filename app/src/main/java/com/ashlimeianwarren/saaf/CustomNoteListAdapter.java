@@ -64,8 +64,6 @@ public class CustomNoteListAdapter extends ArrayAdapter
 
 
         }
-
-
         return customView;
     }
 

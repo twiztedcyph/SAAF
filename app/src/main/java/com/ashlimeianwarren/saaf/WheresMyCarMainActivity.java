@@ -353,6 +353,11 @@ public class WheresMyCarMainActivity extends ActionBarActivity
         listView.setAdapter(listAdapter);
     }
 
+    /**
+     * Display a message as an alert.
+     *
+     * @param message The message to be displayed.
+     */
     private void buildAlertMessageArrived(String message)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

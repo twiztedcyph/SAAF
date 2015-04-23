@@ -76,6 +76,16 @@ public class WhatsThisMainActivity extends ActionBarActivity
         //textView.setText(gotString);
     }
 
+    /**
+     * Handle onNewIntent() to inform the fragment manager that the
+     * state is not saved.  If you are handling new intents and may be
+     * making changes to the fragment state, you want to be sure to call
+     * through to the super-class here first.  Otherwise, if your state
+     * is saved but the activity is not stopped, you could get an
+     * onNewIntent() call which happens before onResume() and trying to
+     * perform fragment operations at that point will throw IllegalStateException
+     * because the fragment manager thinks the state is still saved.
+     */
     @Override
     protected void onNewIntent(Intent intent)
     {
@@ -85,6 +95,15 @@ public class WhatsThisMainActivity extends ActionBarActivity
         //this.setIntent(intent);
     }
 
+    /**
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.  This means
+     * that in some cases the previous state may still be saved, not allowing
+     * fragment transactions that modify the state.  To correctly interact
+     * with fragments in their proper state, you should instead override
+     * {@link #onResumeFragments()}.
+     */
     @Override
     protected void onResume()
     {
@@ -111,6 +130,9 @@ public class WhatsThisMainActivity extends ActionBarActivity
         currentIntent.removeExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
     }
 
+    /**
+     * Dispatch onPause() to fragments.
+     */
     @Override
     protected void onPause()
     {
@@ -124,6 +146,34 @@ public class WhatsThisMainActivity extends ActionBarActivity
     }
 
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.  You
+     * should place your menu items in to <var>menu</var>.
+     *
+     * <p>This is only called once, the first time the options menu is
+     * displayed.  To update the menu every time it is displayed, see
+     * {@link #onPrepareOptionsMenu}.
+     *
+     * <p>The default implementation populates the menu with standard system
+     * menu items.  These are placed in the {@link Menu#CATEGORY_SYSTEM} group so that
+     * they will be correctly ordered with application-defined menu items.
+     * Deriving classes should always call through to the base implementation.
+     *
+     * <p>You can safely hold on to <var>menu</var> (and any items created
+     * from it), making modifications to it as desired, until the next
+     * time onCreateOptionsMenu() is called.
+     *
+     * <p>When you add items to the menu, you can implement the Activity's
+     * {@link #onOptionsItemSelected} method to handle them there.
+     *
+     * @param menu The options menu in which you place your items.
+     *
+     * @return You must return true for the menu to be displayed;
+     *         if you return false it will not be shown.
+     *
+     * @see #onPrepareOptionsMenu
+     * @see #onOptionsItemSelected
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -132,6 +182,24 @@ public class WhatsThisMainActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * The default implementation simply returns false to have the normal
+     * processing happen (calling the item's Runnable or sending a message to
+     * its Handler as appropriate).  You can use this method for any items
+     * for which you would like to do processing without those other
+     * facilities.
+     *
+     * <p>Derived classes should call through to the base class for it to
+     * perform the default menu handling.</p>
+     *
+     * @param item The menu item that was selected.
+     *
+     * @return boolean Return false to allow normal menu processing to
+     *         proceed, true to consume it here.
+     *
+     * @see #onCreateOptionsMenu
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -147,123 +215,5 @@ public class WhatsThisMainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-//    private String checkForNdef(Intent intent)
-//    {
-//        String payloadString = "Ready To Scan";
-//        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()))
-//        {
-//            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-//
-//            if(rawMsgs != null)
-//            {
-//
-//                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
-//
-//                for(int i = 0; i < rawMsgs.length; i++)
-//                {
-//                    msgs[i] = (NdefMessage)rawMsgs[i];
-//                    NdefRecord[] record = msgs[i].getRecords();
-//                    for(int j = 0; j < record.length; j++)
-//                    {
-//                        byte [] payload = record[i].getPayload();
-//
-//                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-//
-//                        // Get the Language Code
-//                        int languageCodeLength = payload[0] & 0063;
-//
-//                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-//                        // e.g. "en"
-//
-//                        // Get the Text
-//                        try
-//                        {
-//                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-//                        }
-//                        catch (UnsupportedEncodingException e)
-//                        {
-//                            Log.d("Encode Error", "Error: "+e);
-//                        }
-//
-//                        Log.d("Payload String", payloadString);
-//                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
-//                        lastMessage = payloadString;
-//                        textView.setText(lastMessage);
-//                        return payloadString;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                Log.d("NFC Error","NFC Message are Null");
-//            }
-//        }
-//        else if(NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction()))
-//        {
-//            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-//
-//            if(rawMsgs != null)
-//            {
-//
-//                NdefMessage[] msgs = new NdefMessage[rawMsgs.length];
-//
-//                for(int i = 0; i < rawMsgs.length; i++)
-//                {
-//                    msgs[i] = (NdefMessage)rawMsgs[i];
-//                    NdefRecord[] record = msgs[i].getRecords();
-//                    for(int j = 0; j < record.length; j++)
-//                    {
-//                        byte [] payload = record[i].getPayload();
-//
-//                        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-//
-//                        // Get the Language Code
-//                        int languageCodeLength = payload[0] & 0063;
-//
-//                        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-//                        // e.g. "en"
-//
-//                        // Get the Text
-//                        try
-//                        {
-//                            payloadString = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-//                        }
-//                        catch (UnsupportedEncodingException e)
-//                        {
-//                            Log.d("Encode Error", "Error: "+e);
-//                        }
-//
-//                        Log.d("Payload String", payloadString);
-//                        Toast.makeText(this,payloadString,Toast.LENGTH_SHORT).show();
-//                        lastMessage = payloadString;
-//                        textView.setText(lastMessage);
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                Log.d("NFC Error","NFC Message are Null");
-//            }
-//        }
-//
-//        return payloadString;
-//    }
-
-    public void peopleButtonClicked(View view)
-    {
-        System.out.println("people button clicked.");
-    }
-
-    public void placesButtonClicked(View view)
-    {
-        System.out.println("places button clicked.");
-    }
-
-    public void addContentClicked(View view)
-    {
-        Intent intent = new Intent(this, WhatsThisAddContentActivity.class);
-        startActivity(intent);
     }
 }

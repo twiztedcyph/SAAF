@@ -400,6 +400,9 @@ public class WhatHappenedTodaySubjectActivity extends ActionBarActivity
 
     }
 
+    /**
+     * Dispatch incoming result to the correct fragment.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
